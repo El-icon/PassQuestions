@@ -2182,6 +2182,7 @@
     <Content Include="Views\useraccounts\Index.cshtml" />
     <Content Include="Views\useraccounts\Login.cshtml" />
     <Content Include="Views\useraccounts\ResetPassword.cshtml" />
+    <Content Include="Views\useraccounts\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

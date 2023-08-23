@@ -64,6 +64,32 @@ namespace PassQuestions.Controllers
             }
         }
 
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(string name, string address, string email, string phone, string password)
+        {
+            db.useraccounts.Add(new useraccount
+            {
+                id = Setup.GenerateID.GetID(),
+                name = name,
+                address = address,
+                email = email,
+                password = Setup.CryptoEngine.Encrypt(password),
+                status = "ACTIVE",
+                usertype = "USER"
+            });
+            db.SaveChanges();
+            TempData["success"] = "true";
+            TempData["message"] = "You have successfully registered. Please Login to continue."; // err.Message
+            return RedirectToAction("Login", "Userlogins");
+        }
+
+
+
+
         //Log out User from the system
         public ActionResult Logout()
         {
