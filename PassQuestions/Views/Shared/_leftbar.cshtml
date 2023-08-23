@@ -1,0 +1,420 @@
+﻿<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu">
+
+    <div class="h-100">
+
+        <div class="user-wid text-center py-4">
+            <div class="user-img">
+                @*<img src="~/Content/Qovex/assets/images/users/avatar-2.jpg" alt="" class="avatar-md mx-auto rounded-circle">*@
+                <a href="@Url.Action("Index","Home")">
+                    <b class="logo-icon">
+                        <!-- Dark Logo icon -->
+                        <img src="~/Content/img/logo.jpg" height="100px" width="100px" alt="homepage" class="dark-logo" />
+                     </b>                    
+                </a>
+            </div>
+
+            <div class="mt-3">
+                <a href="" class="text-dark fw-medium font-size-16">@Session["email"]</a>
+                <p class="text-body mt-1 mb-0 font-size-13">WELLCOME</p>
+                <a href="@Url.Action("Index","Home")"
+                   class="btn btn-primary fw-medium font-size-16">
+                    <i class="mdi mdi-home"></i>
+                    <span>DASHBOARD</span>
+                </a>
+             </div>
+        </div>    
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+                @if (Session["usertype"] == null)
+                {
+
+                }
+                else
+                {
+                    string usertype = Session["usertype"].ToString();
+                    if (usertype == "")
+                    {
+
+                    }
+                    else
+                    if (usertype == "CASH")
+                    {
+                        <li class="menu-title">FEES CASHIER</li>
+                        @*<li>
+                 <a class="waves-effect" href="@Url.Action("Index","Feestypes")"
+                 aria-expanded="false">
+                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span class="hide-menu">Fee Types</span>
+                 </a>
+                </li>*@
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Payment","Payments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                <span>Payment</span>
+                            </a>
+                        </li>
+                        <!--<li>
+            <a class="waves-effect" href="@Url.Action("UserPayments","Payments")">
+                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span class="hide-menu">Payment</span>
+            </a>
+            </li>-->
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("PaymentReports","Payments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Payment Report</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("PaymentReportbyItem","Payments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Payment Report Items</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("CashIndex","BusPayments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Bus Fees </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("PaymentBalance","BusPayments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Bus Fees Balance </span>
+                            </a>
+                        </li>
+                    }
+                    else
+                   if (usertype == "BOOKSHOP")
+                    {
+                        <li class="menu-title">BOOKSHOP</li>
+                        <li>
+                            <a href="@Url.Action("Sales","Sales")" class="waves-effect">
+                                <i class="mdi mdi-inbox-full"></i>
+                                <span>Sales Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("SalesReport","Sales")" class="waves-effect">
+                                <i class="mdi mdi-inbox-full"></i>
+                                <span>Sales Report</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("BookShopSales","Sales")" class="waves-effect">
+                                <i class="mdi mdi-inbox-full"></i>
+                                <span>Sales</span>
+                            </a>
+                        </li>
+                    }
+                    else
+                   if (usertype == "MATERIALSALES")
+                    {
+                        <li class="menu-title">MATERIALS</li>
+                        <li>
+                            <a href="@Url.Action("MaterialSales","Sales")" class=" waves-effect">
+                                <i class="mdi mdi-newspaper"></i>
+                                <span>Sales Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("SalesReport","Sales")" class=" waves-effect">
+                                <i class="mdi mdi-newspaper"></i>
+                                <span>Sales Report</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("MaterialSalesReport","Sales")" class=" waves-effect">
+                                <i class="mdi mdi-newspaper"></i>
+                                <span>Sales</span>
+                            </a>
+                        </li>
+                    }
+                    else
+                        if (usertype == "ADMIN")
+                    {
+                        <li class="menu-title">Students</li>
+
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("Index","Students")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
+                                    Students
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Schoolclasses")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Classes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","studentclasses")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Student Classes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Courses")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Courses</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","classcourses")"
+                               aria-expanded="false">
+
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Classes Courses</span>
+                            </a>
+                        </li>
+                        <!--<li>
+                <a class="waves-effect" href="@Url.Action("StudentScoreSheet","studentclasses")">
+
+                    <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span class="hide-menu">Class ScoreSheets</span>
+                </a>
+            </li>-->
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("ScoreSheet","academics")">
+
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Score Sheets</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("SummarySheet","academics")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Summary Sheet</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("SchoolSessionClassStudents","schoolsettings")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Promotions</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("index","currents")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Session Settings</span>
+                            </a>
+                        </li>
+                        <li class="menu-title">Material Sales</li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("MaterialSales","Sales")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Materials Sales </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Sales","Sales")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Bookshop Sales</span>
+                            </a>
+                        </li>
+                        <li class="menu-title">Library</li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Products")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Product</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","producttypes")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Products Type</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Stocks")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Products Stocks</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("SalesReport","Sales")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Sales Report</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Sales")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Sales</span>
+                            </a>
+                        </li>
+                        <hr />
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Feestypes")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Fee Types</span>
+                            </a>
+                        </li>
+                        <!--<li>
+                <a class="waves-effect" href="@Url.Action("Index","ClassPaymentSettings")"
+                   aria-expanded="false">
+                    <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span class="hide-menu">Fees Settings</span>
+                </a>
+            </li>
+                -->
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Payment","Payments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Payment</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Payments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Payment List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("classStudentPayment","Payments")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Accum Stud. Bal.</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-link" href="@Url.Action("AccumulativePayment","Payments")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span> Term Bal.</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("AdminPaymentReport","Payments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Payment Report</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("PaymentReportbyItem","Payments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Payment Rpt Items</span>
+                            </a>
+                        </li>
+                        @*<li>
+                    <a class="waves-effect" href="@Url.Action("PaymentReports","Payments")">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Student Fee Balance</span>
+                    </a>
+                </li>*@
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("PaymentReportbyTerm","Payments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Terminal Stud. Bal.</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Parents")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Register Parents</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","BusPayments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Bus Fees</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("PaymentBalance","BusPayments")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Bus Fees Balance</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","ClassFees")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Class Fee Settings</span>
+                            </a>
+                        </li>
+                        <hr />
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","RentalItems")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Rental Items</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Rentals")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Rentals</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("RentalReport","Rentals")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Rentals Report</span>
+                            </a>
+                        </li>
+                        <hr />
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Useraccounts")">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Users</span>
+                            </a>
+                        </li>
+                    }
+                    else
+                     if (usertype == "TEACHER")
+                    {
+
+                        <li class="menu-title">FORM TEACHER</li>
+
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("scoresheet","academics")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>ScoreSheet</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","studentclasses")"
+                               aria-expanded="false">
+
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Student Classes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","Schoolclasses")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Classes</span>
+                            </a>
+                        </li>
+                        @*<li>
+                    <a class="waves-effect" href="@Url.Action("uploadResultNewSheet","academics")"
+                       aria-expanded="false">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span class="hide-menu">Upload New Sheet</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="@Url.Action("ScoreSheet","academics")"
+                       aria-expanded="false">
+                        <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Score Sheets</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="@Url.Action("Index","schoolclasses")"
+                       aria-expanded="false">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span class="hide-menu">Classes</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="@Url.Action("Index","classcourses")"
+                       aria-expanded="false">
+
+                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span class="hide-menu">Classes Courses</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="@Url.Action("Index","studentclasses")"
+                       aria-expanded="false">
+
+                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span class="hide-menu">Student Classes</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="waves-effect" href="@Url.Action("Index","Courses")"
+                       aria-expanded="false">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span class="hide-menu">Courses</span>
+                    </a>
+                </li>*@
+                    }
+                }
+                <hr />
+                <li>
+                    <a class="waves-effect" href="@Url.Action("Login","UserAccounts")"
+                       aria-expanded="false">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Logout</span>
+                    </a>
+                </li>
+            </ul> 
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+<!-- Left Sidebar End -->
