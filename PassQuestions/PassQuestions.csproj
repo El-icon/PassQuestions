@@ -135,43 +135,43 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\feesetting.cs">
-      <DependentUpon>PastquestionsModel.tt</DependentUpon>
+      <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PastquestionsModel.Context.cs">
+    <Compile Include="Models\PassQuestions.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PastquestionsModel.Context.tt</DependentUpon>
+      <DependentUpon>PassQuestions.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PastquestionsModel.cs">
+    <Compile Include="Models\PassQuestions.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PastquestionsModel.tt</DependentUpon>
+      <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PastquestionsModel.Designer.cs">
+    <Compile Include="Models\PassQuestions.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PastquestionsModel.edmx</DependentUpon>
+      <DependentUpon>PassQuestions.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\payment.cs">
-      <DependentUpon>PastquestionsModel.tt</DependentUpon>
+      <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\question.cs">
-      <DependentUpon>PastquestionsModel.tt</DependentUpon>
+      <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>PastquestionsModel.tt</DependentUpon>
+      <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>PastquestionsModel.tt</DependentUpon>
+      <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\subject.cs">
-      <DependentUpon>PastquestionsModel.tt</DependentUpon>
+      <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>PastquestionsModel.tt</DependentUpon>
+      <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\useraccount.cs">
-      <DependentUpon>PastquestionsModel.tt</DependentUpon>
+      <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="setup\CheckAuthentication.cs" />
@@ -1800,15 +1800,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\PastquestionsModel.Context.tt">
+    <Content Include="Models\PassQuestions.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PastquestionsModel.Context.cs</LastGenOutput>
-      <DependentUpon>PastquestionsModel.edmx</DependentUpon>
+      <DependentUpon>PassQuestions.edmx</DependentUpon>
+      <LastGenOutput>PassQuestions.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\PastquestionsModel.tt">
+    <Content Include="Models\PassQuestions.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PastquestionsModel.edmx</DependentUpon>
-      <LastGenOutput>PastquestionsModel.cs</LastGenOutput>
+      <DependentUpon>PassQuestions.edmx</DependentUpon>
+      <LastGenOutput>PassQuestions.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2142,12 +2142,12 @@
     <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
     <Content Include="Content\bootstrap.rtl.min.css.map" />
-    <EntityDeploy Include="Models\PastquestionsModel.edmx">
+    <EntityDeploy Include="Models\PassQuestions.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PastquestionsModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>PassQuestions.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\PastquestionsModel.edmx.diagram">
-      <DependentUpon>PastquestionsModel.edmx</DependentUpon>
+    <Content Include="Models\PassQuestions.edmx.diagram">
+      <DependentUpon>PassQuestions.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

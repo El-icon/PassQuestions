@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="83de7bf2159348ee9645dc37b7be1009" Name="Diagram1">
+      <Diagram DiagramId="bc1966c59c1b409989ca75fc8fbe72a2" Name="Diagram1">
         <EntityTypeShape EntityType="pastquestionModel.feesetting" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="pastquestionModel.payment" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="pastquestionModel.question" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="pastquestionModel.subject" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="pastquestionModel.sysdiagram" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="pastquestionModel.useraccount" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="pastquestionModel.useraccount" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="pastquestionModel.FK_payments_useraccounts" ManuallyRouted="false" />
         <AssociationConnector Association="pastquestionModel.FK_questions_subjects" ManuallyRouted="false" />
       </Diagram>

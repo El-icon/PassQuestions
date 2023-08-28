@@ -62,14 +62,14 @@
     <EntitySetMapping Name="useraccounts">
       <EntityTypeMapping TypeName="pastquestionModel.useraccount">
         <MappingFragment StoreEntitySet="useraccounts">
-          <ScalarProperty Name="usertype1" ColumnName="usertype" />
-          <ScalarProperty Name="address" ColumnName="address" />
-          <ScalarProperty Name="phone" ColumnName="phone" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="address" ColumnName="address" />
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="insertdate" ColumnName="insertdate" />
+          <ScalarProperty Name="usertype" ColumnName="usertype" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

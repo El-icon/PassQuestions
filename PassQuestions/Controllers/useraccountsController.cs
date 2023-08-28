@@ -78,7 +78,7 @@ namespace PassQuestions.Controllers
                 address = address,
                 email = email,
                 password = Setup.CryptoEngine.Encrypt(password),
-                status = "ACTIVE",
+                //status = "ACTIVE",
                 usertype = "USER"
             });
             db.SaveChanges();
@@ -124,7 +124,7 @@ namespace PassQuestions.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,email,password,insertdate,usertype")] useraccount useraccount)
+        public ActionResult Create([Bind(Include = "id,name,phone,address,email,password,insertdate,usertype")] useraccount useraccount)
         {
             if (ModelState.IsValid)
             {
@@ -161,7 +161,7 @@ namespace PassQuestions.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,email,password,insertdate,usertype")] useraccount useraccount)
+        public ActionResult Edit([Bind(Include = "id,name,phone,address,email,password,insertdate,usertype")] useraccount useraccount)
         {
             if (ModelState.IsValid)
             {

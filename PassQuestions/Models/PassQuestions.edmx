@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="feesettings">
           <Key>
             <PropertyRef Name="id" />
@@ -64,6 +64,8 @@
           </Key>
           <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="200" />
+          <Property Name="phone" Type="varchar" MaxLength="200" />
+          <Property Name="address" Type="varchar" MaxLength="200" />
           <Property Name="email" Type="varchar" MaxLength="200" />
           <Property Name="password" Type="varchar(max)" />
           <Property Name="insertdate" Type="datetime" />
@@ -140,7 +142,8 @@
             <End Role="questions" EntitySet="questions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pastquestionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -206,11 +209,13 @@
           </Key>
           <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="insertdate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="payments" Relationship="Self.FK_payments_useraccounts" FromRole="useraccounts" ToRole="payments" />
           <Property Name="usertype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="payments" Relationship="Self.FK_payments_useraccounts" FromRole="useraccounts" ToRole="payments" />
         </EntityType>
         <Association Name="FK_payments_useraccounts">
           <End Role="useraccounts" Type="Self.useraccount" Multiplicity="0..1" />
@@ -360,12 +365,14 @@
           <EntitySetMapping Name="useraccounts">
             <EntityTypeMapping TypeName="pastquestionModel.useraccount">
               <MappingFragment StoreEntitySet="useraccounts">
-                <ScalarProperty Name="usertype" ColumnName="usertype" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="insertdate" ColumnName="insertdate" />
+                <ScalarProperty Name="usertype" ColumnName="usertype" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

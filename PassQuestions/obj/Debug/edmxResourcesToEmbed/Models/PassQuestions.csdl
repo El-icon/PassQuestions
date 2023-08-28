@@ -62,14 +62,13 @@
     </Key>
     <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="insertdate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="payments" Relationship="Self.FK_payments_useraccounts" FromRole="useraccounts" ToRole="payments" />
     <Property Name="usertype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="usertype1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="payments" Relationship="Self.FK_payments_useraccounts" FromRole="useraccounts" ToRole="payments" />
   </EntityType>
   <Association Name="FK_payments_useraccounts">
     <End Role="useraccounts" Type="Self.useraccount" Multiplicity="0..1" />
