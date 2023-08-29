@@ -69,7 +69,8 @@ namespace PassQuestions.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(string name, string address, string email, string phone, string password)
+        public ActionResult Register(string name, string address, 
+            string email, string phone, string insertdate, string password)
         {
             db.useraccounts.Add(new useraccount
             {
@@ -77,6 +78,8 @@ namespace PassQuestions.Controllers
                 name = name,
                 address = address,
                 email = email,
+                phone = phone,        
+                insertdate = DateTime.Now,
                 password = Setup.CryptoEngine.Encrypt(password),
                 //status = "ACTIVE",
                 usertype = "USER"
@@ -84,7 +87,7 @@ namespace PassQuestions.Controllers
             db.SaveChanges();
             TempData["success"] = "true";
             TempData["message"] = "You have successfully registered. Please Login to continue."; // err.Message
-            return RedirectToAction("Login", "Userlogins");
+            return RedirectToAction("Login", "useraccounts");
         }
 
 
