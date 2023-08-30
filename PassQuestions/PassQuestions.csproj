@@ -130,6 +130,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\questionsController.cs" />
+    <Compile Include="Controllers\subjectsController.cs" />
     <Compile Include="Controllers\useraccountsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2183,6 +2185,16 @@
     <Content Include="Views\useraccounts\Login.cshtml" />
     <Content Include="Views\useraccounts\ResetPassword.cshtml" />
     <Content Include="Views\useraccounts\Register.cshtml" />
+    <Content Include="Views\questions\Create.cshtml" />
+    <Content Include="Views\questions\Delete.cshtml" />
+    <Content Include="Views\questions\Details.cshtml" />
+    <Content Include="Views\questions\Edit.cshtml" />
+    <Content Include="Views\questions\Index.cshtml" />
+    <Content Include="Views\subjects\Create.cshtml" />
+    <Content Include="Views\subjects\Delete.cshtml" />
+    <Content Include="Views\subjects\Details.cshtml" />
+    <Content Include="Views\subjects\Edit.cshtml" />
+    <Content Include="Views\subjects\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
