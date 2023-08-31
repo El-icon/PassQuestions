@@ -24,6 +24,7 @@ namespace PassQuestions.Controllers
             return View(questions.ToList());
         }
 
+        [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file, string id)
         {
             try
