@@ -4,88 +4,140 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>question</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.names, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.names, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.names, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <h4 class="card-title">Create Questiion</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label">Name</label>
+                        @Html.EditorFor(model => model.names, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.names, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Subject ID</label>
+                        @Html.DropDownList("subjectid", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.subjectid, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Exam Year</label>
+                        @Html.EditorFor(model => model.examyear, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.examyear, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.subjectid, "subjectid", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("subjectid", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.subjectid, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <br />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.examyear, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.examyear, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.examyear, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Exam Type</label>
+                        @Html.EditorFor(model => model.examtype, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.examtype, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Insert Date</label>
+                        <input type="date" class="form-control" required="" name="dob" />
+                        @Html.ValidationMessageFor(model => model.insertdate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.examtype, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.examtype, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.examtype, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <br />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.insertdate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.insertdate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.insertdate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="5"></textarea>
+                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Insert Date</label>
+                        <input type="date" class="form-control" required="" name="dob" />
+                        @Html.ValidationMessageFor(model => model.insertdate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.photo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.photo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.photo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <br />
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.photo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.photo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+
+
+                <div class="col-md-4 bg-dark">
+                    <div class="form-group">
+                        <center>
+                            <br />
+                            @if (Model.photo == null)
+                            {
+                                <img src="~/Content/img/photo.png" width="200px" height="200px" class="img-responsive img-thumbnail" />
+                            }
+                            else
+                            {
+                                <img src="~/Content/UploadedFiles/@Model.photo" width="200px" height="200px" class="img-responsive img-thumbnail" />
+                            }
+                            <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#upload">
+                                <i class="fa fa-cloud-upload-alt"></i>
+                                upload new image
+                            </button>
+                        </center>
+                        <!-- Info Header Modal -->
+                        <div id="upload" class="modal fade" tabindex="-1" role="dialog"
+                             aria-labelledby="info-header-modalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header modal-colored-header bg-info">
+                                        <h4 class="modal-title" id="info-header-modalLabel">Profile Picture Upload</h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">
+                                            ×
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5 class="mt-0">Please select image</h5>
+                                        <form method="post" action="@Url.Action("UploadFile","questions")" enctype="multipart/form-data">
+                                            <input type="hidden" class="form-control" value="@Model.id" name="id" />
+                                            <input type="file" name="file" />
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light"
+                                                        data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="submit" class="btn btn-info"><i class="fa fa-cloud-upload-alt"></i> Upload</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input type="submit" value="Create" class="btn btn-success" />
+
+                        <a href="@Url.Action("Index", "questions")" class="btn btn-primary">Back to List</a>
+                    </div>
+                </div>
+            }
+
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>

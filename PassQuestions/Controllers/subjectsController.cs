@@ -54,7 +54,7 @@ namespace PassQuestions.Controllers
             {
                 try
                 {
-                    subject.id = Guid.NewGuid().ToString();
+                    subject.id = Guid.NewGuid().ToString();  //Auto generate ID 
                     db.subjects.Add(subject);
                     db.SaveChanges();
                     TempData["success"] = "true";

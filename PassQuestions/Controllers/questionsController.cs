@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -22,6 +23,33 @@ namespace PassQuestions.Controllers
             var questions = db.questions.Include(q => q.subject);
             return View(questions.ToList());
         }
+
+        public ActionResult UploadFile(HttpPostedFileBase file, string id)
+        {
+            try
+            {
+                var question = db.questions.FirstOrDefault(p => p.id == id);
+                if (file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(file.FileName);
+                    string _FileName = Path.GetFileName(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/Content/UploadedFiles"), id + extension);
+                    file.SaveAs(_path);
+                    question.photo = id + extension;
+                }
+                db.SaveChanges();
+                TempData["success"] = "true";
+                TempData["message"] = "File Uploaded Successfully!!";
+                return RedirectToAction("Details/" + id, "questions");
+            }
+            catch (Exception err)
+            {
+                TempData["success"] = "false";
+                TempData["message"] = "File upload failed!!";
+                return RedirectToAction("Details/" + id, "questions");
+            }
+        }
+
 
         // GET: questions/Details/5
         public ActionResult Details(string id)
@@ -54,14 +82,26 @@ namespace PassQuestions.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.questions.Add(question);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    question.id = Guid.NewGuid().ToString();  //Auto generate ID 
+                    db.questions.Add(question);
+                    db.SaveChanges();
+                    TempData["success"] = "true";
+                    TempData["message"] = "New question created Sucessfully.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception err)
+                {
+                    TempData["success"] = "false";
+                    TempData["message"] = "Registration Faild, please review the fields and try again." + err.Message;
+                    ViewBag.subjectid = new SelectList(db.subjects, "id", "name", question.subjectid);
+                    return View(question);
+                }
             }
-
-            ViewBag.subjectid = new SelectList(db.subjects, "id", "name", question.subjectid);
             return View(question);
         }
+
 
         // GET: questions/Edit/5
         public ActionResult Edit(string id)
