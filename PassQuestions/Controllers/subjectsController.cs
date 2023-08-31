@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PassQuestions.Models;
+using PassQuestions.Setup;
 
 namespace PassQuestions.Controllers
 {
+    [CheckAuthentication]
     public class subjectsController : Controller
     {
         private pastquestionEntities db = new pastquestionEntities();
@@ -50,11 +52,22 @@ namespace PassQuestions.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.subjects.Add(subject);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    subject.id = Guid.NewGuid().ToString();
+                    db.subjects.Add(subject);
+                    db.SaveChanges();
+                    TempData["success"] = "true";
+                    TempData["message"] = "New Subject created Sucessfully.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception err)
+                {
+                    TempData["success"] = "false";
+                    TempData["message"] = "Registration Faild, please review the fields and try again." + err.Message;
+                    return View(subject);
+                }
             }
-
             return View(subject);
         }
 

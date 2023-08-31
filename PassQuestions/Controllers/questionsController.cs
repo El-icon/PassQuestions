@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PassQuestions.Models;
+using PassQuestions.Setup;
 
 namespace PassQuestions.Controllers
 {
+    [CheckAuthentication]
     public class questionsController : Controller
     {
         private pastquestionEntities db = new pastquestionEntities();
