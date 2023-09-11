@@ -1,5 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="examtype">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="examtype" Type="varchar" MaxLength="200" />
+    <Property Name="description" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="examyear">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="examyear" Type="varchar" MaxLength="200" />
+    <Property Name="description" Type="varchar" MaxLength="200" />
+  </EntityType>
   <EntityType Name="feesettings">
     <Key>
       <PropertyRef Name="id" />
@@ -78,6 +94,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_questions_examtype">
+    <End Role="examtype" Type="Self.examtype" Multiplicity="0..1" />
+    <End Role="questions" Type="Self.questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="examtype">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questions">
+        <PropertyRef Name="examtype" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questions_examyear">
+    <End Role="examyear" Type="Self.examyear" Multiplicity="0..1" />
+    <End Role="questions" Type="Self.questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="examyear">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questions">
+        <PropertyRef Name="examyear" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_questions_subjects">
     <End Role="subjects" Type="Self.subjects" Multiplicity="0..1" />
     <End Role="questions" Type="Self.questions" Multiplicity="*" />
@@ -122,6 +162,8 @@
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="pastquestionModelStoreContainer">
+    <EntitySet Name="examtype" EntityType="Self.examtype" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="examyear" EntityType="Self.examyear" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="feesettings" EntityType="Self.feesettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="questions" EntityType="Self.questions" Schema="dbo" store:Type="Tables" />
@@ -131,6 +173,14 @@
     <AssociationSet Name="FK_payments_useraccounts" Association="Self.FK_payments_useraccounts">
       <End Role="useraccounts" EntitySet="useraccounts" />
       <End Role="payments" EntitySet="payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questions_examtype" Association="Self.FK_questions_examtype">
+      <End Role="examtype" EntitySet="examtype" />
+      <End Role="questions" EntitySet="questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questions_examyear" Association="Self.FK_questions_examyear">
+      <End Role="examyear" EntitySet="examyear" />
+      <End Role="questions" EntitySet="questions" />
     </AssociationSet>
     <AssociationSet Name="FK_questions_subjects" Association="Self.FK_questions_subjects">
       <End Role="subjects" EntitySet="subjects" />

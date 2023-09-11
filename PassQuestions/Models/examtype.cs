@@ -12,19 +12,19 @@ namespace PassQuestions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class question
+    public partial class examtype
     {
-        public string id { get; set; }
-        public string names { get; set; }
-        public string description { get; set; }
-        public string subjectid { get; set; }
-        public string examyear { get; set; }
-        public string examtype { get; set; }
-        public Nullable<System.DateTime> insertdate { get; set; }
-        public string photo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public examtype()
+        {
+            this.questions = new HashSet<question>();
+        }
     
-        public virtual subject subject { get; set; }
-        public virtual examtype examtype1 { get; set; }
-        public virtual examyear examyear1 { get; set; }
+        public string id { get; set; }
+        public string examtype1 { get; set; }
+        public string description { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<question> questions { get; set; }
     }
 }

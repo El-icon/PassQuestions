@@ -36,6 +36,8 @@
     <Property Name="insertdate" Type="DateTime" Precision="0" />
     <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="subject" Relationship="Self.FK_questions_subjects" FromRole="questions" ToRole="subjects" />
+    <NavigationProperty Name="examtype1" Relationship="pastquestionModel.FK_questions_examtype" FromRole="question" ToRole="examtype" />
+    <NavigationProperty Name="examyear1" Relationship="pastquestionModel.FK_questions_examyear" FromRole="question" ToRole="examyear" />
   </EntityType>
   <EntityType Name="subject">
     <Key>
@@ -139,6 +141,16 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="examtypes" EntityType="pastquestionModel.examtype" />
+    <EntitySet Name="examyears" EntityType="pastquestionModel.examyear" />
+    <AssociationSet Name="FK_questions_examtype" Association="pastquestionModel.FK_questions_examtype">
+      <End Role="examtype" EntitySet="examtypes" />
+      <End Role="question" EntitySet="questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questions_examyear" Association="pastquestionModel.FK_questions_examyear">
+      <End Role="examyear" EntitySet="examyears" />
+      <End Role="question" EntitySet="questions" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -151,4 +163,46 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="examtype">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="examtype1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="questions" Relationship="pastquestionModel.FK_questions_examtype" FromRole="examtype" ToRole="question" />
+  </EntityType>
+  <EntityType Name="examyear">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="examyear1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="questions" Relationship="pastquestionModel.FK_questions_examyear" FromRole="examyear" ToRole="question" />
+  </EntityType>
+  <Association Name="FK_questions_examtype">
+    <End Type="pastquestionModel.examtype" Role="examtype" Multiplicity="0..1" />
+    <End Type="pastquestionModel.question" Role="question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="examtype">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="question">
+        <PropertyRef Name="examtype" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questions_examyear">
+    <End Type="pastquestionModel.examyear" Role="examyear" Multiplicity="0..1" />
+    <End Type="pastquestionModel.question" Role="question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="examyear">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="question">
+        <PropertyRef Name="examyear" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -134,19 +134,31 @@
                     else
                         if (usertype == "ADMIN")
                     {
-                         <li class="menu-title">Questions</li>
+                        <li class="menu-title">Questions</li>
 
                         <li>
                             <a class="sidebar-link" href="@Url.Action("Index","questions")">
                                 <i class="mdi mdi-checkbox-multiple-blank-outline" class="feather-icon"></i><span>
-                                  Question
-                            </span>
+                                    Question
+                                </span>
                             </a>
                         </li>
                         <li>
                             <a class="waves-effect" href="@Url.Action("Index","subjects")"
                                aria-expanded="false">
                                 <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>  subject</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","examtypes")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Exam Type</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect" href="@Url.Action("Index","examyears")"
+                               aria-expanded="false">
+                                <i class="mdi mdi-checkbox-multiple-blank-outline"></i><span>Exam Year</span>
                             </a>
                         </li>
                         <li>

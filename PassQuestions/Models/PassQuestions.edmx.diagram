@@ -13,6 +13,10 @@
         <EntityTypeShape EntityType="pastquestionModel.useraccount" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="pastquestionModel.FK_payments_useraccounts" ManuallyRouted="false" />
         <AssociationConnector Association="pastquestionModel.FK_questions_subjects" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="pastquestionModel.examtype" Width="1.5" PointX="0.75" PointY="8.625" />
+        <EntityTypeShape EntityType="pastquestionModel.examyear" Width="1.5" PointX="5.375" PointY="6.875" />
+        <AssociationConnector Association="pastquestionModel.FK_questions_examtype" />
+        <AssociationConnector Association="pastquestionModel.FK_questions_examyear" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

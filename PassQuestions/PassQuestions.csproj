@@ -129,12 +129,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\examtypesController.cs" />
+    <Compile Include="Controllers\examyearsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\questionsController.cs" />
     <Compile Include="Controllers\subjectsController.cs" />
     <Compile Include="Controllers\useraccountsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\examtype.cs">
+      <DependentUpon>PassQuestions.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\examyear.cs">
+      <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\feesetting.cs">
       <DependentUpon>PassQuestions.tt</DependentUpon>
@@ -2195,6 +2203,16 @@
     <Content Include="Views\subjects\Details.cshtml" />
     <Content Include="Views\subjects\Edit.cshtml" />
     <Content Include="Views\subjects\Index.cshtml" />
+    <Content Include="Views\examtypes\Create.cshtml" />
+    <Content Include="Views\examtypes\Delete.cshtml" />
+    <Content Include="Views\examtypes\Details.cshtml" />
+    <Content Include="Views\examtypes\Edit.cshtml" />
+    <Content Include="Views\examtypes\Index.cshtml" />
+    <Content Include="Views\examyears\Create.cshtml" />
+    <Content Include="Views\examyears\Delete.cshtml" />
+    <Content Include="Views\examyears\Details.cshtml" />
+    <Content Include="Views\examyears\Edit.cshtml" />
+    <Content Include="Views\examyears\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

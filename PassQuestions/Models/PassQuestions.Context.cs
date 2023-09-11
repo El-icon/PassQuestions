@@ -33,6 +33,8 @@ namespace PassQuestions.Models
         public virtual DbSet<subject> subjects { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<useraccount> useraccounts { get; set; }
+        public virtual DbSet<examtype> examtypes { get; set; }
+        public virtual DbSet<examyear> examyears { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
