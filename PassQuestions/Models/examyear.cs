@@ -21,7 +21,7 @@ namespace PassQuestions.Models
         }
     
         public string id { get; set; }
-        public string examyear1 { get; set; }
+        public string year { get; set; }
         public string description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

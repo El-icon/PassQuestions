@@ -18,13 +18,13 @@ namespace PassQuestions.Models
         public string names { get; set; }
         public string description { get; set; }
         public string subjectid { get; set; }
-        public string examyear { get; set; }
-        public string examtype { get; set; }
+        public string examyearid { get; set; }
+        public string examtypeid { get; set; }
         public Nullable<System.DateTime> insertdate { get; set; }
         public string photo { get; set; }
     
+        public virtual examtype examtype { get; set; }
+        public virtual examyear examyear { get; set; }
         public virtual subject subject { get; set; }
-        public virtual examtype examtype1 { get; set; }
-        public virtual examyear examyear1 { get; set; }
     }
 }

@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bc1966c59c1b409989ca75fc8fbe72a2" Name="Diagram1">
-        <EntityTypeShape EntityType="pastquestionModel.feesetting" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="pastquestionModel.payment" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="pastquestionModel.question" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="pastquestionModel.subject" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="pastquestionModel.sysdiagram" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="pastquestionModel.useraccount" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="83fe3f0d88754fe080c6ecc0aab5ab65" Name="Diagram1">
+        <EntityTypeShape EntityType="pastquestionModel.examtype" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="pastquestionModel.examyear" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="pastquestionModel.feesetting" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pastquestionModel.payment" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="pastquestionModel.question" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="pastquestionModel.subject" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="pastquestionModel.sysdiagram" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pastquestionModel.useraccount" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="pastquestionModel.FK_questions_examtype" ManuallyRouted="false" />
+        <AssociationConnector Association="pastquestionModel.FK_questions_examyear" ManuallyRouted="false" />
         <AssociationConnector Association="pastquestionModel.FK_payments_useraccounts" ManuallyRouted="false" />
         <AssociationConnector Association="pastquestionModel.FK_questions_subjects" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="pastquestionModel.examtype" Width="1.5" PointX="0.75" PointY="8.625" />
-        <EntityTypeShape EntityType="pastquestionModel.examyear" Width="1.5" PointX="5.375" PointY="6.875" />
-        <AssociationConnector Association="pastquestionModel.FK_questions_examtype" />
-        <AssociationConnector Association="pastquestionModel.FK_questions_examyear" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

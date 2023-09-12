@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [pastquestion]    Script Date: 8/28/2023 9:20:08 AM ******/
+/****** Object:  Database [pastquestion]    Script Date: 9/11/2023 4:59:22 PM ******/
 CREATE DATABASE [pastquestion]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -73,7 +73,37 @@ EXEC sys.sp_db_vardecimal_storage_format N'pastquestion', N'ON'
 GO
 USE [pastquestion]
 GO
-/****** Object:  Table [dbo].[feesettings]    Script Date: 8/28/2023 9:20:08 AM ******/
+/****** Object:  Table [dbo].[examtype]    Script Date: 9/11/2023 4:59:23 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[examtype](
+	[id] [varchar](200) NOT NULL,
+	[examtype] [varchar](200) NULL,
+	[description] [varchar](200) NULL,
+ CONSTRAINT [PK_examtype] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[examyear]    Script Date: 9/11/2023 4:59:23 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[examyear](
+	[id] [varchar](200) NOT NULL,
+	[examyear] [varchar](200) NULL,
+	[description] [varchar](200) NULL,
+ CONSTRAINT [PK_examyear] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[feesettings]    Script Date: 9/11/2023 4:59:23 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -89,7 +119,7 @@ CREATE TABLE [dbo].[feesettings](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[payments]    Script Date: 8/28/2023 9:20:08 AM ******/
+/****** Object:  Table [dbo].[payments]    Script Date: 9/11/2023 4:59:23 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -109,7 +139,7 @@ CREATE TABLE [dbo].[payments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[questions]    Script Date: 8/28/2023 9:20:08 AM ******/
+/****** Object:  Table [dbo].[questions]    Script Date: 9/11/2023 4:59:23 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -129,7 +159,7 @@ CREATE TABLE [dbo].[questions](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[subjects]    Script Date: 8/28/2023 9:20:08 AM ******/
+/****** Object:  Table [dbo].[subjects]    Script Date: 9/11/2023 4:59:23 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -144,7 +174,7 @@ CREATE TABLE [dbo].[subjects](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[useraccounts]    Script Date: 8/28/2023 9:20:08 AM ******/
+/****** Object:  Table [dbo].[useraccounts]    Script Date: 9/11/2023 4:59:23 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -164,6 +194,10 @@ CREATE TABLE [dbo].[useraccounts](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+INSERT [dbo].[subjects] ([id], [name], [description]) VALUES (N'591de8f1-2d6f-4f42-99f1-28079cc9bd0a', N'Mathematics', N'maths')
+GO
+INSERT [dbo].[subjects] ([id], [name], [description]) VALUES (N'93d57771-1aae-4ef3-82ca-907ba5a8515c', N'English', N'Language')
+GO
 INSERT [dbo].[useraccounts] ([id], [name], [phone], [address], [email], [password], [insertdate], [usertype]) VALUES (N'325DC503', N'Yusuf', N'07060601330', N'admin @ Home', N'user@gmail.com', N'240u0HKuQlMH2bEJymBRwg==', CAST(N'2023-08-26T14:45:32.630' AS DateTime), N'USER')
 GO
 INSERT [dbo].[useraccounts] ([id], [name], [phone], [address], [email], [password], [insertdate], [usertype]) VALUES (N'609ADD58', N'Admin', N'07060601330', N'admin @ Home', N'admin@gmail.com', N'240u0HKuQlMH2bEJymBRwg==', CAST(N'2023-08-26T14:44:26.273' AS DateTime), N'ADMIN')
@@ -180,6 +214,16 @@ ALTER TABLE [dbo].[payments]  WITH CHECK ADD  CONSTRAINT [FK_payments_useraccoun
 REFERENCES [dbo].[useraccounts] ([id])
 GO
 ALTER TABLE [dbo].[payments] CHECK CONSTRAINT [FK_payments_useraccounts]
+GO
+ALTER TABLE [dbo].[questions]  WITH CHECK ADD  CONSTRAINT [FK_questions_examtype] FOREIGN KEY([examtype])
+REFERENCES [dbo].[examtype] ([id])
+GO
+ALTER TABLE [dbo].[questions] CHECK CONSTRAINT [FK_questions_examtype]
+GO
+ALTER TABLE [dbo].[questions]  WITH CHECK ADD  CONSTRAINT [FK_questions_examyear] FOREIGN KEY([examyear])
+REFERENCES [dbo].[examyear] ([id])
+GO
+ALTER TABLE [dbo].[questions] CHECK CONSTRAINT [FK_questions_examyear]
 GO
 ALTER TABLE [dbo].[questions]  WITH CHECK ADD  CONSTRAINT [FK_questions_subjects] FOREIGN KEY([subjectid])
 REFERENCES [dbo].[subjects] ([id])

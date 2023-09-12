@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PassQuestions.Models;
+using PassQuestions.Setup;
 
 namespace PassQuestions.Controllers
 {
+    [CheckAuthentication]
     public class examyearsController : Controller
     {
         private pastquestionEntities db = new pastquestionEntities();
@@ -46,15 +48,26 @@ namespace PassQuestions.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,examyear1,description")] examyear examyear)
-        {
+        public ActionResult Create([Bind(Include = "id,year,description")] examyear examyear)
+        {          
             if (ModelState.IsValid)
             {
-                db.examyears.Add(examyear);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    examyear.id = Guid.NewGuid().ToString();  //Auto generate ID 
+                    db.examyears.Add(examyear);
+                    db.SaveChanges();
+                    TempData["success"] = "true";
+                    TempData["message"] = "New examyear created Sucessfully.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception err)
+                {
+                    TempData["success"] = "false";
+                    TempData["message"] = "Registration Faild, please review the fields and try again." + err.Message;
+                    return View(examyear);
+                }
             }
-
             return View(examyear);
         }
 
@@ -78,7 +91,7 @@ namespace PassQuestions.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,examyear1,description")] examyear examyear)
+        public ActionResult Edit([Bind(Include = "id,year,description")] examyear examyear)
         {
             if (ModelState.IsValid)
             {

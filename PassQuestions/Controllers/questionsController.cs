@@ -97,6 +97,9 @@ namespace PassQuestions.Controllers
                     TempData["success"] = "false";
                     TempData["message"] = "Registration Faild, please review the fields and try again." + err.Message;
                     ViewBag.subjectid = new SelectList(db.subjects, "id", "name", question.subjectid);
+                    ViewBag.examyearid = new SelectList(db.examyears, "id", "year", question.examyearid);
+                    ViewBag.examtypeid = new SelectList(db.examtypes, "id", "type", question.examtypeid);
+
                     return View(question);
                 }
             }

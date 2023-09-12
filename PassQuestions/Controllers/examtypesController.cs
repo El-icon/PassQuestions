@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PassQuestions.Models;
+using PassQuestions.Setup;
 
 namespace PassQuestions.Controllers
 {
+    [CheckAuthentication]
     public class examtypesController : Controller
     {
         private pastquestionEntities db = new pastquestionEntities();
@@ -46,15 +48,26 @@ namespace PassQuestions.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,examtype1,description")] examtype examtype)
-        {
+        public ActionResult Create([Bind(Include = "id,type,description")] examtype examtype)
+        { 
             if (ModelState.IsValid)
             {
-                db.examtypes.Add(examtype);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    examtype.id = Guid.NewGuid().ToString();  //Auto generate ID 
+                    db.examtypes.Add(examtype);
+                    db.SaveChanges();
+                    TempData["success"] = "true";
+                    TempData["message"] = "New examtype created Sucessfully.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception err)
+                {
+                    TempData["success"] = "false";
+                    TempData["message"] = "Registration Faild, please review the fields and try again." + err.Message;
+                    return View(examtype);
+                }
             }
-
             return View(examtype);
         }
 
@@ -78,7 +91,7 @@ namespace PassQuestions.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,examtype1,description")] examtype examtype)
+        public ActionResult Edit([Bind(Include = "id,type,description")] examtype examtype)
         {
             if (ModelState.IsValid)
             {

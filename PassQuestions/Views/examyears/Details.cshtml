@@ -4,31 +4,39 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>examyear</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.examyear1)
-        </dt>
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h class="card-title">Exam Year Details</h>
+                <div class="form-horizontal">
+                    <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.examyear1)
-        </dd>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Exam Year</label>
+                                @Html.EditorFor(model => model.year, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.year, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6">
+                                <label>Description</label>
+                                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />  <br />
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <a href="@Url.Action("Edit", "examyears", new { id = Model.id })" class="btn btn-success">Edit</a>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
-
-    </dl>
+                            <a href="@Url.Action("Index", "examyears")" class="btn btn-primary">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

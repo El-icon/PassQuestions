@@ -23,14 +23,14 @@
                         @Html.ValidationMessageFor(model => model.names, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Subject ID</label>
+                        <label class="form-label">Subject Type</label>
                         @Html.DropDownList("subjectid", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.subjectid, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Exam Year</label>
-                        @Html.EditorFor(model => model.examyear, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.examyear, "", new { @class = "text-danger" })
+                        @Html.DropDownList("examyearid", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.examyearid, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -39,8 +39,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">Exam Type</label>
-                        @Html.EditorFor(model => model.examtype, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.examtype, "", new { @class = "text-danger" })
+                        @Html.DropDownList("examtypeid", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.examtypeid, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Insert Date</label>
@@ -97,8 +97,7 @@
                                 upload new image
                             </button>
                         </center>
-                        <!-- Info Header Modal -->
-                        <!-- /.modal -->
+                       
 
                     </div>
                 </div>

@@ -2,38 +2,60 @@
 
 @{
     ViewBag.Title = "Index";
+    int sn = 0;
 }
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
 
-<h2>Index</h2>
+                <h4 class="card-title"> EXAM TYPE </h4>
+                <a href="@Url.Action("create","examtypes")" class="btn btn-success">Create New Exam Type</a>
+                <br />
+                <br />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.examtype1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.examtype1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
-
-</table>
+                <table id="datatable-buttons"
+                       class="table table-striped table-bordered dt-responsive nowrap"
+                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>ExamType</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    <tbody>
+                        @foreach (var item in Model.OrderBy(p => p.type))
+                        {
+                            sn++;
+                            <tr>
+                                <td>
+                                    @sn
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Details/"+item.id,"examtypes")">
+                                        @item.type
+                                    </a>
+                                </td>
+                                <td>@item.description</td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "examtypes", new { id = item.id })">
+                                        <i class="fa fa-edit btn btn-info btn-sm"></i>
+                                    </a> |
+                                    <a href="@Url.Action("Details", "examtypes", new { id = item.id })">
+                                        <i class="fa fa-info btn btn-success btn-sm"></i>
+                                    </a> |
+                                    <a href="@Url.Action("Delete", "examtypes", new { id = item.id })">
+                                        <i class="fa fa-trash btn btn-danger btn-sm"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row -->

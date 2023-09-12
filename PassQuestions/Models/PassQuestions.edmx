@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="examtype">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="examtype" Type="varchar" MaxLength="200" />
+          <Property Name="type" Type="varchar" MaxLength="200" />
           <Property Name="description" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="examyear">
@@ -18,7 +18,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="examyear" Type="varchar" MaxLength="200" />
+          <Property Name="year" Type="varchar" MaxLength="200" />
           <Property Name="description" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="feesettings">
@@ -51,8 +51,8 @@
           <Property Name="names" Type="varchar" MaxLength="200" />
           <Property Name="description" Type="varchar" MaxLength="200" />
           <Property Name="subjectid" Type="varchar" MaxLength="200" />
-          <Property Name="examyear" Type="varchar" MaxLength="200" />
-          <Property Name="examtype" Type="varchar" MaxLength="200" />
+          <Property Name="examyearid" Type="varchar" MaxLength="200" />
+          <Property Name="examtypeid" Type="varchar" MaxLength="200" />
           <Property Name="insertdate" Type="date" />
           <Property Name="photo" Type="varchar(max)" />
         </EntityType>
@@ -107,7 +107,7 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="questions">
-              <PropertyRef Name="examtype" />
+              <PropertyRef Name="examtypeid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -119,7 +119,7 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="questions">
-              <PropertyRef Name="examyear" />
+              <PropertyRef Name="examyearid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -135,37 +135,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="pastquestionModelStoreContainer">
           <EntitySet Name="examtype" EntityType="Self.examtype" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="examyear" EntityType="Self.examyear" Schema="dbo" store:Type="Tables" />
@@ -192,10 +161,29 @@
             <End Role="questions" EntitySet="questions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pastquestionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="examtype">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="questions" Relationship="Self.FK_questions_examtype" FromRole="examtype" ToRole="questions" />
+        </EntityType>
+        <EntityType Name="examyear">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="year" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="questions" Relationship="Self.FK_questions_examyear" FromRole="examyear" ToRole="questions" />
+        </EntityType>
         <EntityType Name="feesetting">
           <Key>
             <PropertyRef Name="id" />
@@ -227,13 +215,13 @@
           <Property Name="names" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="subjectid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="examyear" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="examtype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="examyearid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="examtypeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="insertdate" Type="DateTime" Precision="0" />
           <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="examtype" Relationship="Self.FK_questions_examtype" FromRole="questions" ToRole="examtype" />
+          <NavigationProperty Name="examyear" Relationship="Self.FK_questions_examyear" FromRole="questions" ToRole="examyear" />
           <NavigationProperty Name="subject" Relationship="Self.FK_questions_subjects" FromRole="questions" ToRole="subjects" />
-          <NavigationProperty Name="examtype1" Relationship="pastquestionModel.FK_questions_examtype" FromRole="question" ToRole="examtype" />
-          <NavigationProperty Name="examyear1" Relationship="pastquestionModel.FK_questions_examyear" FromRole="question" ToRole="examyear" />
         </EntityType>
         <EntityType Name="subject">
           <Key>
@@ -268,6 +256,30 @@
           <Property Name="usertype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments" Relationship="Self.FK_payments_useraccounts" FromRole="useraccounts" ToRole="payments" />
         </EntityType>
+        <Association Name="FK_questions_examtype">
+          <End Role="examtype" Type="Self.examtype" Multiplicity="0..1" />
+          <End Role="questions" Type="Self.question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="examtype">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questions">
+              <PropertyRef Name="examtypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questions_examyear">
+          <End Role="examyear" Type="Self.examyear" Multiplicity="0..1" />
+          <End Role="questions" Type="Self.question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="examyear">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questions">
+              <PropertyRef Name="examyearid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_payments_useraccounts">
           <End Role="useraccounts" Type="Self.useraccount" Multiplicity="0..1" />
           <End Role="payments" Type="Self.payment" Multiplicity="*" />
@@ -293,12 +305,22 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="pastquestionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="examtypes" EntityType="Self.examtype" />
+          <EntitySet Name="examyears" EntityType="Self.examyear" />
           <EntitySet Name="feesettings" EntityType="Self.feesetting" />
           <EntitySet Name="payments" EntityType="Self.payment" />
           <EntitySet Name="questions" EntityType="Self.question" />
           <EntitySet Name="subjects" EntityType="Self.subject" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="useraccounts" EntityType="Self.useraccount" />
+          <AssociationSet Name="FK_questions_examtype" Association="Self.FK_questions_examtype">
+            <End Role="examtype" EntitySet="examtypes" />
+            <End Role="questions" EntitySet="questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questions_examyear" Association="Self.FK_questions_examyear">
+            <End Role="examyear" EntitySet="examyears" />
+            <End Role="questions" EntitySet="questions" />
+          </AssociationSet>
           <AssociationSet Name="FK_payments_useraccounts" Association="Self.FK_payments_useraccounts">
             <End Role="useraccounts" EntitySet="useraccounts" />
             <End Role="payments" EntitySet="payments" />
@@ -307,106 +329,31 @@
             <End Role="subjects" EntitySet="subjects" />
             <End Role="questions" EntitySet="questions" />
           </AssociationSet>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(pastquestionModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(pastquestionModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="examtypes" EntityType="pastquestionModel.examtype" />
-          <EntitySet Name="examyears" EntityType="pastquestionModel.examyear" />
-          <AssociationSet Name="FK_questions_examtype" Association="pastquestionModel.FK_questions_examtype">
-            <End Role="examtype" EntitySet="examtypes" />
-            <End Role="question" EntitySet="questions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_questions_examyear" Association="pastquestionModel.FK_questions_examyear">
-            <End Role="examyear" EntitySet="examyears" />
-            <End Role="question" EntitySet="questions" />
-          </AssociationSet>
         </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
-        <EntityType Name="examtype">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="examtype1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="questions" Relationship="pastquestionModel.FK_questions_examtype" FromRole="examtype" ToRole="question" />
-        </EntityType>
-        <EntityType Name="examyear">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="examyear1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="questions" Relationship="pastquestionModel.FK_questions_examyear" FromRole="examyear" ToRole="question" />
-        </EntityType>
-        <Association Name="FK_questions_examtype">
-          <End Type="pastquestionModel.examtype" Role="examtype" Multiplicity="0..1" />
-          <End Type="pastquestionModel.question" Role="question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="examtype">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="question">
-              <PropertyRef Name="examtype" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_questions_examyear">
-          <End Type="pastquestionModel.examyear" Role="examyear" Multiplicity="0..1" />
-          <End Type="pastquestionModel.question" Role="question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="examyear">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="question">
-              <PropertyRef Name="examyear" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="pastquestionModelStoreContainer" CdmEntityContainer="pastquestionEntities">
+          <EntitySetMapping Name="examtypes">
+            <EntityTypeMapping TypeName="pastquestionModel.examtype">
+              <MappingFragment StoreEntitySet="examtype">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="examyears">
+            <EntityTypeMapping TypeName="pastquestionModel.examyear">
+              <MappingFragment StoreEntitySet="examyear">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="feesettings">
             <EntityTypeMapping TypeName="pastquestionModel.feesetting">
               <MappingFragment StoreEntitySet="feesettings">
@@ -438,8 +385,8 @@
                 <ScalarProperty Name="names" ColumnName="names" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="subjectid" ColumnName="subjectid" />
-                <ScalarProperty Name="examyear" ColumnName="examyear" />
-                <ScalarProperty Name="examtype" ColumnName="examtype" />
+                <ScalarProperty Name="examyearid" ColumnName="examyearid" />
+                <ScalarProperty Name="examtypeid" ColumnName="examtypeid" />
                 <ScalarProperty Name="insertdate" ColumnName="insertdate" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
               </MappingFragment>
@@ -476,48 +423,6 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="insertdate" ColumnName="insertdate" />
                 <ScalarProperty Name="usertype" ColumnName="usertype" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="pastquestionModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="pastquestionModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="pastquestionModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="pastquestionModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="pastquestionModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="pastquestionModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="pastquestionModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="pastquestionModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="pastquestionModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="examtypes">
-            <EntityTypeMapping TypeName="pastquestionModel.examtype">
-              <MappingFragment StoreEntitySet="examtype">
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="examtype1" ColumnName="examtype" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="examyears">
-            <EntityTypeMapping TypeName="pastquestionModel.examyear">
-              <MappingFragment StoreEntitySet="examyear">
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="examyear1" ColumnName="examyear" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
