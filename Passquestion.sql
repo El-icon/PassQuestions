@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [pastquestion]    Script Date: 9/11/2023 4:59:22 PM ******/
+/****** Object:  Database [pastquestion]    Script Date: 9/12/2023 11:34:50 AM ******/
 CREATE DATABASE [pastquestion]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -73,14 +73,14 @@ EXEC sys.sp_db_vardecimal_storage_format N'pastquestion', N'ON'
 GO
 USE [pastquestion]
 GO
-/****** Object:  Table [dbo].[examtype]    Script Date: 9/11/2023 4:59:23 PM ******/
+/****** Object:  Table [dbo].[examtype]    Script Date: 9/12/2023 11:34:51 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[examtype](
 	[id] [varchar](200) NOT NULL,
-	[examtype] [varchar](200) NULL,
+	[type] [varchar](200) NULL,
 	[description] [varchar](200) NULL,
  CONSTRAINT [PK_examtype] PRIMARY KEY CLUSTERED 
 (
@@ -88,14 +88,14 @@ CREATE TABLE [dbo].[examtype](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[examyear]    Script Date: 9/11/2023 4:59:23 PM ******/
+/****** Object:  Table [dbo].[examyear]    Script Date: 9/12/2023 11:34:51 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[examyear](
 	[id] [varchar](200) NOT NULL,
-	[examyear] [varchar](200) NULL,
+	[year] [varchar](200) NULL,
 	[description] [varchar](200) NULL,
  CONSTRAINT [PK_examyear] PRIMARY KEY CLUSTERED 
 (
@@ -103,7 +103,7 @@ CREATE TABLE [dbo].[examyear](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[feesettings]    Script Date: 9/11/2023 4:59:23 PM ******/
+/****** Object:  Table [dbo].[feesettings]    Script Date: 9/12/2023 11:34:51 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -119,7 +119,7 @@ CREATE TABLE [dbo].[feesettings](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[payments]    Script Date: 9/11/2023 4:59:23 PM ******/
+/****** Object:  Table [dbo].[payments]    Script Date: 9/12/2023 11:34:51 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -139,7 +139,7 @@ CREATE TABLE [dbo].[payments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[questions]    Script Date: 9/11/2023 4:59:23 PM ******/
+/****** Object:  Table [dbo].[questions]    Script Date: 9/12/2023 11:34:51 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -149,8 +149,8 @@ CREATE TABLE [dbo].[questions](
 	[names] [varchar](200) NULL,
 	[description] [varchar](200) NULL,
 	[subjectid] [varchar](200) NULL,
-	[examyear] [varchar](200) NULL,
-	[examtype] [varchar](200) NULL,
+	[examyearid] [varchar](200) NULL,
+	[examtypeid] [varchar](200) NULL,
 	[insertdate] [date] NULL,
 	[photo] [varchar](max) NULL,
  CONSTRAINT [PK_questions] PRIMARY KEY CLUSTERED 
@@ -159,7 +159,7 @@ CREATE TABLE [dbo].[questions](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[subjects]    Script Date: 9/11/2023 4:59:23 PM ******/
+/****** Object:  Table [dbo].[subjects]    Script Date: 9/12/2023 11:34:51 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -174,7 +174,7 @@ CREATE TABLE [dbo].[subjects](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[useraccounts]    Script Date: 9/11/2023 4:59:23 PM ******/
+/****** Object:  Table [dbo].[useraccounts]    Script Date: 9/12/2023 11:34:51 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -193,6 +193,22 @@ CREATE TABLE [dbo].[useraccounts](
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+INSERT [dbo].[examtype] ([id], [type], [description]) VALUES (N'0f4c46b9-7c9f-407a-8a8f-aaf609881f1c', N'Waec', N'Waec')
+GO
+INSERT [dbo].[examtype] ([id], [type], [description]) VALUES (N'42f7d38b-6de3-4381-bbb2-c917199cb1e5', N'Jamb', N'Jamb')
+GO
+INSERT [dbo].[examtype] ([id], [type], [description]) VALUES (N'5e9c4b5a-a42b-46a0-bfd5-ad8c0cffde36', N'Common Entrance', N'Primary 6')
+GO
+INSERT [dbo].[examtype] ([id], [type], [description]) VALUES (N'c7b83bd0-bcc0-4b62-b882-6fad0d177dff', N'Neco', N'Neco')
+GO
+INSERT [dbo].[examtype] ([id], [type], [description]) VALUES (N'f9b6812f-8cfe-4186-8f55-846aea4568e3', N'Nabtech', N'Nabtech')
+GO
+INSERT [dbo].[examyear] ([id], [year], [description]) VALUES (N'040b40a4-b392-453a-9119-5e82b735b225', N'1992-01-01', N'1992')
+GO
+INSERT [dbo].[examyear] ([id], [year], [description]) VALUES (N'66d03310-321a-46c6-943e-81c81f4dbd44', N'1991-01-02', N'1991')
+GO
+INSERT [dbo].[examyear] ([id], [year], [description]) VALUES (N'9d4d21a6-a793-4030-836b-6a6cc133cd2f', N'1993-01-01', N'1993')
 GO
 INSERT [dbo].[subjects] ([id], [name], [description]) VALUES (N'591de8f1-2d6f-4f42-99f1-28079cc9bd0a', N'Mathematics', N'maths')
 GO
@@ -215,12 +231,12 @@ REFERENCES [dbo].[useraccounts] ([id])
 GO
 ALTER TABLE [dbo].[payments] CHECK CONSTRAINT [FK_payments_useraccounts]
 GO
-ALTER TABLE [dbo].[questions]  WITH CHECK ADD  CONSTRAINT [FK_questions_examtype] FOREIGN KEY([examtype])
+ALTER TABLE [dbo].[questions]  WITH CHECK ADD  CONSTRAINT [FK_questions_examtype] FOREIGN KEY([examtypeid])
 REFERENCES [dbo].[examtype] ([id])
 GO
 ALTER TABLE [dbo].[questions] CHECK CONSTRAINT [FK_questions_examtype]
 GO
-ALTER TABLE [dbo].[questions]  WITH CHECK ADD  CONSTRAINT [FK_questions_examyear] FOREIGN KEY([examyear])
+ALTER TABLE [dbo].[questions]  WITH CHECK ADD  CONSTRAINT [FK_questions_examyear] FOREIGN KEY([examyearid])
 REFERENCES [dbo].[examyear] ([id])
 GO
 ALTER TABLE [dbo].[questions] CHECK CONSTRAINT [FK_questions_examyear]

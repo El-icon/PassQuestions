@@ -49,10 +49,10 @@
                                     @Html.DisplayFor(modelItem => item.description)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.examyear)
+                                    @Html.DisplayFor(modelItem => item.examtype.type)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.examtype)
+                                    @Html.DisplayFor(modelItem => item.examyear.year)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.insertdate)
@@ -84,3 +84,4 @@
         <!-- end col -->
     </div>
     <!-- end row -->
+</div>

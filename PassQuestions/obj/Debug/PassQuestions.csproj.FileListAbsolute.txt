@@ -159,7 +159,6 @@ C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\bin\System.
 C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\bin\Newtonsoft.Json.xml
 C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\bin\Antlr3.Runtime.pdb
 C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\obj\Debug\PassQuestions.csproj.AssemblyReference.cache
 C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\obj\Debug\PassQuestions.csproj.CoreCompileInputs.cache
 C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\obj\Debug\PassQuestions.csproj.CopyComplete
 C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\obj\Debug\PassQuestions.dll

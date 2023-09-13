@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 using PassQuestions.Models;
 using PassQuestions.Setup;
 
@@ -20,7 +20,7 @@ namespace PassQuestions.Controllers
         // GET: questions
         public ActionResult Index()
         {
-            var questions = db.questions.Include(q => q.subject);
+            var questions = db.questions.Include(q => q.examtype).Include(q => q.examyear).Include(q => q.subject);
             return View(questions.ToList());
         }
 
@@ -29,14 +29,14 @@ namespace PassQuestions.Controllers
         {
             try
             {
-                var question = db.questions.FirstOrDefault(p => p.id == id);
+                var student = db.questions.FirstOrDefault(p => p.id == id);
                 if (file.ContentLength > 0)
                 {
                     string extension = Path.GetExtension(file.FileName);
                     string _FileName = Path.GetFileName(file.FileName);
                     string _path = Path.Combine(Server.MapPath("~/Content/UploadedFiles"), id + extension);
                     file.SaveAs(_path);
-                    question.photo = id + extension;
+                    student.photo = id + extension;
                 }
                 db.SaveChanges();
                 TempData["success"] = "true";
@@ -47,10 +47,9 @@ namespace PassQuestions.Controllers
             {
                 TempData["success"] = "false";
                 TempData["message"] = "File upload failed!!";
-                return RedirectToAction("Details/" + id, "questions");
+                return RedirectToAction("Details/" + id, "Students");
             }
         }
-
 
         // GET: questions/Details/5
         public ActionResult Details(string id)
@@ -64,12 +63,17 @@ namespace PassQuestions.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.examtypeid = new SelectList(db.examtypes, "id", "type", question.examtypeid);
+            ViewBag.examyearid = new SelectList(db.examyears, "id", "year", question.examyearid);
+            ViewBag.subjectid = new SelectList(db.subjects, "id", "name", question.subjectid); 
             return View(question);
         }
 
         // GET: questions/Create
         public ActionResult Create()
         {
+            ViewBag.examtypeid = new SelectList(db.examtypes, "id", "type");
+            ViewBag.examyearid = new SelectList(db.examyears, "id", "year");
             ViewBag.subjectid = new SelectList(db.subjects, "id", "name");
             return View();
         }
@@ -79,33 +83,31 @@ namespace PassQuestions.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,names,description,subjectid,examyear,examtype,insertdate,photo")] question question)
+        public ActionResult Create([Bind(Include = "id,names,description,subjectid,examyearid,examtypeid,insertdate,photo")] question question)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    question.id = Guid.NewGuid().ToString();  //Auto generate ID 
-                    db.questions.Add(question);
-                    db.SaveChanges();
-                    TempData["success"] = "true";
-                    TempData["message"] = "New question created Sucessfully.";
-                    return RedirectToAction("Index");
+                  question.id = Guid.NewGuid().ToString();  //Auto generate ID 
+                db.questions.Add(question);
+                db.SaveChanges();
+                TempData["success"] = "true";
+                TempData["message"] = "New Question created Sucessfully.";
+                return RedirectToAction("Index");
                 }
                 catch (Exception err)
                 {
                     TempData["success"] = "false";
                     TempData["message"] = "Registration Faild, please review the fields and try again." + err.Message;
-                    ViewBag.subjectid = new SelectList(db.subjects, "id", "name", question.subjectid);
-                    ViewBag.examyearid = new SelectList(db.examyears, "id", "year", question.examyearid);
-                    ViewBag.examtypeid = new SelectList(db.examtypes, "id", "type", question.examtypeid);
-
                     return View(question);
                 }
             }
+            ViewBag.examtypeid = new SelectList(db.examtypes, "id", "type", question.examtypeid);
+            ViewBag.examyearid = new SelectList(db.examyears, "id", "year", question.examyearid);
+            ViewBag.subjectid = new SelectList(db.subjects, "id", "name", question.subjectid);
             return View(question);
         }
-
 
         // GET: questions/Edit/5
         public ActionResult Edit(string id)
@@ -119,6 +121,8 @@ namespace PassQuestions.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.examtypeid = new SelectList(db.examtypes, "id", "type", question.examtypeid);
+            ViewBag.examyearid = new SelectList(db.examyears, "id", "year", question.examyearid);
             ViewBag.subjectid = new SelectList(db.subjects, "id", "name", question.subjectid);
             return View(question);
         }
@@ -128,7 +132,7 @@ namespace PassQuestions.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,names,description,subjectid,examyear,examtype,insertdate,photo")] question question)
+        public ActionResult Edit([Bind(Include = "id,names,description,subjectid,examyearid,examtypeid,insertdate,photo")] question question)
         {
             if (ModelState.IsValid)
             {
@@ -136,6 +140,8 @@ namespace PassQuestions.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.examtypeid = new SelectList(db.examtypes, "id", "type", question.examtypeid);
+            ViewBag.examyearid = new SelectList(db.examyears, "id", "year", question.examyearid);
             ViewBag.subjectid = new SelectList(db.subjects, "id", "name", question.subjectid);
             return View(question);
         }

@@ -2187,11 +2187,6 @@
     <Content Include="Views\useraccounts\Login.cshtml" />
     <Content Include="Views\useraccounts\ResetPassword.cshtml" />
     <Content Include="Views\useraccounts\Register.cshtml" />
-    <Content Include="Views\questions\Create.cshtml" />
-    <Content Include="Views\questions\Delete.cshtml" />
-    <Content Include="Views\questions\Details.cshtml" />
-    <Content Include="Views\questions\Edit.cshtml" />
-    <Content Include="Views\questions\Index.cshtml" />
     <Content Include="Views\subjects\Create.cshtml" />
     <Content Include="Views\subjects\Delete.cshtml" />
     <Content Include="Views\subjects\Details.cshtml" />
@@ -2207,6 +2202,11 @@
     <Content Include="Views\examyears\Details.cshtml" />
     <Content Include="Views\examyears\Edit.cshtml" />
     <Content Include="Views\examyears\Index.cshtml" />
+    <Content Include="Views\questions\Create.cshtml" />
+    <Content Include="Views\questions\Delete.cshtml" />
+    <Content Include="Views\questions\Details.cshtml" />
+    <Content Include="Views\questions\Edit.cshtml" />
+    <Content Include="Views\questions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
