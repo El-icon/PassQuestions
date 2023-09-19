@@ -18,134 +18,105 @@
 
 
 
-        <div class="row">
-            <div class="col-md-8">
-                <div class="col-md-12 bg-dark">
-                    <div class="form-group">
-                        <center>
-                            <br />
-                            @if (Model.photo == null)
-                            {
-                                <img src="~/Content/img/photo.png" width="700px" height="700px" class="img-responsive img-thumbnail" />
-                            }
-                            else
-                            {
-                                <img src="~/Content/UploadedFiles/@Model.photo" width="700px" height="700px" class="img-responsive img-thumbnail" />
-                            }
-                            <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#upload">
-                                <i class="fa fa-cloud-upload-alt"></i>
-                                upload new image
-                            </button>
-                        </center>
-                        <!-- Info Header Modal -->
-                        <div id="upload" class="modal fade" tabindex="-1" role="dialog"
-                             aria-labelledby="info-header-modalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header modal-colored-header bg-info">
-                                        <h4 class="modal-title" id="info-header-modalLabel">Profile Picture Upload</h4>
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true">
-                                            ×
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h5 class="mt-0">Please select image</h5>
-                                        <form method="post" action="@Url.Action("UploadFile","Students")" enctype="multipart/form-data">
-                                            <input type="hidden" class="form-control" value="@Model.id" name="id" />
-                                            <input type="file" name="file" />
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light"
-                                                        data-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="submit" class="btn btn-info"><i class="fa fa-cloud-upload-alt"></i> Upload</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="col-md-12 bg-dark">
+                            <div class="form-group">
+                                <center>
+                                    <br />
+                                    @if (Model.photo == null)
+                                    {
+                                        <img src="~/Content/img/photo.png" width="700px" height="700px" class="img-responsive img-thumbnail" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/UploadedFiles/@Model.photo" width="700px" height="700px" class="img-responsive img-thumbnail" />
+                                    }
+                                    <div class="clearfix"></div>
+                                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#upload">
+                                        <i class="fa fa-cloud-upload-alt"></i>
+                                        upload new image
+                                    </button>
+                                </center>
 
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
 
+                        <div class="col-md-12">
+                            <label class="form-label">Name</label>
+                            @Html.EditorFor(model => model.names, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.names, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Subject Type</label>
+                            @Html.EditorFor(model => model.subject.name, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.subject.name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Exam Year</label>
+                            @Html.EditorFor(model => model.examyear.year, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.examyear.year, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Exam Type</label>
+                            @Html.EditorFor(model => model.examtype.type, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.examtype.type, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Insert Date</label>
+                            <input type="text" class="form-control" required="" name="insertdate" value="@Model.insertdate" , Readonly="readonly" />
+                            @Html.ValidationMessageFor(model => model.insertdate, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="5" , Readonly="readonly">@Model.description</textarea>
+                            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-
-                <div class="col-md-12">
-                    <label class="form-label">Name</label>
-                    @Html.EditorFor(model => model.names, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.names, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-12">
-                    <label class="form-label">Subject Type</label>
-                    @Html.EditorFor(model => model.subject.name, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.subject.name, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-12">
-                    <label class="form-label">Exam Year</label>
-                    @Html.EditorFor(model => model.examyear.year, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.examyear.year, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-12">
-                    <label class="form-label">Exam Type</label>
-                    @Html.EditorFor(model => model.examtype.type, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.examtype.type, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-12">
-                    <label class="form-label">Insert Date</label>
-                    <input type="text" class="form-control" required="" name="insertdate" value="@Model.insertdate" , Readonly="readonly" />
-                    @Html.ValidationMessageFor(model => model.insertdate, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-12">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-control" name="description" rows="5" , Readonly="readonly">@Model.description</textarea>
-                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
 
 
 
                 @*<div class="row">
-                    <div class="col-md-4">
-                        <label class="form-label">Name</label>
-                        @Html.EditorFor(model => model.names, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
-                        @Html.ValidationMessageFor(model => model.names, "", new { @class = "text-danger" })
+                        <div class="col-md-4">
+                            <label class="form-label">Name</label>
+                            @Html.EditorFor(model => model.names, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.names, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Subject Type</label>
+                            @Html.EditorFor(model => model.subject.name, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.subject.name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Exam Year</label>
+                            @Html.EditorFor(model => model.examyear.year, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.examyear.year, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Subject Type</label>
-                        @Html.EditorFor(model => model.subject.name, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
-                        @Html.ValidationMessageFor(model => model.subject.name, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Exam Year</label>
-                        @Html.EditorFor(model => model.examyear.year, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
-                        @Html.ValidationMessageFor(model => model.examyear.year, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Exam Type</label>
+                            @Html.EditorFor(model => model.examtype.type, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.examtype.type, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Insert Date</label>
+                            <input type="text" class="form-control" required="" name="insertdate" value="@Model.insertdate" , Readonly="readonly" />
+                            @Html.ValidationMessageFor(model => model.insertdate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
 
                 <br />
 
                 <div class="row">
-                    <div class="col-md-6">
-                        <label class="form-label">Exam Type</label>
-                        @Html.EditorFor(model => model.examtype.type, new { htmlAttributes = new { @class = "form-control", Readonly = "readonly" } })
-                        @Html.ValidationMessageFor(model => model.examtype.type, "", new { @class = "text-danger" })
-                    </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label">Insert Date</label>
-                        <input type="text" class="form-control" required="" name="insertdate" value="@Model.insertdate" , Readonly="readonly" />
-                        @Html.ValidationMessageFor(model => model.insertdate, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-
-                <br />
-
-                <div class="row">
-                   
                 </div>
 
                 <br />
@@ -161,3 +132,34 @@
         </div>
     </div>
 </div>
+
+
+<!-- Info Header Modal -->
+<div id="upload" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="info-header-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-info">
+                <h4 class="modal-title" id="info-header-modalLabel">Profile Picture Upload</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    × 
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="mt-0">Please select image</h5>
+                <form method="post" action="@Url.Action("UploadFile","questions")" enctype="multipart/form-data">
+                    <input type="hidden" class="form-control" value="@Model.id" name="id" />
+                    <input type="file" name="file" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light"
+                                data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-info"><i class="fa fa-cloud-upload-alt"></i> Upload</button>
+                    </div>
+                </form>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

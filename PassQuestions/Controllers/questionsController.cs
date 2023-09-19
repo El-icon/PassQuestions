@@ -29,14 +29,14 @@ namespace PassQuestions.Controllers
         {
             try
             {
-                var student = db.questions.FirstOrDefault(p => p.id == id);
+                var question = db.questions.FirstOrDefault(p => p.id == id);
                 if (file.ContentLength > 0)
                 {
                     string extension = Path.GetExtension(file.FileName);
                     string _FileName = Path.GetFileName(file.FileName);
                     string _path = Path.Combine(Server.MapPath("~/Content/UploadedFiles"), id + extension);
                     file.SaveAs(_path);
-                    student.photo = id + extension;
+                    question.photo = id + extension;
                 }
                 db.SaveChanges();
                 TempData["success"] = "true";
@@ -47,7 +47,7 @@ namespace PassQuestions.Controllers
             {
                 TempData["success"] = "false";
                 TempData["message"] = "File upload failed!!";
-                return RedirectToAction("Details/" + id, "Students");
+                return RedirectToAction("Details/" + id, "questions");
             }
         }
 
