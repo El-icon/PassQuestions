@@ -1,79 +1,11 @@
 USE [master]
 GO
-/****** Object:  Database [pastquestion]    Script Date: 9/12/2023 11:34:50 AM ******/
+/****** Object:  Database [pastquestion]    Script Date: 10/5/2023 9:54:34 AM ******/
 CREATE DATABASE [pastquestion]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'pastquestion', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\pastquestion.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'pastquestion_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\pastquestion_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [pastquestion].[dbo].[sp_fulltext_database] @action = 'enable'
-end
-GO
-ALTER DATABASE [pastquestion] SET ANSI_NULL_DEFAULT OFF 
-GO
-ALTER DATABASE [pastquestion] SET ANSI_NULLS OFF 
-GO
-ALTER DATABASE [pastquestion] SET ANSI_PADDING OFF 
-GO
-ALTER DATABASE [pastquestion] SET ANSI_WARNINGS OFF 
-GO
-ALTER DATABASE [pastquestion] SET ARITHABORT OFF 
-GO
-ALTER DATABASE [pastquestion] SET AUTO_CLOSE OFF 
-GO
-ALTER DATABASE [pastquestion] SET AUTO_SHRINK OFF 
-GO
-ALTER DATABASE [pastquestion] SET AUTO_UPDATE_STATISTICS ON 
-GO
-ALTER DATABASE [pastquestion] SET CURSOR_CLOSE_ON_COMMIT OFF 
-GO
-ALTER DATABASE [pastquestion] SET CURSOR_DEFAULT  GLOBAL 
-GO
-ALTER DATABASE [pastquestion] SET CONCAT_NULL_YIELDS_NULL OFF 
-GO
-ALTER DATABASE [pastquestion] SET NUMERIC_ROUNDABORT OFF 
-GO
-ALTER DATABASE [pastquestion] SET QUOTED_IDENTIFIER OFF 
-GO
-ALTER DATABASE [pastquestion] SET RECURSIVE_TRIGGERS OFF 
-GO
-ALTER DATABASE [pastquestion] SET  ENABLE_BROKER 
-GO
-ALTER DATABASE [pastquestion] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
-GO
-ALTER DATABASE [pastquestion] SET DATE_CORRELATION_OPTIMIZATION OFF 
-GO
-ALTER DATABASE [pastquestion] SET TRUSTWORTHY OFF 
-GO
-ALTER DATABASE [pastquestion] SET ALLOW_SNAPSHOT_ISOLATION OFF 
-GO
-ALTER DATABASE [pastquestion] SET PARAMETERIZATION SIMPLE 
-GO
-ALTER DATABASE [pastquestion] SET READ_COMMITTED_SNAPSHOT OFF 
-GO
-ALTER DATABASE [pastquestion] SET HONOR_BROKER_PRIORITY OFF 
-GO
-ALTER DATABASE [pastquestion] SET RECOVERY FULL 
-GO
-ALTER DATABASE [pastquestion] SET  MULTI_USER 
-GO
-ALTER DATABASE [pastquestion] SET PAGE_VERIFY CHECKSUM  
-GO
-ALTER DATABASE [pastquestion] SET DB_CHAINING OFF 
-GO
-ALTER DATABASE [pastquestion] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
-GO
-ALTER DATABASE [pastquestion] SET TARGET_RECOVERY_TIME = 60 SECONDS 
-GO
-EXEC sys.sp_db_vardecimal_storage_format N'pastquestion', N'ON'
-GO
+ 
 USE [pastquestion]
 GO
-/****** Object:  Table [dbo].[examtype]    Script Date: 9/12/2023 11:34:51 AM ******/
+/****** Object:  Table [dbo].[examtype]    Script Date: 10/5/2023 9:54:35 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -88,7 +20,7 @@ CREATE TABLE [dbo].[examtype](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[examyear]    Script Date: 9/12/2023 11:34:51 AM ******/
+/****** Object:  Table [dbo].[examyear]    Script Date: 10/5/2023 9:54:35 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -103,7 +35,24 @@ CREATE TABLE [dbo].[examyear](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[feesettings]    Script Date: 9/12/2023 11:34:51 AM ******/
+/****** Object:  Table [dbo].[F_settings]    Script Date: 10/5/2023 9:54:35 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[F_settings](
+	[id] [varchar](200) NOT NULL,
+	[examyearid] [varchar](200) NULL,
+	[examtypeid] [varchar](200) NULL,
+	[amount] [varchar](200) NULL,
+	[per_discount] [varchar](200) NULL,
+ CONSTRAINT [PK_F_settings] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[feesettings]    Script Date: 10/5/2023 9:54:35 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -119,27 +68,59 @@ CREATE TABLE [dbo].[feesettings](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[payments]    Script Date: 9/12/2023 11:34:51 AM ******/
+/****** Object:  Table [dbo].[initializepayment]    Script Date: 10/5/2023 9:54:35 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[initializepayment](
+	[id] [varchar](200) NOT NULL,
+	[feeid] [varchar](200) NULL,
+	[name] [varchar](200) NULL,
+	[trxid] [varchar](200) NULL,
+	[email] [varchar](200) NULL,
+	[userid] [varchar](200) NULL,
+	[phone] [varchar](200) NULL,
+	[amount] [decimal](18, 2) NULL,
+	[tenxdate] [datetime] NULL,
+	[status] [varchar](200) NULL,
+	[notes] [varchar](200) NULL,
+	[gatewayref] [varchar](200) NULL,
+	[ptype] [varchar](200) NULL,
+	[insertuser] [varchar](200) NULL,
+ CONSTRAINT [PK_initializepayment] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[payments]    Script Date: 10/5/2023 9:54:35 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[payments](
 	[id] [varchar](200) NOT NULL,
-	[userid] [varchar](200) NULL,
+	[feeid] [varchar](200) NULL,
 	[name] [varchar](200) NULL,
+	[trxid] [varchar](200) NULL,
 	[email] [varchar](200) NULL,
+	[userid] [varchar](200) NULL,
 	[phone] [varchar](200) NULL,
-	[paymentdate] [datetime] NULL,
 	[amount] [decimal](18, 2) NULL,
-	[duedate] [datetime] NULL,
+	[tenxdate] [datetime] NULL,
+	[status] [varchar](200) NULL,
+	[notes] [varchar](200) NULL,
+	[gatewayref] [varchar](200) NULL,
+	[ptype] [varchar](200) NULL,
+	[insertuser] [varchar](200) NULL,
  CONSTRAINT [PK_payments] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[questions]    Script Date: 9/12/2023 11:34:51 AM ******/
+/****** Object:  Table [dbo].[questions]    Script Date: 10/5/2023 9:54:35 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -159,7 +140,16 @@ CREATE TABLE [dbo].[questions](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[subjects]    Script Date: 9/12/2023 11:34:51 AM ******/
+/****** Object:  Table [dbo].[subject_type]    Script Date: 10/5/2023 9:54:35 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[subject_type](
+	[id] [varchar](200) NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[subjects]    Script Date: 10/5/2023 9:54:35 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -174,7 +164,7 @@ CREATE TABLE [dbo].[subjects](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[useraccounts]    Script Date: 9/12/2023 11:34:51 AM ******/
+/****** Object:  Table [dbo].[useraccounts]    Script Date: 10/5/2023 9:54:35 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -210,6 +200,40 @@ INSERT [dbo].[examyear] ([id], [year], [description]) VALUES (N'66d03310-321a-46
 GO
 INSERT [dbo].[examyear] ([id], [year], [description]) VALUES (N'9d4d21a6-a793-4030-836b-6a6cc133cd2f', N'1993-01-01', N'1993')
 GO
+INSERT [dbo].[F_settings] ([id], [examyearid], [examtypeid], [amount], [per_discount]) VALUES (N'1745ef23-2e16-4d58-a0ad-5076fcd76595', N'66d03310-321a-46c6-943e-81c81f4dbd44', N'42f7d38b-6de3-4381-bbb2-c917199cb1e5', N'1000', N'10')
+GO
+INSERT [dbo].[F_settings] ([id], [examyearid], [examtypeid], [amount], [per_discount]) VALUES (N'23240184-5f95-4589-9385-e92c62b52033', N'9d4d21a6-a793-4030-836b-6a6cc133cd2f', N'c7b83bd0-bcc0-4b62-b882-6fad0d177dff', N'10', N'10')
+GO
+INSERT [dbo].[F_settings] ([id], [examyearid], [examtypeid], [amount], [per_discount]) VALUES (N'9302232f-c82b-4d7a-b675-cf9f81380ac8', N'040b40a4-b392-453a-9119-5e82b735b225', N'0f4c46b9-7c9f-407a-8a8f-aaf609881f1c', N'1000', N'10')
+GO
+INSERT [dbo].[F_settings] ([id], [examyearid], [examtypeid], [amount], [per_discount]) VALUES (N'd72fc4a2-2f35-4d3e-a5ba-4bafa30cb145', N'66d03310-321a-46c6-943e-81c81f4dbd44', N'5e9c4b5a-a42b-46a0-bfd5-ad8c0cffde36', N'10', N'10')
+GO
+INSERT [dbo].[initializepayment] ([id], [feeid], [name], [trxid], [email], [userid], [phone], [amount], [tenxdate], [status], [notes], [gatewayref], [ptype], [insertuser]) VALUES (N'1e687e54-d6ad-4ee4-bc78-5dd653a5522f', N'23240184-5f95-4589-9385-e92c62b52033', N'Admin', NULL, N'admin@gmail.com', N'609ADD58', N'07060601330', CAST(10.00 AS Decimal(18, 2)), CAST(N'2023-10-03T15:52:12.873' AS DateTime), N'PENDING', NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([id], [feeid], [name], [trxid], [email], [userid], [phone], [amount], [tenxdate], [status], [notes], [gatewayref], [ptype], [insertuser]) VALUES (N'1955abb9-8686-43a7-90af-c1e86dec5481', N'23240184-5f95-4589-9385-e92c62b52033', N'Admin', NULL, N'teacher@yason.com', N'325DC503', N'07060601330', CAST(10.00 AS Decimal(18, 2)), CAST(N'2023-09-27T13:44:18.413' AS DateTime), N'PENDING', NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([id], [feeid], [name], [trxid], [email], [userid], [phone], [amount], [tenxdate], [status], [notes], [gatewayref], [ptype], [insertuser]) VALUES (N'51db4db0-8331-4a87-99a1-b6c1c384c652', N'1745ef23-2e16-4d58-a0ad-5076fcd76595', N'English', NULL, N'admin@gmail.com', N'325DC503', N'07098765328', CAST(1000.00 AS Decimal(18, 2)), CAST(N'2023-09-28T09:49:18.357' AS DateTime), N'PENDING', NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([id], [feeid], [name], [trxid], [email], [userid], [phone], [amount], [tenxdate], [status], [notes], [gatewayref], [ptype], [insertuser]) VALUES (N'733c204a-df3e-4050-8407-0ddb3f6039f4', N'1745ef23-2e16-4d58-a0ad-5076fcd76595', N'Yusuf', NULL, N'admin@gmail.com', N'325DC503', N'07060601330', CAST(1000.00 AS Decimal(18, 2)), CAST(N'2023-09-28T09:46:35.533' AS DateTime), N'PENDING', NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([id], [feeid], [name], [trxid], [email], [userid], [phone], [amount], [tenxdate], [status], [notes], [gatewayref], [ptype], [insertuser]) VALUES (N'75744950-5402-4c92-a2a9-cebcc89a9863', N'23240184-5f95-4589-9385-e92c62b52033', N'Admin', NULL, N'admin@gmail.com', N'325DC503', N'07060601330', CAST(10.00 AS Decimal(18, 2)), CAST(N'2023-09-28T11:45:45.177' AS DateTime), N'PENDING', NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([id], [feeid], [name], [trxid], [email], [userid], [phone], [amount], [tenxdate], [status], [notes], [gatewayref], [ptype], [insertuser]) VALUES (N'ac4f1835-eee3-436b-b0e6-bfda61efb80d', N'9302232f-c82b-4d7a-b675-cf9f81380ac8', N'Admin', NULL, N'admin@gmail.com', N'325DC503', N'07060601330', CAST(1000.00 AS Decimal(18, 2)), CAST(N'2023-09-28T11:42:05.287' AS DateTime), N'PENDING', NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[payments] ([id], [feeid], [name], [trxid], [email], [userid], [phone], [amount], [tenxdate], [status], [notes], [gatewayref], [ptype], [insertuser]) VALUES (N'ad99fd5b-2462-4707-9136-bc734da6a968', N'23240184-5f95-4589-9385-e92c62b52033', N'Admin', NULL, N'admin@gmail.com', N'325DC503', N'07060601330', CAST(10.00 AS Decimal(18, 2)), CAST(N'2023-10-03T14:38:40.477' AS DateTime), N'PENDING', NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[questions] ([id], [names], [description], [subjectid], [examyearid], [examtypeid], [insertdate], [photo]) VALUES (N'5392a65a-09f3-43d7-9c59-fedbdf3abed9', N'Biology 001', N'Biology 001', N'93d57771-1aae-4ef3-82ca-907ba5a8515c', N'66d03310-321a-46c6-943e-81c81f4dbd44', N'c7b83bd0-bcc0-4b62-b882-6fad0d177dff', CAST(N'2023-09-13' AS Date), NULL)
+GO
+INSERT [dbo].[questions] ([id], [names], [description], [subjectid], [examyearid], [examtypeid], [insertdate], [photo]) VALUES (N'73ead59b-12c0-430b-91da-a4f3525799e8', N'english 001', N'e', N'591de8f1-2d6f-4f42-99f1-28079cc9bd0a', N'040b40a4-b392-453a-9119-5e82b735b225', N'c7b83bd0-bcc0-4b62-b882-6fad0d177dff', NULL, N'73ead59b-12c0-430b-91da-a4f3525799e8.png')
+GO
+INSERT [dbo].[questions] ([id], [names], [description], [subjectid], [examyearid], [examtypeid], [insertdate], [photo]) VALUES (N'7726279e-92be-4470-8e37-fdb931ed8e6d', N'english 001', N'good', N'93d57771-1aae-4ef3-82ca-907ba5a8515c', NULL, NULL, NULL, N'logo-sm.png')
+GO
+INSERT [dbo].[questions] ([id], [names], [description], [subjectid], [examyearid], [examtypeid], [insertdate], [photo]) VALUES (N'b278ccb2-9928-4414-a662-dd98c5b7f856', N'maths 001', N'maths 001', N'591de8f1-2d6f-4f42-99f1-28079cc9bd0a', N'9d4d21a6-a793-4030-836b-6a6cc133cd2f', N'5e9c4b5a-a42b-46a0-bfd5-ad8c0cffde36', CAST(N'2023-09-11' AS Date), NULL)
+GO
+INSERT [dbo].[questions] ([id], [names], [description], [subjectid], [examyearid], [examtypeid], [insertdate], [photo]) VALUES (N'f1e0c5ab-8889-42ce-9dbb-dcdb87220a49', N'maths 002', N'nab T', N'591de8f1-2d6f-4f42-99f1-28079cc9bd0a', N'66d03310-321a-46c6-943e-81c81f4dbd44', N'f9b6812f-8cfe-4186-8f55-846aea4568e3', CAST(N'2023-09-12' AS Date), NULL)
+GO
+INSERT [dbo].[questions] ([id], [names], [description], [subjectid], [examyearid], [examtypeid], [insertdate], [photo]) VALUES (N'f337b5a5-232c-43f4-bbd4-fd8c6314d5c7', N'maths 001', N'maths', N'591de8f1-2d6f-4f42-99f1-28079cc9bd0a', N'040b40a4-b392-453a-9119-5e82b735b225', N'0f4c46b9-7c9f-407a-8a8f-aaf609881f1c', CAST(N'2023-09-13' AS Date), NULL)
+GO
 INSERT [dbo].[subjects] ([id], [name], [description]) VALUES (N'591de8f1-2d6f-4f42-99f1-28079cc9bd0a', N'Mathematics', N'maths')
 GO
 INSERT [dbo].[subjects] ([id], [name], [description]) VALUES (N'93d57771-1aae-4ef3-82ca-907ba5a8515c', N'English', N'Language')
@@ -218,13 +242,28 @@ INSERT [dbo].[useraccounts] ([id], [name], [phone], [address], [email], [passwor
 GO
 INSERT [dbo].[useraccounts] ([id], [name], [phone], [address], [email], [password], [insertdate], [usertype]) VALUES (N'609ADD58', N'Admin', N'07060601330', N'admin @ Home', N'admin@gmail.com', N'240u0HKuQlMH2bEJymBRwg==', CAST(N'2023-08-26T14:44:26.273' AS DateTime), N'ADMIN')
 GO
-ALTER TABLE [dbo].[payments] ADD  CONSTRAINT [DF_payments_paymentdate]  DEFAULT (getdate()) FOR [paymentdate]
+ALTER TABLE [dbo].[initializepayment] ADD  CONSTRAINT [DF_initializepayment_tenxdate]  DEFAULT (getdate()) FOR [tenxdate]
 GO
-ALTER TABLE [dbo].[payments] ADD  CONSTRAINT [DF_payments_duedate]  DEFAULT (getdate()) FOR [duedate]
+ALTER TABLE [dbo].[payments] ADD  CONSTRAINT [DF_payments_tenxdate_1]  DEFAULT (getdate()) FOR [tenxdate]
 GO
 ALTER TABLE [dbo].[questions] ADD  CONSTRAINT [DF_questions_insertdate]  DEFAULT (getdate()) FOR [insertdate]
 GO
 ALTER TABLE [dbo].[useraccounts] ADD  CONSTRAINT [DF_useraccounts_insertdate]  DEFAULT (getdate()) FOR [insertdate]
+GO
+ALTER TABLE [dbo].[F_settings]  WITH CHECK ADD  CONSTRAINT [FK_F_settings_examtype] FOREIGN KEY([examtypeid])
+REFERENCES [dbo].[examtype] ([id])
+GO
+ALTER TABLE [dbo].[F_settings] CHECK CONSTRAINT [FK_F_settings_examtype]
+GO
+ALTER TABLE [dbo].[F_settings]  WITH CHECK ADD  CONSTRAINT [FK_F_settings_examyear] FOREIGN KEY([examyearid])
+REFERENCES [dbo].[examyear] ([id])
+GO
+ALTER TABLE [dbo].[F_settings] CHECK CONSTRAINT [FK_F_settings_examyear]
+GO
+ALTER TABLE [dbo].[payments]  WITH CHECK ADD  CONSTRAINT [FK_payments_F_settings] FOREIGN KEY([feeid])
+REFERENCES [dbo].[F_settings] ([id])
+GO
+ALTER TABLE [dbo].[payments] CHECK CONSTRAINT [FK_payments_F_settings]
 GO
 ALTER TABLE [dbo].[payments]  WITH CHECK ADD  CONSTRAINT [FK_payments_useraccounts] FOREIGN KEY([userid])
 REFERENCES [dbo].[useraccounts] ([id])
