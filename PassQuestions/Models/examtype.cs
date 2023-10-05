@@ -17,6 +17,7 @@ namespace PassQuestions.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public examtype()
         {
+            this.F_settings = new HashSet<F_settings>();
             this.questions = new HashSet<question>();
         }
     
@@ -24,6 +25,8 @@ namespace PassQuestions.Models
         public string type { get; set; }
         public string description { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<F_settings> F_settings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<question> questions { get; set; }
     }

@@ -1,0 +1,258 @@
+﻿@*@model IEnumerable<PassQuestions.Models.payment>*@
+
+@{
+    ViewBag.Title = "Index";
+    int sn = 0;
+    PassQuestions.Models.pastquestionEntities db = new PassQuestions.Models.pastquestionEntities();
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.Find(userid);
+
+
+}
+
+
+<div class="row">
+    @foreach (var item in db.F_settings.ToList())
+    {
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"> @item.examtype.type @item.examyear.year </h4>
+                    <strong class="text-center">
+                        @item.amount
+                    </strong>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#st_@item.id">
+                        Pay
+                    </button>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="st_@item.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="col-md-12 text-center">
+                            <hr class="col-md-12">
+                            <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <hr class="col-md-12">
+                        </div>
+                    </div>
+                        <div class="modal-body">
+                            <form method="post" action="@Url.Action("payments","Payments")">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @*<h2>Booking tickets</h2>*@
+                                        @*<input type="hidden" value="6500" name="amt" />
+                        <input type="hidden" value="KIDS TICKETS" name="tt" />*@
+                                        <h1 class="text-center">
+                                            Are you sure you want to proceed to payment
+                                        </h1>
+                                        <input type="hidden" value="@item.id" name="feeid" />
+                                        <input type="hidden" value="@userid" name="userid" />
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                @*<label>Name</label>*@
+                                                <input type="hidden" class="form-control" value="@user.name" name="name" />
+                                            </div>
+                                            <div class="col-md-12">
+                                                @*<label>Phone No.</label>*@
+                                                <input type="hidden" class="form-control" name="phone" value="@user.phone" />
+                                            </div>
+                                            <div class="col-md-12">
+                                                @*<label>Address</label>*@
+                                                <input type="hidden" class="form-control" name="address" value="@user.address" />
+                                            </div>
+                                            <div class="col-md-12">
+                                                @*<label>Email</label>*@
+                                                <input type="hidden" class="form-control" name="email" value="@Session["email"]" />
+                                            </div>
+                                            <div class="col-md-12">
+                                                @*<label>Amount</label>*@
+                                                <input type="hidden" class="form-control" name="amount" value="@item.amount" readonly="" />
+                                            </div>
+                                            <div class="col-md-12 text-center">                                                
+                                                <button class="btn btn-info">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+
+    } 
+</div>
+ 
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="family" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Family Plan Tickets Booking</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="@Url.Action("Index","Cookout")" method="post">
+                        @*<h2>Booking tickets</h2>*@
+                        <input type="hidden" value="25000" name="amt" />
+                        <input type="hidden" value="FAMILY PLAN TICKETS" name="tt" />
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Full Name</label>
+                                <input type="text" class="form-control" value="" name="name" />
+                            </div>
+                            <div class="col-md-12">
+                                <label>Phone No.</label>
+                                <input type="text" class="form-control" name="phone" value="" />
+                            </div>
+                            <div class="col-md-12">
+                                <label>Email</label>
+                                <input type="text" class="form-control" name="email" value="" />
+                            </div>
+                            <div class="col-md-12">
+                                <label>No of Tickets</label>
+                                <select class="form-control" name="no" required="">
+                                    @for (int i = 0; i <= 50; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <hr class="col-md-12">
+                                <button class="btn btn-info">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                </div>
+            </div>
+        </div>
+    </div> 
+    <!-- end features -->
+    <!--start pricing-->
+    <section class="section pricing" id="pricing">
+        <div class="container">
+            <div class="row  justify-content-center">
+                <div class="col-lg-12">
+                    <div class="text-center mb-5">
+                        <h3 class="heading mb-3"> <span class="text-primary">Splash  </span>cookout</h3>
+                        <p class="text-muted mb-0">
+                            Splash cookout is an event designed to entertain guests of all age ranges. The event is hosted by splash waterpark and organised by ECHO. We have fun water play facilities for kids and we’re providing food & entertainment for all our guests.<br />
+                            Come with your family to make it a more memorable day!
+                        </p>
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 mt-4">
+                    <div class="pricing-box card text-center border-0">
+                        <div class="mb-3">
+                            <h6 class="text-uppercase mb-0">Kids Ticket</h6>
+                            <h1 class="text-primary mb-0 display-4 fw-bold">
+                                <sup class="fw-normal">N</sup>6,500<sub class="text-dark">/Kid</sub>
+                            </h1>
+                        </div>
+                        <ul class="pricing-list list-unstyled mt-2 mb-0">
+                            <li class="pricing-item"><span class="text-success"></span> Access to waterpark facilities</li>
+                            <li class="pricing-item"><span class="text-success"></span> Free meal of your choice with complimentary drink</li>
+                        </ul>
+                        <!--end pricing-list-->
+                        <div class="mt-4 pt-3">
+                            <a href="#" class="btn btn-pricing w-100" data-toggle="modal" data-target="#kids">Book Now</a>
+                        </div>
+                    </div>
+                    <!--end pricing-box-->
+                </div>
+                <!--end col-->
+
+                <div class="col-lg-4 col-md-6 mt-4">
+                    <div class="pricing-box pricing-active card text-center overflow-hidden">
+                        <div class="ribbon">Selling</div>
+                        <div class="mb-3">
+                            <h6 class="text-uppercase mb-0">Adults Tickets</h6>
+                            <h1 class="text-primary mb-0 display-4 fw-bold">
+                                <sup class="fw-normal">N</sup>8,500<sub class="text-dark">/Adult</sub>
+                            </h1>
+                        </div>
+                        <ul class="pricing-list list-unstyled mt-2 mb-0">
+                            <li class="pricing-item"><span class="text-success"></span> Access to games and entertainment. </li>
+                            <li class="pricing-item"><span class="text-success"></span> Free meal of your choice and complimentary drink.</li>
+                        </ul>
+                        <!--end pricing-list-->
+                        <div class="mt-4 pt-3">
+                            <a href="#" class="btn btn-pricing w-100" data-toggle="modal" data-target="#adults">Book Now</a>
+                        </div>
+                    </div>
+                    <!--end pricing-box-->
+                </div>
+                <!--end col-->
+
+                <div class="col-lg-4 col-md-6 mt-4">
+                    <div class="pricing-box card text-center border-0">
+                        <div class="mb-3">
+                            <h6 class="text-uppercase mb-0">Family Plan</h6>
+                            <h1 class="text-primary mb-0 display-4 fw-bold">
+                                <sup class="fw-normal">N</sup>25,000<sub class="text-dark"></sub>
+                            </h1>
+                        </div>
+                        <ul class="pricing-list list-unstyled mt-2 mb-0">
+                            <li class="pricing-item"><span class="text-success"></span>Admits up to 4 people </li>
+                            <li class="pricing-item"><span class="text-success"></span>Free meal and complimentary drink for each individual. </li>
+                            <li class="pricing-item"><span class="text-success"></span> Access to all event activities.</li>
+                            <li class="pricing-item"><span class="text-success"></span> Active sessions at once</li>
+                        </ul>
+                        <!--end pricing-list-->
+                        <div class="mt-4 pt-3">
+                            <a href="#" class="btn btn-pricing w-100" data-toggle="modal" data-target="#family">Book Now</a>
+                        </div>
+                    </div>
+                    <!--end pricing-box-->
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+            <div class="row  justify-content-center">
+                <div class="col-lg-12">
+                    <br />
+                    <br />
+                    <br />
+                    <hr />
+                    <div class="text-center mb-5">
+                        <h3 class="heading mb-3"> <span class="text-primary">Checkout your tickets</span></h3>
+                        <p class="text-muted mb-0">
+                            You can easily check your ticket by providing your email address.
+                        </p>
+                        <form method="post" action="@Url.Action("myTickets","Cookout")">
+                            <label>Email Address</label>
+                            <input type="email" name="email" class="form-control" required="" placeholder="Enter your email" />
+                            <button class="btn btn-outline-success">Retreive Tickets..</button>
+                        </form>
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end container-->
+    </section>  
+    <!-- end switcher-->
+    <!--start back-to-top--> 

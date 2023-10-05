@@ -5,6 +5,11 @@
       "ProjectGuid": "692a43b5-f65f-4595-9817-1a1a9ae0f254",
       "DisplayName": "PassQuestions",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1

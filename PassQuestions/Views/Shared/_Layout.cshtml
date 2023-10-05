@@ -36,6 +36,10 @@
     <link href="~/Content/Qovex/assets/libs/admin-resources/rwd-table/rwd-table.min.css" rel="stylesheet" type="text/css" />
 
 
+    <!-- Lightbox css -->
+    <link href="~/Content/Qovex/assets/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+
+
     <!-- Responsive datatable examples -->
     <link href="~/Content/Qovex/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
           type="text/css" />
@@ -263,7 +267,8 @@
                                 </a>
 
                                 <a href="@Url.Action("Index","Home")" class="logo logo-light">
-                                    <span class="logo-sm"> @*////////////////////////     PAST QUESTON LOGO SHOULD BE HERE                  ////////////////////////////////////////////////////*@
+                                    <span class="logo-sm">
+                                        @*////////////////////////     PAST QUESTON LOGO SHOULD BE HERE                  ////////////////////////////////////////////////////*@
                                         <img src="~/Content/Qovex/assets/images/logo-sm.png" alt="" height="20">
                                     </span>
                                     <span class="logo-lg">
@@ -486,7 +491,7 @@
                                                         Current Session:
                                                     </strong>
                                                     <span class="">
-                                                       @* @cur.schoolsession.name*@
+                                                        @* @cur.schoolsession.name*@
                                                     </span>
                                                     <strong style="padding-left: 90px;">
 
@@ -494,7 +499,7 @@
                                                     </strong>
                                                     <span class="">
                                                         @*@cur.schoolterm.name
-                                                        ( @cur.schoolterm.description)*@
+                                                            ( @cur.schoolterm.description)*@
                                                     </span>
                                                 </h2>
                                             </div>
@@ -760,6 +765,12 @@
 
     <!-- Init js -->
     <script src="~/Content/Qovex/assets/js/pages/table-responsive.init.js"></script>
+
+    <!-- Magnific Popup-->
+    <script src="~/Content/Qovex/assets/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Tour init js-->
+    <script src="~/Content/Qovex/assets/js/pages/lightbox.init.js"></script>
 
 
     <!-- App js -->

@@ -1,0 +1,60 @@
+﻿@model PassQuestions.Models.F_settings
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+            <h4 class="card-title">Create Fee settings</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Exam Year</label>
+                        @Html.DropDownList("examyearid", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.examyearid, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Exam Type</label>
+                        @Html.DropDownList("examtypeid", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.examtypeid, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Amount</label>
+                        @Html.EditorFor(model => model.amount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Percent</label>
+                        @Html.EditorFor(model => model.per_discount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.per_discount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input type="submit" value="Create" class="btn btn-success" />
+
+                        <a href="@Url.Action("Index", "F_settings")" class="btn btn-primary">Back to List</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

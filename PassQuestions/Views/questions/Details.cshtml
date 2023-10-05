@@ -26,11 +26,17 @@
                                     <br />
                                     @if (Model.photo == null)
                                     {
-                                        <img src="~/Content/img/photo.png" width="700px" height="700px" class="img-responsive img-thumbnail" />
+                                        <a class="image-popup-vertical-fit" href=""~/Content/img/photo.png"
+                                           title="Caption. Can be aligned it to any side and contain any HTML.">
+                                            <img class="img-fluid" alt="" src="~/Content/img/photo.png" width="700px" height="700px" class="img-responsive img-thumbnail" />
+                                        </a>
                                     }
                                     else
                                     {
-                                        <img src="~/Content/UploadedFiles/@Model.photo" width="700px" height="700px" class="img-responsive img-thumbnail" />
+                                        <a class="image-popup-vertical-fit" href="~/Content/UploadedFiles/@Model.photo"
+                                           title="Caption. Can be aligned it to any side and contain any HTML.">
+                                            <img class="img-fluid" alt="" src="~/Content/UploadedFiles/@Model.photo" width="700px" height="700px" class="img-responsive img-thumbnail" />
+                                        </a>                                         
                                     }
                                     <div class="clearfix"></div>
                                     <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#upload">

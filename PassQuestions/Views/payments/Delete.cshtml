@@ -1,0 +1,128 @@
+﻿@model PassQuestions.Models.payment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>payment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.trxid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.trxid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tenxdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenxdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gatewayref)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gatewayref)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ptype)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ptype)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.insertuser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.insertuser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_settings.examyearid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_settings.examyearid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.useraccount.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.useraccount.name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

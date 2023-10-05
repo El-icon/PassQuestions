@@ -19,6 +19,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="F_settings">
+      <EntityTypeMapping TypeName="pastquestionModel.F_settings">
+        <MappingFragment StoreEntitySet="F_settings">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="examyearid" ColumnName="examyearid" />
+          <ScalarProperty Name="examtypeid" ColumnName="examtypeid" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="per_discount" ColumnName="per_discount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="feesettings">
       <EntityTypeMapping TypeName="pastquestionModel.feesetting">
         <MappingFragment StoreEntitySet="feesettings">
@@ -26,20 +37,6 @@
           <ScalarProperty Name="feename" ColumnName="feename" />
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="amount" ColumnName="amount" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="payments">
-      <EntityTypeMapping TypeName="pastquestionModel.payment">
-        <MappingFragment StoreEntitySet="payments">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="userid" ColumnName="userid" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="phone" ColumnName="phone" />
-          <ScalarProperty Name="paymentdate" ColumnName="paymentdate" />
-          <ScalarProperty Name="amount" ColumnName="amount" />
-          <ScalarProperty Name="duedate" ColumnName="duedate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -88,6 +85,70 @@
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="insertdate" ColumnName="insertdate" />
           <ScalarProperty Name="usertype" ColumnName="usertype" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payments">
+      <EntityTypeMapping TypeName="pastquestionModel.payment">
+        <MappingFragment StoreEntitySet="payments">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="feeid" ColumnName="feeid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="trxid" ColumnName="trxid" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
+          <ScalarProperty Name="ptype" ColumnName="ptype" />
+          <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="pastquestionModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="pastquestionModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="pastquestionModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="pastquestionModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="pastquestionModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="pastquestionModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="pastquestionModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="pastquestionModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="pastquestionModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="initializepayments">
+      <EntityTypeMapping TypeName="pastquestionModel.initializepayment">
+        <MappingFragment StoreEntitySet="initializepayment">
+          <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+          <ScalarProperty Name="ptype" ColumnName="ptype" />
+          <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="trxid" ColumnName="trxid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="feeid" ColumnName="feeid" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

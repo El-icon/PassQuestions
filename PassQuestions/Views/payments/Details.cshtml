@@ -1,0 +1,122 @@
+﻿@model PassQuestions.Models.payment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>payment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.trxid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.trxid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tenxdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenxdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gatewayref)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gatewayref)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ptype)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ptype)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.insertuser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.insertuser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_settings.examyearid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_settings.examyearid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.useraccount.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.useraccount.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

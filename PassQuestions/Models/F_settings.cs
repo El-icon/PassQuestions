@@ -12,22 +12,23 @@ namespace PassQuestions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class examyear
+    public partial class F_settings
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public examyear()
+        public F_settings()
         {
-            this.F_settings = new HashSet<F_settings>();
-            this.questions = new HashSet<question>();
+            this.payments = new HashSet<payment>();
         }
     
         public string id { get; set; }
-        public string year { get; set; }
-        public string description { get; set; }
+        public string examyearid { get; set; }
+        public string examtypeid { get; set; }
+        public string amount { get; set; }
+        public string per_discount { get; set; }
     
+        public virtual examtype examtype { get; set; }
+        public virtual examyear examyear { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<F_settings> F_settings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<question> questions { get; set; }
+        public virtual ICollection<payment> payments { get; set; }
     }
 }

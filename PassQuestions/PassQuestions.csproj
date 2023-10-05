@@ -131,7 +131,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\examtypesController.cs" />
     <Compile Include="Controllers\examyearsController.cs" />
+    <Compile Include="Controllers\F_settingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\paymentsController.cs" />
     <Compile Include="Controllers\questionsController.cs" />
     <Compile Include="Controllers\subjectsController.cs" />
     <Compile Include="Controllers\useraccountsController.cs" />
@@ -145,6 +147,12 @@
       <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\feesetting.cs">
+      <DependentUpon>PassQuestions.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\F_settings.cs">
+      <DependentUpon>PassQuestions.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\initializepayment.cs">
       <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PassQuestions.Context.cs">
@@ -166,6 +174,12 @@
       <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\question.cs">
+      <DependentUpon>PassQuestions.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>PassQuestions.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\subject.cs">
@@ -2207,6 +2221,19 @@
     <Content Include="Views\questions\Details.cshtml" />
     <Content Include="Views\questions\Edit.cshtml" />
     <Content Include="Views\questions\Index.cshtml" />
+    <Content Include="Views\F_settings\Create.cshtml" />
+    <Content Include="Views\F_settings\Delete.cshtml" />
+    <Content Include="Views\F_settings\Details.cshtml" />
+    <Content Include="Views\F_settings\Edit.cshtml" />
+    <Content Include="Views\F_settings\Index.cshtml" />
+    <Content Include="Views\payments\Create.cshtml" />
+    <Content Include="Views\payments\Delete.cshtml" />
+    <Content Include="Views\payments\Details.cshtml" />
+    <Content Include="Views\payments\Edit.cshtml" />
+    <Content Include="Views\payments\Index.cshtml" />
+    <Content Include="Views\payments\payments.cshtml" />
+    <Content Include="Views\payments\paynow.cshtml" />
+    <Content Include="Views\payments\receipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

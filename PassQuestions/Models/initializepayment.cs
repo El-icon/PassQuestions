@@ -12,7 +12,7 @@ namespace PassQuestions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class payment
+    public partial class initializepayment
     {
         public string id { get; set; }
         public string feeid { get; set; }
@@ -28,8 +28,5 @@ namespace PassQuestions.Models
         public string gatewayref { get; set; }
         public string ptype { get; set; }
         public string insertuser { get; set; }
-    
-        public virtual F_settings F_settings { get; set; }
-        public virtual useraccount useraccount { get; set; }
     }
 }
