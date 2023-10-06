@@ -163,3 +163,4 @@ C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\bin\Microso
 C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\obj\Debug\PassQuestions.csproj.CopyComplete
 C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\obj\Debug\PassQuestions.dll
 C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\obj\Debug\PassQuestions.pdb
+C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\obj\Debug\PassQuestions.csproj.AssemblyReference.cache

@@ -173,13 +173,13 @@ namespace PassQuestions.Controllers
             //decimal costper = amountpaid / no;
             db.payments.Add(new Models.payment
             {
-                id = id,
+                id = paymentid,
                 name = paid_by,
                 trxid = paymentid,
                 email = pay_email,
                 phone = pay_phone,
                 status = pay_status,
-                userid = pay_email,
+                userid = Session["userid"].ToString(),
                 amount = amountpaid,
                 tenxdate = DateTime.Now,
                 notes = "Ref No: " + ref_no + " Gateway_ref: " + gateway_ref + " currency: " + currency,
