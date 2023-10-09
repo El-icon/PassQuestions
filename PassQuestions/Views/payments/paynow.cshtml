@@ -1,216 +1,164 @@
-﻿@model PassQuestions.Models.initializepayment
+﻿@*@model PassQuestions.Models.initializepayment*@
 
 @{
     ViewBag.Title = "paynow";
+    PassQuestions.Models.pastquestionEntities db = new PassQuestions.Models.pastquestionEntities();
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.Find(userid);
 }
  
-<div id="page-wrapper">
-    <div class="main-page">
-        <div class="row">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
 
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <!-- START PANEL WITH CONTROL CLASSES -->
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Past Question payment</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-lg-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
+                <div class="col-lg-12">
+                    <div class="card border border-danger">
+                        <div class="card-header bg-transparent border-danger">
+                            <h5 class="my-0 text-danger text-center">
+                                <i class="mdi mdi-block-helper me-3"></i>
+                                PAYMENT GATEWAY
+                            </h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="panel panel-default"> 
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <div id="PrintPage" style="margin: 0px; padding: opx; padding-bottom:0px;">
+                                                    <h3 class="text-center ">*****Past Question*****</h3>
+                                                    <h3 class="text-center ">*****NOT PAID*****</h3>
+                                                    <h3 class="text-center">*********************************</h3>
+                                                    <h4 class="text-center">---------------------------</h4>
+                                                    <table class="table" style="margin: 0px; padding: opx; padding-bottom:0px;">
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Transaction ID:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @Model.id
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                        <td colspan="2">
+                                            <label>
+                                                Amount:
+                                            </label>
+                                        </td>
+                                        <td colspan="2">
+                                            <label>
+                                                @Model.amount
+                                            </label>
+                                        </td>
+                                    </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Customer:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @Model.name
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Phone:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @Model.phone
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Email:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @Model.email
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        @*<tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Address:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @Model.
+                                                                </label>
+                                                            </td>
+                                                        </tr>*@
+                                                    </table>
+                                                </div>
 
-                                </div>
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <div id="PrintPage" style="margin: 0px; padding: opx; padding-bottom:0px;">
-                                            <h3 class="text-center ">*****Past Question*****</h3>
-                                            <h3 class="text-center ">*****NOT PAID*****</h3>
-                                            <h3 class="text-center">*********************************</h3>
-                                            <h4 class="text-center">---------------------------</h4>
-                                            <table class="table" style="margin: 0px; padding: opx; padding-bottom:0px;">
-                                                @*<tr>
-            <td colspan="2">
-                <label>
-                    Transaction ID:
-                </label>
-            </td>
-            <td colspan="2">
-                <label>
-                    @Model.id
-                </label>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <label>
-                    Date:
-                </label>
-            </td>
-            <td colspan="2">
-                <label>
-                    @Model.insertdate
-                </label>
-            </td>
-        </tr>*@
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <label>
-                                                            Customer:
-                                                        </label>
-                                                    </td>
-                                                    <td colspan="2">
-                                                        <label>
-                                                            @Model.name
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <label>
-                                                            Phone:
-                                                        </label>
-                                                    </td>
-                                                    <td colspan="2">
-                                                        <label>
-                                                            @Model.phone
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <label>
-                                                            Email:
-                                                        </label>
-                                                    </td>
-                                                    <td colspan="2">
-                                                        <label>
-                                                            @Model.email
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <label>
-                                                            Address:
-                                                        </label>
-                                                    </td>
-                                                    @*<td colspan="2">
-                <label>
-                    @Model.address
-                </label>
-            </td>*@
-                                                </tr>
-
-                                                <tr class="success">
-                                                    <th>
-                                                        Item
-                                                    </th>
-                                                    <th>
-                                                        Unit Price
-                                                    </th>
-                                                    <th>
-                                                        Quantity
-                                                    </th>
-                                                    <th>
-                                                        Amount(&#8358)
-                                                    </th>
-                                                </tr>
-                                                @*<tr>
-                <td>Adult</td>
-                <td>@Model.unitAdult</td>
-                <td>@Model.adult</td>
-                <td>@Model.totalAdult</td>
-
-            </tr>
-            <tr>
-                <td>Children</td>
-                <td>@Model.unitChild</td>
-                <td>@Model.children</td>
-                <td>@Model.totalChild</td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    @{
-                        Decimal amt = Convert.ToDecimal(Model.totalAdult - (Model.padult / 100) * Model.totalAdult);
-
-                        Decimal camt = Convert.ToDecimal(Model.totalChild - (Model.pchild / 100) * Model.totalChild);
-                        TotalAmount = Convert.ToDecimal(amt + camt);
-                        Discount = Convert.ToDecimal(Model.totalAdult + Model.totalChild) - (amt + camt);
-                    }
-                    <strong>Discount Amount(N)</strong>
-                </td>
-                <td>
-                    <strong class="text-bold">
-                        @String.Format("{0:#,#.00}", Discount)
-                    </strong>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <h3>Amount Paid</h3>
-                </td>
-                <td>
-                    <h3 class="text-bold">
-                        @String.Format("{0:#,#.00}", TotalAmount)
-                    </h3>
-                </td>
-        </tr>*@
-                                            </table>
+                                            </div>
                                         </div>
-
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="panel">
-                                <div class="panel-body">
-                                    <br />
-                                    <br />
-                                    <br />
-                                    <br />
-                                    <center>
-                                        <script>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <center>
+                                                <script>
                         //Save Complains
                         $(function () {
                             $("#btnPost").click('submit', function (e) {
                                         @*$(location).attr("href", "@Url.Action("Sale","Sales")");*@
                                     })
                         })
-                                        </script>
-                                        <hr />
-                                        <div class="col-md-12">
-                                            @{
-                                                //decimal price = Convert.ToDecimal(TotalAmount * 100);
-                                            }
-                                            @*<form action="@Url.Action("InitilizePayment","Booking")" method="post">
-                                                    <input type="hidden" name="name" value="@Model.name" />
-                                                    <input type="hidden" name="email" value="@Model.email" />
-                                                    <input type="hidden" name="phone" value="@Model.phone" />
-                                                    <input type="hidden" name="id" value="@Model.id" />
-                                                    <input type="hidden" name="amount" value="@price" />
-                                                    <button class="btn btn-info">Pay Now</button>
-                                                </form>*@
-                                            <i>
-                                                Please don't close the payment window, when it comes up. Once payment is completed, it will display your ticket.
-                                            </i>
-                                            <br />
-                                            <button class="btn btn-success btn-line" onclick="payWithPaystack()">
-                                                <i class="icon icon-print"></i>
-                                                Click Here to Pay Now
-                                            </button>
-                                        </div>
+                                                </script>
+                                                <hr />
+                                                <div class="col-md-12">
+                                                    @{
+                                                        //decimal price = Convert.ToDecimal(TotalAmount * 100);
+                                                    }
+                                                    @*<form action="@Url.Action("InitilizePayment","Booking")" method="post">
+                                    <input type="hidden" name="name" value="@Model.name" />
+                                    <input type="hidden" name="email" value="@Model.email" />
+                                    <input type="hidden" name="phone" value="@Model.phone" />
+                                    <input type="hidden" name="id" value="@Model.id" />
+                                    <input type="hidden" name="amount" value="@price" />
+                                    <button class="btn btn-info">Pay Now</button>
+                                </form>*@
+                                                    <i>
+                                                        Please don't close the payment window, when it comes up. Once payment is completed, it will display your ticket.
+                                                    </i>
+                                                    <br />
+                                                    <button class="btn btn-success btn-line" onclick="payWithPaystack()">
+                                                        <i class="icon icon-print"></i>
+                                                        Click Here to Pay Now
+                                                    </button>
+                                                </div>
 
-                                        @*<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>*@
+                                                @*<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>*@
 
-                                        @{
-                                            decimal amt = Convert.ToDecimal(Model.amount * 100);
-                                        }
+                                                @{
+                                                    decimal amt = Convert.ToDecimal(Model.amount * 100);
+                                                }
 
-                                        <script src="https://js.paystack.co/v1/inline.js"></script>
+                                                <script src="https://js.paystack.co/v1/inline.js"></script>
 
-                                        <script>
+                                                <script>
 
                                 function payWithPaystack() {
                                     var handler = PaystackPop.setup({
@@ -276,14 +224,15 @@
                                     });
                                     handler.openIframe(); //open the paystack's payment modal
                                 }
-                                        </script>
-                                    </center>
+                                                </script>
+                                            </center>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- END PANEL WITH CONTROL CLASSES -->
+                </div>  
             </div>
         </div>
     </div>
