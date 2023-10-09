@@ -5,6 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'pastquestion.dbo.documents' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="documents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="200" />
+          <Property Name="description" Type="varchar" MaxLength="200" />
+          <Property Name="insertdate" Type="datetime" />
+          <Property Name="notes" Type="varchar" MaxLength="200" />
+          <Property Name="status" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="examtype">
           <Key>
             <PropertyRef Name="id" />
@@ -90,6 +103,11 @@
           <Property Name="examtypeid" Type="varchar" MaxLength="200" />
           <Property Name="insertdate" Type="date" />
           <Property Name="photo" Type="varchar(max)" />
+          <Property Name="documentid" Type="varchar" MaxLength="200" />
+          <Property Name="expdate" Type="date" />
+          <Property Name="status" Type="varchar" MaxLength="200" />
+          <Property Name="url" Type="varchar" MaxLength="200" />
+          <Property Name="doctype" Type="varchar" MaxLength="200" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
@@ -127,6 +145,18 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <Property Name="insertdate" Type="datetime" />
           <Property Name="usertype" Type="varchar" MaxLength="200" />
         </EntityType>
+        <Association Name="FK_documents_questions">
+          <End Role="questions" Type="Self.questions" Multiplicity="1" />
+          <End Role="documents" Type="Self.documents" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="documents">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_F_settings_examtype">
           <End Role="examtype" Type="Self.examtype" Multiplicity="0..1" />
           <End Role="F_settings" Type="Self.F_settings" Multiplicity="*" />
@@ -253,6 +283,20 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <EntitySet Name="subjects" EntityType="Self.subjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="useraccounts" EntityType="Self.useraccounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="documents" EntityType="Self.documents" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [documents].[id] AS [id], 
+    [documents].[name] AS [name], 
+    [documents].[description] AS [description], 
+    [documents].[insertdate] AS [insertdate], 
+    [documents].[notes] AS [notes], 
+    [documents].[status] AS [status]
+    FROM [dbo].[documents] AS [documents]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_documents_questions" Association="Self.FK_documents_questions">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="documents" EntitySet="documents" />
+          </AssociationSet>
           <AssociationSet Name="FK_F_settings_examtype" Association="Self.FK_F_settings_examtype">
             <End Role="examtype" EntitySet="examtype" />
             <End Role="F_settings" EntitySet="F_settings" />
@@ -343,6 +387,12 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <NavigationProperty Name="examtype" Relationship="Self.FK_questions_examtype" FromRole="questions" ToRole="examtype" />
           <NavigationProperty Name="examyear" Relationship="Self.FK_questions_examyear" FromRole="questions" ToRole="examyear" />
           <NavigationProperty Name="subject" Relationship="Self.FK_questions_subjects" FromRole="questions" ToRole="subjects" />
+          <Property Name="documentid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="expdate" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="doctype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="document" Relationship="pastquestionModel.FK_documents_questions" FromRole="question" ToRole="document" />
         </EntityType>
         <EntityType Name="subject">
           <Key>
@@ -551,6 +601,11 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="initializepayments" EntityType="pastquestionModel.initializepayment" />
+          <EntitySet Name="documents" EntityType="pastquestionModel.document" />
+          <AssociationSet Name="FK_documents_questions" Association="pastquestionModel.FK_documents_questions">
+            <End Role="question" EntitySet="questions" />
+            <End Role="document" EntitySet="documents" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -582,6 +637,30 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="document">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="insertdate" Type="DateTime" Precision="3" />
+          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="question" Relationship="pastquestionModel.FK_documents_questions" FromRole="document" ToRole="question" />
+        </EntityType>
+        <Association Name="FK_documents_questions">
+          <End Type="pastquestionModel.question" Role="question" Multiplicity="1" />
+          <End Type="pastquestionModel.document" Role="document" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="document">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -630,6 +709,11 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <EntitySetMapping Name="questions">
             <EntityTypeMapping TypeName="pastquestionModel.question">
               <MappingFragment StoreEntitySet="questions">
+                <ScalarProperty Name="doctype" ColumnName="doctype" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="expdate" ColumnName="expdate" />
+                <ScalarProperty Name="documentid" ColumnName="documentid" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="names" ColumnName="names" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -735,6 +819,18 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
                 <ScalarProperty Name="trxid" ColumnName="trxid" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="feeid" ColumnName="feeid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="documents">
+            <EntityTypeMapping TypeName="pastquestionModel.document">
+              <MappingFragment StoreEntitySet="documents">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="insertdate" ColumnName="insertdate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

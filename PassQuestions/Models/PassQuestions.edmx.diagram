@@ -22,6 +22,8 @@
         <AssociationConnector Association="pastquestionModel.FK_questions_subjects" ManuallyRouted="false" />
         <AssociationConnector Association="pastquestionModel.FK_payments_useraccounts" ManuallyRouted="false" />
         <EntityTypeShape EntityType="pastquestionModel.initializepayment" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="pastquestionModel.document" Width="1.5" PointX="8.25" PointY="9.5" />
+        <AssociationConnector Association="pastquestionModel.FK_documents_questions" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

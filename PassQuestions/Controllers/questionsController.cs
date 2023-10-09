@@ -23,6 +23,7 @@ namespace PassQuestions.Controllers
             var questions = db.questions.Include(q => q.examtype).Include(q => q.examyear).Include(q => q.subject);
             return View(questions.ToList());
         }
+       
 
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file, string id)
@@ -172,6 +173,87 @@ namespace PassQuestions.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+        // GET: questions
+        public ActionResult PersonalFiles()
+        {
+            var questions = db.questions.Include(q => q.examtype).Include(q => q.examyear).Include(q => q.subject);
+            return View(questions.ToList());
+        }
+
+        public ActionResult PersonelFiles(string names, string description, string subjectid, string examyearid, string examtypeid, string insertdate, string photo, string expdate, string doctype, string id, string documentid, HttpPostedFileBase file)
+        {
+            try
+            {
+                //var temp = db.Mail_Temp.Find(id);
+                if (file.ContentLength > 0)
+                {
+                    //string _FileName = Path.GetFileName(file.FileName);
+                    string fileExtention = System.IO.Path.GetExtension(file.FileName);
+                    //creating filename to avoid file name conflicts.
+                    string fileName = documentid;
+                    //saving file in savedImage folder.
+                    //string savePath = savelocation + fileName + fileExtention;
+
+                    var folder = Server.MapPath("~/UploadedFiles/Files/" + documentid);
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
+                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles/Files/" + documentid), file.FileName);//fileName + fileExtention
+                    file.SaveAs(_path);
+
+                    //Check if file type isnot uploaded already.
+                    if (db.questions.FirstOrDefault(p => p.documentid == documentid && p.id == id) == null)
+                    {
+
+                        //persisit recordsin the db
+                        db.questions.Add(new question
+                        {
+                            id = Guid.NewGuid().ToString(),
+                            //id = id,
+                            names= names,
+                            description= description,
+                            subjectid= subjectid,
+                            examyearid= examyearid,
+                            examtypeid= examtypeid, 
+                            photo = photo,
+                            documentid = documentid,
+                            url = "/UploadedFiles/Files/" + documentid + "/" + file.FileName,
+                            status = "True",
+                            insertdate = DateTime.Now,
+                            expdate = Convert.ToDateTime(expdate),
+                            doctype = doctype
+                        });
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        var curPersonnel = db.questions.FirstOrDefault(p => p.documentid == documentid && p.id == id);
+
+                        curPersonnel.url = "/UploadedFiles/Files/" + documentid + "/" + file.FileName;
+                        db.SaveChanges();
+                    }
+                    TempData["success"] = "true";
+                    TempData["message"] = "Uploaded Successfully!!";
+                    return RedirectToAction("PersonelFiles/" + id, "Questions");
+                }
+                else  
+                {
+                    TempData["success"] = "false";
+                    TempData["message"] = "No file selected.!!";
+                    return RedirectToAction("PersonelFiles/" + id, "Questions");
+                }
+            }
+            catch (Exception err)
+            {
+                TempData["success"] = "false";
+                TempData["message"] = "Faild to submit, please review the entry and try again." + err.Message;
+                //return View(db.studenterollments.FirstOrDefault(p => p.id == admissionid));
+                return RedirectToAction("PersonelFiles/" + id, "Questions");
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -57,6 +57,12 @@
     <NavigationProperty Name="examtype" Relationship="Self.FK_questions_examtype" FromRole="questions" ToRole="examtype" />
     <NavigationProperty Name="examyear" Relationship="Self.FK_questions_examyear" FromRole="questions" ToRole="examyear" />
     <NavigationProperty Name="subject" Relationship="Self.FK_questions_subjects" FromRole="questions" ToRole="subjects" />
+    <Property Name="documentid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="expdate" Type="DateTime" Precision="0" />
+    <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="doctype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="document" Relationship="pastquestionModel.FK_documents_questions" FromRole="question" ToRole="document" />
   </EntityType>
   <EntityType Name="subject">
     <Key>
@@ -265,6 +271,11 @@
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
     <EntitySet Name="initializepayments" EntityType="pastquestionModel.initializepayment" />
+    <EntitySet Name="documents" EntityType="pastquestionModel.document" />
+    <AssociationSet Name="FK_documents_questions" Association="pastquestionModel.FK_documents_questions">
+      <End Role="question" EntitySet="questions" />
+      <End Role="document" EntitySet="documents" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -296,4 +307,28 @@
     <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="document">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="insertdate" Type="DateTime" Precision="3" />
+    <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="question" Relationship="pastquestionModel.FK_documents_questions" FromRole="document" ToRole="question" />
+  </EntityType>
+  <Association Name="FK_documents_questions">
+    <End Type="pastquestionModel.question" Role="question" Multiplicity="1" />
+    <End Type="pastquestionModel.document" Role="document" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="question">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="document">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

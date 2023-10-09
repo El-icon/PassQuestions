@@ -37,6 +37,7 @@ namespace PassQuestions.Models
         public virtual DbSet<useraccount> useraccounts { get; set; }
         public virtual DbSet<payment> payments { get; set; }
         public virtual DbSet<initializepayment> initializepayments { get; set; }
+        public virtual DbSet<document> documents { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

@@ -43,6 +43,11 @@
     <EntitySetMapping Name="questions">
       <EntityTypeMapping TypeName="pastquestionModel.question">
         <MappingFragment StoreEntitySet="questions">
+          <ScalarProperty Name="doctype" ColumnName="doctype" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="expdate" ColumnName="expdate" />
+          <ScalarProperty Name="documentid" ColumnName="documentid" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="names" ColumnName="names" />
           <ScalarProperty Name="description" ColumnName="description" />
@@ -148,6 +153,18 @@
           <ScalarProperty Name="trxid" ColumnName="trxid" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="feeid" ColumnName="feeid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="documents">
+      <EntityTypeMapping TypeName="pastquestionModel.document">
+        <MappingFragment StoreEntitySet="documents">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="insertdate" ColumnName="insertdate" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

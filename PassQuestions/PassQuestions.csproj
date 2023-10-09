@@ -140,6 +140,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\document.cs">
+      <DependentUpon>PassQuestions.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\examtype.cs">
       <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
@@ -2234,6 +2237,7 @@
     <Content Include="Views\payments\payments.cshtml" />
     <Content Include="Views\payments\paynow.cshtml" />
     <Content Include="Views\payments\receipt.cshtml" />
+    <Content Include="Views\questions\PersonalFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

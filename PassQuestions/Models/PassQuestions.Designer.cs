@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\yusuf\OneDrive\Documents\GitHub\PassQuestions\PassQuestions\Models\PassQuestions.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\DM\Documents\GitHub\PassQuestions\PassQuestions\Models\PassQuestions.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
