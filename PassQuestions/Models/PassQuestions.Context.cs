@@ -31,13 +31,12 @@ namespace PassQuestions.Models
         public virtual DbSet<examyear> examyears { get; set; }
         public virtual DbSet<F_settings> F_settings { get; set; }
         public virtual DbSet<feesetting> feesettings { get; set; }
+        public virtual DbSet<initializepayment> initializepayments { get; set; }
+        public virtual DbSet<payment> payments { get; set; }
         public virtual DbSet<question> questions { get; set; }
         public virtual DbSet<subject> subjects { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<useraccount> useraccounts { get; set; }
-        public virtual DbSet<payment> payments { get; set; }
-        public virtual DbSet<initializepayment> initializepayments { get; set; }
-        public virtual DbSet<document> documents { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

@@ -42,49 +42,51 @@
                     </thead>
 
                     <tbody>
-                        @foreach (var item in Model.OrderBy(p => p.names))
-                        {
-                            sn++;
-                            <tr>
-                                <td>
-                                    @sn
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("Details/"+item.id,"questions")">
-                                        @item.names
-                                    </a>
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.description)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.examtype.type)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.examyear.year)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.insertdate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.photo)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.subject.name)
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("Edit", "questions", new { id = item.id })">
-                                        <i class="fa fa-edit btn btn-info btn-sm"></i>
-                                    </a> |
-                                    <a href="@Url.Action("Details", "questions", new { id = item.id })">
-                                        <i class="fa fa-info btn btn-success btn-sm"></i>
-                                    </a> |
-                                    <a href="@Url.Action("Delete", "questions", new { id = item.id })">
-                                        <i class="fa fa-trash btn btn-danger btn-sm"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
+                        @*@foreach (var item in Model.OrderBy(p => p.names))*@
+                            @foreach (var item in db.questions.OrderBy(p => p.names).ToList())
+
+                            {
+                                sn++;
+                                <tr>
+                                    <td>
+                                        @sn
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details/"+item.id,"questions")">
+                                            @item.names
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.examtype.type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.examyear.year)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.insertdate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.photo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.subject.name)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "questions", new { id = item.id })">
+                                            <i class="fa fa-edit btn btn-info btn-sm"></i>
+                                        </a> |
+                                        <a href="@Url.Action("Details", "questions", new { id = item.id })">
+                                            <i class="fa fa-info btn btn-success btn-sm"></i>
+                                        </a> |
+                                        <a href="@Url.Action("Delete", "questions", new { id = item.id })">
+                                            <i class="fa fa-trash btn btn-danger btn-sm"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
 
                     </tbody>
                 </table>
@@ -115,7 +117,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label class="form-label">Name</label>
-                                <input type="text" name="name" required="" class="form-control" />
+                                <input type="text" name="names" required="" class="form-control" />
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Subject Type</label>

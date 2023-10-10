@@ -4,20 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'pastquestion.dbo.documents' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="documents">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="200" />
-          <Property Name="description" Type="varchar" MaxLength="200" />
-          <Property Name="insertdate" Type="datetime" />
-          <Property Name="notes" Type="varchar" MaxLength="200" />
-          <Property Name="status" Type="varchar" MaxLength="200" />
-        </EntityType>
+      <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="examtype">
           <Key>
             <PropertyRef Name="id" />
@@ -103,17 +90,11 @@ warning 6002: The table/view 'pastquestion.dbo.documents' does not have a primar
           <Property Name="examtypeid" Type="varchar" MaxLength="200" />
           <Property Name="insertdate" Type="date" />
           <Property Name="photo" Type="varchar(max)" />
-          <Property Name="documentid" Type="varchar" MaxLength="200" />
           <Property Name="expdate" Type="date" />
           <Property Name="status" Type="varchar" MaxLength="200" />
           <Property Name="url" Type="varchar" MaxLength="200" />
           <Property Name="doctype" Type="varchar" MaxLength="200" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="subject_type">
-          <Property Name="id" Type="varchar" MaxLength="200" />
-        </EntityType>-->
         <EntityType Name="subjects">
           <Key>
             <PropertyRef Name="id" />
@@ -145,18 +126,6 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <Property Name="insertdate" Type="datetime" />
           <Property Name="usertype" Type="varchar" MaxLength="200" />
         </EntityType>
-        <Association Name="FK_documents_questions">
-          <End Role="questions" Type="Self.questions" Multiplicity="1" />
-          <End Role="documents" Type="Self.documents" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="questions">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="documents">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_F_settings_examtype">
           <End Role="examtype" Type="Self.examtype" Multiplicity="0..1" />
           <End Role="F_settings" Type="Self.F_settings" Multiplicity="*" />
@@ -283,20 +252,6 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <EntitySet Name="subjects" EntityType="Self.subjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="useraccounts" EntityType="Self.useraccounts" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="documents" EntityType="Self.documents" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [documents].[id] AS [id], 
-    [documents].[name] AS [name], 
-    [documents].[description] AS [description], 
-    [documents].[insertdate] AS [insertdate], 
-    [documents].[notes] AS [notes], 
-    [documents].[status] AS [status]
-    FROM [dbo].[documents] AS [documents]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_documents_questions" Association="Self.FK_documents_questions">
-            <End Role="questions" EntitySet="questions" />
-            <End Role="documents" EntitySet="documents" />
-          </AssociationSet>
           <AssociationSet Name="FK_F_settings_examtype" Association="Self.FK_F_settings_examtype">
             <End Role="examtype" EntitySet="examtype" />
             <End Role="F_settings" EntitySet="F_settings" />
@@ -326,7 +281,8 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
             <End Role="questions" EntitySet="questions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pastquestionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -372,6 +328,46 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
+        <EntityType Name="initializepayment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="tenxdate" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="payment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="tenxdate" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="F_settings" Relationship="Self.FK_payments_F_settings" FromRole="payments" ToRole="F_settings" />
+          <NavigationProperty Name="useraccount" Relationship="Self.FK_payments_useraccounts" FromRole="payments" ToRole="useraccounts" />
+        </EntityType>
         <EntityType Name="question">
           <Key>
             <PropertyRef Name="id" />
@@ -384,15 +380,13 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <Property Name="examtypeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="insertdate" Type="DateTime" Precision="0" />
           <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="examtype" Relationship="Self.FK_questions_examtype" FromRole="questions" ToRole="examtype" />
-          <NavigationProperty Name="examyear" Relationship="Self.FK_questions_examyear" FromRole="questions" ToRole="examyear" />
-          <NavigationProperty Name="subject" Relationship="Self.FK_questions_subjects" FromRole="questions" ToRole="subjects" />
-          <Property Name="documentid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="expdate" Type="DateTime" Precision="0" />
           <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="doctype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="document" Relationship="pastquestionModel.FK_documents_questions" FromRole="question" ToRole="document" />
+          <NavigationProperty Name="examtype" Relationship="Self.FK_questions_examtype" FromRole="questions" ToRole="examtype" />
+          <NavigationProperty Name="examyear" Relationship="Self.FK_questions_examyear" FromRole="questions" ToRole="examyear" />
+          <NavigationProperty Name="subject" Relationship="Self.FK_questions_subjects" FromRole="questions" ToRole="subjects" />
         </EntityType>
         <EntityType Name="subject">
           <Key>
@@ -426,27 +420,6 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <Property Name="insertdate" Type="DateTime" Precision="3" />
           <Property Name="usertype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments" Relationship="Self.FK_payments_useraccounts" FromRole="useraccounts" ToRole="payments" />
-        </EntityType>
-        <EntityType Name="payment">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="tenxdate" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="F_settings" Relationship="Self.FK_payments_F_settings" FromRole="payments" ToRole="F_settings" />
-          <NavigationProperty Name="useraccount" Relationship="Self.FK_payments_useraccounts" FromRole="payments" ToRole="useraccounts" />
         </EntityType>
         <Association Name="FK_F_settings_examtype">
           <End Role="examtype" Type="Self.examtype" Multiplicity="0..1" />
@@ -508,18 +481,6 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_questions_subjects">
-          <End Role="subjects" Type="Self.subject" Multiplicity="0..1" />
-          <End Role="questions" Type="Self.question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="subjects">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questions">
-              <PropertyRef Name="subjectid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_payments_useraccounts">
           <End Role="useraccounts" Type="Self.useraccount" Multiplicity="0..1" />
           <End Role="payments" Type="Self.payment" Multiplicity="*" />
@@ -532,16 +493,29 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_questions_subjects">
+          <End Role="subjects" Type="Self.subject" Multiplicity="0..1" />
+          <End Role="questions" Type="Self.question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subjects">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questions">
+              <PropertyRef Name="subjectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="pastquestionEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="examtypes" EntityType="Self.examtype" />
           <EntitySet Name="examyears" EntityType="Self.examyear" />
           <EntitySet Name="F_settings" EntityType="Self.F_settings" />
           <EntitySet Name="feesettings" EntityType="Self.feesetting" />
+          <EntitySet Name="initializepayments" EntityType="Self.initializepayment" />
+          <EntitySet Name="payments" EntityType="Self.payment" />
           <EntitySet Name="questions" EntityType="Self.question" />
           <EntitySet Name="subjects" EntityType="Self.subject" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="useraccounts" EntityType="Self.useraccount" />
-          <EntitySet Name="payments" EntityType="Self.payment" />
           <AssociationSet Name="FK_F_settings_examtype" Association="Self.FK_F_settings_examtype">
             <End Role="examtype" EntitySet="examtypes" />
             <End Role="F_settings" EntitySet="F_settings" />
@@ -562,13 +536,13 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
             <End Role="F_settings" EntitySet="F_settings" />
             <End Role="payments" EntitySet="payments" />
           </AssociationSet>
-          <AssociationSet Name="FK_questions_subjects" Association="Self.FK_questions_subjects">
-            <End Role="subjects" EntitySet="subjects" />
-            <End Role="questions" EntitySet="questions" />
-          </AssociationSet>
           <AssociationSet Name="FK_payments_useraccounts" Association="Self.FK_payments_useraccounts">
             <End Role="useraccounts" EntitySet="useraccounts" />
             <End Role="payments" EntitySet="payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questions_subjects" Association="Self.FK_questions_subjects">
+            <End Role="subjects" EntitySet="subjects" />
+            <End Role="questions" EntitySet="questions" />
           </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -600,12 +574,6 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="initializepayments" EntityType="pastquestionModel.initializepayment" />
-          <EntitySet Name="documents" EntityType="pastquestionModel.document" />
-          <AssociationSet Name="FK_documents_questions" Association="pastquestionModel.FK_documents_questions">
-            <End Role="question" EntitySet="questions" />
-            <End Role="document" EntitySet="documents" />
-          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -618,49 +586,6 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="initializepayment">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="tenxdate" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="document">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="insertdate" Type="DateTime" Precision="3" />
-          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="question" Relationship="pastquestionModel.FK_documents_questions" FromRole="document" ToRole="question" />
-        </EntityType>
-        <Association Name="FK_documents_questions">
-          <End Type="pastquestionModel.question" Role="question" Multiplicity="1" />
-          <End Type="pastquestionModel.document" Role="document" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="question">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="document">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -706,14 +631,49 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="initializepayments">
+            <EntityTypeMapping TypeName="pastquestionModel.initializepayment">
+              <MappingFragment StoreEntitySet="initializepayment">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="feeid" ColumnName="feeid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="trxid" ColumnName="trxid" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
+                <ScalarProperty Name="ptype" ColumnName="ptype" />
+                <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payments">
+            <EntityTypeMapping TypeName="pastquestionModel.payment">
+              <MappingFragment StoreEntitySet="payments">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="feeid" ColumnName="feeid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="trxid" ColumnName="trxid" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
+                <ScalarProperty Name="ptype" ColumnName="ptype" />
+                <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="questions">
             <EntityTypeMapping TypeName="pastquestionModel.question">
               <MappingFragment StoreEntitySet="questions">
-                <ScalarProperty Name="doctype" ColumnName="doctype" />
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="expdate" ColumnName="expdate" />
-                <ScalarProperty Name="documentid" ColumnName="documentid" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="names" ColumnName="names" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -722,6 +682,10 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
                 <ScalarProperty Name="examtypeid" ColumnName="examtypeid" />
                 <ScalarProperty Name="insertdate" ColumnName="insertdate" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="expdate" ColumnName="expdate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="doctype" ColumnName="doctype" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -759,26 +723,6 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="payments">
-            <EntityTypeMapping TypeName="pastquestionModel.payment">
-              <MappingFragment StoreEntitySet="payments">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="feeid" ColumnName="feeid" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="trxid" ColumnName="trxid" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="notes" ColumnName="notes" />
-                <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
-                <ScalarProperty Name="ptype" ColumnName="ptype" />
-                <ScalarProperty Name="insertuser" ColumnName="insertuser" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="pastquestionModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="pastquestionModel.Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="pastquestionModel.Store.sp_dropdiagram" />
@@ -803,38 +747,6 @@ warning 6013: The table/view 'pastquestion.dbo.subject_type' does not have a pri
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="pastquestionModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="pastquestionModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="initializepayments">
-            <EntityTypeMapping TypeName="pastquestionModel.initializepayment">
-              <MappingFragment StoreEntitySet="initializepayment">
-                <ScalarProperty Name="insertuser" ColumnName="insertuser" />
-                <ScalarProperty Name="ptype" ColumnName="ptype" />
-                <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
-                <ScalarProperty Name="notes" ColumnName="notes" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="trxid" ColumnName="trxid" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="feeid" ColumnName="feeid" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="documents">
-            <EntityTypeMapping TypeName="pastquestionModel.document">
-              <MappingFragment StoreEntitySet="documents">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="notes" ColumnName="notes" />
-                <ScalarProperty Name="insertdate" ColumnName="insertdate" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

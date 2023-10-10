@@ -173,16 +173,25 @@ namespace PassQuestions.Controllers
             return RedirectToAction("Index");
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-
-        // GET: questions
-        public ActionResult PersonalFiles()
+        // GET: PersonalFiles
+        public ActionResult PersonelFiles()
         {
             var questions = db.questions.Include(q => q.examtype).Include(q => q.examyear).Include(q => q.subject);
             return View(questions.ToList());
+            //return View(db.questions.FirstOrDefault(p => p.id == id));
         }
 
-        public ActionResult PersonelFiles(string names, string description, string subjectid, string examyearid, string examtypeid, string insertdate, string photo, string expdate, string doctype, string id, string documentid, HttpPostedFileBase file)
+        [HttpPost]
+        public ActionResult PersonelFiles(string names, string description, string subjectid, string examyearid, string examtypeid, string insertdate, string photo, string expdate, string doctype, string id, HttpPostedFileBase file)
         {
             try
             {
@@ -192,20 +201,20 @@ namespace PassQuestions.Controllers
                     //string _FileName = Path.GetFileName(file.FileName);
                     string fileExtention = System.IO.Path.GetExtension(file.FileName);
                     //creating filename to avoid file name conflicts.
-                    string fileName = documentid;
+                    string fileName = id;
                     //saving file in savedImage folder.
                     //string savePath = savelocation + fileName + fileExtention;
 
-                    var folder = Server.MapPath("~/UploadedFiles/Files/" + documentid);
+                    var folder = Server.MapPath("~/UploadedFiles/Files/" + id);
                     if (!Directory.Exists(folder))
                     {
                         Directory.CreateDirectory(folder);
                     }
-                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles/Files/" + documentid), file.FileName);//fileName + fileExtention
+                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles/Files/" + id), file.FileName);//fileName + fileExtention
                     file.SaveAs(_path);
 
                     //Check if file type isnot uploaded already.
-                    if (db.questions.FirstOrDefault(p => p.documentid == documentid && p.id == id) == null)
+                    if (db.questions.FirstOrDefault(p => p.id == id && p.subjectid == id) == null)
                     {
 
                         //persisit recordsin the db
@@ -213,14 +222,14 @@ namespace PassQuestions.Controllers
                         {
                             id = Guid.NewGuid().ToString(),
                             //id = id,
-                            names= names,
-                            description= description,
-                            subjectid= subjectid,
-                            examyearid= examyearid,
-                            examtypeid= examtypeid, 
+                            names = names,
+                            description = description,
+                            subjectid = subjectid,
+                            examyearid = examyearid,
+                            examtypeid = examtypeid, 
                             photo = photo,
-                            documentid = documentid,
-                            url = "/UploadedFiles/Files/" + documentid + "/" + file.FileName,
+                            //documentid = documentid,
+                            url = "/UploadedFiles/Files/" + id + "/" + file.FileName,
                             status = "True",
                             insertdate = DateTime.Now,
                             expdate = Convert.ToDateTime(expdate),
@@ -230,20 +239,20 @@ namespace PassQuestions.Controllers
                     }
                     else
                     {
-                        var curPersonnel = db.questions.FirstOrDefault(p => p.documentid == documentid && p.id == id);
+                        var curPersonnel = db.questions.FirstOrDefault(p => p.id == id && p.subjectid == id);
 
-                        curPersonnel.url = "/UploadedFiles/Files/" + documentid + "/" + file.FileName;
+                        curPersonnel.url = "/UploadedFiles/Files/" + id + "/" + file.FileName;
                         db.SaveChanges();
                     }
                     TempData["success"] = "true";
                     TempData["message"] = "Uploaded Successfully!!";
-                    return RedirectToAction("PersonelFiles/" + id, "Questions");
+                    return RedirectToAction("PersonelFiles/" + id, "questions");
                 }
                 else  
                 {
                     TempData["success"] = "false";
                     TempData["message"] = "No file selected.!!";
-                    return RedirectToAction("PersonelFiles/" + id, "Questions");
+                    return RedirectToAction("PersonelFiles/" + id, "questions");
                 }
             }
             catch (Exception err)
@@ -251,16 +260,8 @@ namespace PassQuestions.Controllers
                 TempData["success"] = "false";
                 TempData["message"] = "Faild to submit, please review the entry and try again." + err.Message;
                 //return View(db.studenterollments.FirstOrDefault(p => p.id == admissionid));
-                return RedirectToAction("PersonelFiles/" + id, "Questions");
+                return RedirectToAction("PersonelFiles/" + id, "questions");
             }
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        }     
     }
 }

@@ -22,7 +22,6 @@ namespace PassQuestions.Models
         public string examtypeid { get; set; }
         public Nullable<System.DateTime> insertdate { get; set; }
         public string photo { get; set; }
-        public string documentid { get; set; }
         public Nullable<System.DateTime> expdate { get; set; }
         public string status { get; set; }
         public string url { get; set; }
@@ -31,6 +30,5 @@ namespace PassQuestions.Models
         public virtual examtype examtype { get; set; }
         public virtual examyear examyear { get; set; }
         public virtual subject subject { get; set; }
-        public virtual document document { get; set; }
     }
 }

@@ -40,14 +40,49 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="initializepayments">
+      <EntityTypeMapping TypeName="pastquestionModel.initializepayment">
+        <MappingFragment StoreEntitySet="initializepayment">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="feeid" ColumnName="feeid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="trxid" ColumnName="trxid" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
+          <ScalarProperty Name="ptype" ColumnName="ptype" />
+          <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payments">
+      <EntityTypeMapping TypeName="pastquestionModel.payment">
+        <MappingFragment StoreEntitySet="payments">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="feeid" ColumnName="feeid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="trxid" ColumnName="trxid" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
+          <ScalarProperty Name="ptype" ColumnName="ptype" />
+          <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="questions">
       <EntityTypeMapping TypeName="pastquestionModel.question">
         <MappingFragment StoreEntitySet="questions">
-          <ScalarProperty Name="doctype" ColumnName="doctype" />
-          <ScalarProperty Name="url" ColumnName="url" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="expdate" ColumnName="expdate" />
-          <ScalarProperty Name="documentid" ColumnName="documentid" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="names" ColumnName="names" />
           <ScalarProperty Name="description" ColumnName="description" />
@@ -56,6 +91,10 @@
           <ScalarProperty Name="examtypeid" ColumnName="examtypeid" />
           <ScalarProperty Name="insertdate" ColumnName="insertdate" />
           <ScalarProperty Name="photo" ColumnName="photo" />
+          <ScalarProperty Name="expdate" ColumnName="expdate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="doctype" ColumnName="doctype" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -93,26 +132,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="payments">
-      <EntityTypeMapping TypeName="pastquestionModel.payment">
-        <MappingFragment StoreEntitySet="payments">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="feeid" ColumnName="feeid" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="trxid" ColumnName="trxid" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="userid" ColumnName="userid" />
-          <ScalarProperty Name="phone" ColumnName="phone" />
-          <ScalarProperty Name="amount" ColumnName="amount" />
-          <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="notes" ColumnName="notes" />
-          <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
-          <ScalarProperty Name="ptype" ColumnName="ptype" />
-          <ScalarProperty Name="insertuser" ColumnName="insertuser" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="pastquestionModel.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="pastquestionModel.Store.sp_creatediagram" />
     <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="pastquestionModel.Store.sp_dropdiagram" />
@@ -137,37 +156,5 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="pastquestionModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="pastquestionModel.Store.sp_upgraddiagrams" />
-    <EntitySetMapping Name="initializepayments">
-      <EntityTypeMapping TypeName="pastquestionModel.initializepayment">
-        <MappingFragment StoreEntitySet="initializepayment">
-          <ScalarProperty Name="insertuser" ColumnName="insertuser" />
-          <ScalarProperty Name="ptype" ColumnName="ptype" />
-          <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
-          <ScalarProperty Name="notes" ColumnName="notes" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
-          <ScalarProperty Name="amount" ColumnName="amount" />
-          <ScalarProperty Name="phone" ColumnName="phone" />
-          <ScalarProperty Name="userid" ColumnName="userid" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="trxid" ColumnName="trxid" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="feeid" ColumnName="feeid" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="documents">
-      <EntityTypeMapping TypeName="pastquestionModel.document">
-        <MappingFragment StoreEntitySet="documents">
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="notes" ColumnName="notes" />
-          <ScalarProperty Name="insertdate" ColumnName="insertdate" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -42,6 +42,46 @@
     <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
   </EntityType>
+  <EntityType Name="initializepayment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="tenxdate" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="payment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="tenxdate" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="F_settings" Relationship="Self.FK_payments_F_settings" FromRole="payments" ToRole="F_settings" />
+    <NavigationProperty Name="useraccount" Relationship="Self.FK_payments_useraccounts" FromRole="payments" ToRole="useraccounts" />
+  </EntityType>
   <EntityType Name="question">
     <Key>
       <PropertyRef Name="id" />
@@ -54,15 +94,13 @@
     <Property Name="examtypeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="insertdate" Type="DateTime" Precision="0" />
     <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="examtype" Relationship="Self.FK_questions_examtype" FromRole="questions" ToRole="examtype" />
-    <NavigationProperty Name="examyear" Relationship="Self.FK_questions_examyear" FromRole="questions" ToRole="examyear" />
-    <NavigationProperty Name="subject" Relationship="Self.FK_questions_subjects" FromRole="questions" ToRole="subjects" />
-    <Property Name="documentid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="expdate" Type="DateTime" Precision="0" />
     <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="doctype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="document" Relationship="pastquestionModel.FK_documents_questions" FromRole="question" ToRole="document" />
+    <NavigationProperty Name="examtype" Relationship="Self.FK_questions_examtype" FromRole="questions" ToRole="examtype" />
+    <NavigationProperty Name="examyear" Relationship="Self.FK_questions_examyear" FromRole="questions" ToRole="examyear" />
+    <NavigationProperty Name="subject" Relationship="Self.FK_questions_subjects" FromRole="questions" ToRole="subjects" />
   </EntityType>
   <EntityType Name="subject">
     <Key>
@@ -96,27 +134,6 @@
     <Property Name="insertdate" Type="DateTime" Precision="3" />
     <Property Name="usertype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="payments" Relationship="Self.FK_payments_useraccounts" FromRole="useraccounts" ToRole="payments" />
-  </EntityType>
-  <EntityType Name="payment">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="tenxdate" Type="DateTime" Precision="3" />
-    <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="F_settings" Relationship="Self.FK_payments_F_settings" FromRole="payments" ToRole="F_settings" />
-    <NavigationProperty Name="useraccount" Relationship="Self.FK_payments_useraccounts" FromRole="payments" ToRole="useraccounts" />
   </EntityType>
   <Association Name="FK_F_settings_examtype">
     <End Role="examtype" Type="Self.examtype" Multiplicity="0..1" />
@@ -178,18 +195,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_questions_subjects">
-    <End Role="subjects" Type="Self.subject" Multiplicity="0..1" />
-    <End Role="questions" Type="Self.question" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="subjects">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="questions">
-        <PropertyRef Name="subjectid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_payments_useraccounts">
     <End Role="useraccounts" Type="Self.useraccount" Multiplicity="0..1" />
     <End Role="payments" Type="Self.payment" Multiplicity="*" />
@@ -202,16 +207,29 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_questions_subjects">
+    <End Role="subjects" Type="Self.subject" Multiplicity="0..1" />
+    <End Role="questions" Type="Self.question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subjects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questions">
+        <PropertyRef Name="subjectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="pastquestionEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="examtypes" EntityType="Self.examtype" />
     <EntitySet Name="examyears" EntityType="Self.examyear" />
     <EntitySet Name="F_settings" EntityType="Self.F_settings" />
     <EntitySet Name="feesettings" EntityType="Self.feesetting" />
+    <EntitySet Name="initializepayments" EntityType="Self.initializepayment" />
+    <EntitySet Name="payments" EntityType="Self.payment" />
     <EntitySet Name="questions" EntityType="Self.question" />
     <EntitySet Name="subjects" EntityType="Self.subject" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="useraccounts" EntityType="Self.useraccount" />
-    <EntitySet Name="payments" EntityType="Self.payment" />
     <AssociationSet Name="FK_F_settings_examtype" Association="Self.FK_F_settings_examtype">
       <End Role="examtype" EntitySet="examtypes" />
       <End Role="F_settings" EntitySet="F_settings" />
@@ -232,13 +250,13 @@
       <End Role="F_settings" EntitySet="F_settings" />
       <End Role="payments" EntitySet="payments" />
     </AssociationSet>
-    <AssociationSet Name="FK_questions_subjects" Association="Self.FK_questions_subjects">
-      <End Role="subjects" EntitySet="subjects" />
-      <End Role="questions" EntitySet="questions" />
-    </AssociationSet>
     <AssociationSet Name="FK_payments_useraccounts" Association="Self.FK_payments_useraccounts">
       <End Role="useraccounts" EntitySet="useraccounts" />
       <End Role="payments" EntitySet="payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questions_subjects" Association="Self.FK_questions_subjects">
+      <End Role="subjects" EntitySet="subjects" />
+      <End Role="questions" EntitySet="questions" />
     </AssociationSet>
     <FunctionImport Name="sp_alterdiagram">
       <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -270,12 +288,6 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
-    <EntitySet Name="initializepayments" EntityType="pastquestionModel.initializepayment" />
-    <EntitySet Name="documents" EntityType="pastquestionModel.document" />
-    <AssociationSet Name="FK_documents_questions" Association="pastquestionModel.FK_documents_questions">
-      <End Role="question" EntitySet="questions" />
-      <End Role="document" EntitySet="documents" />
-    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -288,47 +300,4 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
-  <EntityType Name="initializepayment">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="tenxdate" Type="DateTime" Precision="3" />
-    <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="document">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="insertdate" Type="DateTime" Precision="3" />
-    <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="question" Relationship="pastquestionModel.FK_documents_questions" FromRole="document" ToRole="question" />
-  </EntityType>
-  <Association Name="FK_documents_questions">
-    <End Type="pastquestionModel.question" Role="question" Multiplicity="1" />
-    <End Type="pastquestionModel.document" Role="document" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="question">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="document">
-        <PropertyRef Name="id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>
