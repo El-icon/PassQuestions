@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "PersonalFiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     PassQuestions.Models.pastquestionEntities db = new PassQuestions.Models.pastquestionEntities();
     int sn = 0;
     string clr = "";
@@ -13,13 +14,13 @@
             <div class="card-body">
                 <h4 class="card-title"> QUESTIONS </h4>
                 <hr />
-                <button type="button" class="btn btn-primary waves-effect waves-light"
-                        data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl">
+                <button class="btn btn-primary waves-effect waves-light"
+                        data-toggle="modal" data-target=".bs-example-modal-xl">
                     Create Question
-                </button>           
+                </button>
                 <hr />
                 <br />
-                <br /> 
+                <br />
                 <table id="datatable-buttons"
                        class="table table-striped table-bordered dt-responsive nowrap"
                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -30,7 +31,7 @@
                             <th>Description</th>
                             <th>Examyear</th>
                             <th>Examtype</th>
-                            <th>Insertdate</th> 
+                            <th>Insertdate</th>
                             <th>Subject Name</th>
                             <th>Actions</th>
                         </tr>
@@ -62,7 +63,7 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.insertdate)
-                                </td> 
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.subject.name)
                                 </td>
@@ -111,17 +112,27 @@
                                 <label class="form-label">Name</label>
                                 <input type="text" name="names" required="" class="form-control" />
                             </div>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+
                             <div class="col-md-12">
                                 <label class="form-label">Subject Type</label>
-                                <select name="subjectid" class="form-control" required="">
+                                <select name="subjectid" class="form-control" style="width:100%;" required="">
                                     @foreach (var item in db.subjects.ToList())
                                     {
                                         <option value="@item.id">@item.name</option>
                                     }
                                 </select>
                             </div>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+
                             <div class="col-md-12">
-                                <label class="form-label">Exam Year</label>                                <select name="examyearid" class="form-control" required="">
+                                <label class="form-label">Exam Year</label>                                <select name="examyearid" class="form-control" style="width:100%;" required="">
                                     @foreach (var item in db.examyears.OrderBy(p => p.year).ToList())
                                     {
                                         <option value="@item.id">@item.year</option>
@@ -129,8 +140,7 @@
                                 </select>
                             </div>
                         </div>
-
-                        <br />
+                        <br /> 
 
                         <div class="row">
                             <div class="col-md-6">
