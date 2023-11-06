@@ -43,6 +43,7 @@
     <EntitySetMapping Name="initializepayments">
       <EntityTypeMapping TypeName="pastquestionModel.initializepayment">
         <MappingFragment StoreEntitySet="initializepayment">
+          <ScalarProperty Name="insertdate" ColumnName="insertdate" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="feeid" ColumnName="feeid" />
           <ScalarProperty Name="name" ColumnName="name" />
@@ -63,6 +64,7 @@
     <EntitySetMapping Name="payments">
       <EntityTypeMapping TypeName="pastquestionModel.payment">
         <MappingFragment StoreEntitySet="payments">
+          <ScalarProperty Name="insertdate" ColumnName="insertdate" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="feeid" ColumnName="feeid" />
           <ScalarProperty Name="name" ColumnName="name" />

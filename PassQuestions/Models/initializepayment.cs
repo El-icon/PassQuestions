@@ -28,5 +28,6 @@ namespace PassQuestions.Models
         public string gatewayref { get; set; }
         public string ptype { get; set; }
         public string insertuser { get; set; }
+        public Nullable<System.DateTime> insertdate { get; set; }
     }
 }

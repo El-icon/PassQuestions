@@ -1,0 +1,255 @@
+﻿
+
+@model IEnumerable<PassQuestions.Models.payment>
+
+@{
+    ViewBag.Title = "Paymentreport";
+    int sn = 0;
+    decimal totalAmount = 0;
+    decimal totalDiscount = 0;
+    decimal totalAdult = 0;
+    decimal totalChild = 0;
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr />
+
+                        <div class="card-body">
+                            <h2>PAYMENT REPORT</h2>
+                            <form action="@Url.Action("VerifyPaymentMade", "payments")" method="post">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <input type="text" name="id" id="id" class="form-control" required="" placeholder="Enter" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-success">Verify Transaction</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <hr />
+                            <br />
+                            <form action="@Url.Action("paymentreport", "payments")" method="post">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>
+                                            Start Date
+                                        </label>
+                                        <input type="date" class="form-control" value="@Session["startdate"]" name="startdate" required="" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>
+                                            End Date
+                                        </label>
+                                        <input type="date" class="form-control" value="@Session["enddate"]" name="enddate" required="" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>
+                                            Payments
+                                        </label>
+                                        <select class="form-control" name="userid" required="">
+                                            <option value="ALL">ALL PAYMENT</option>
+                                            <option value="BOOKED">PENDING</option>
+                                            <option value="PAID">PAID</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <br />
+                                        <button class="btn btn-success btn-sm"><span class="icon glyphicon-filter"></span> Filter</button>
+                                        <button type="button" class="btn btn-sm btn-info btn-line" onclick="javascript: printDiv('print');">
+                                            <i class="icon icon-print"></i>
+                                            Print
+                                        </button>
+                                    </div>
+                                    <div class="col-md-12">
+                                        @*<button type="button" onclick="validate()">Refresh</button>*@
+                                        <script>
+                            function validate() {
+                                var values = {
+                                    id: '1'
+                                }
+                                 $.ajax({
+                                        url: "@Url.Action("ValidatePayments")",
+                                        type: "post",
+                                        data: values,
+                                        success: function (response) {
+                                            // You will get response from your PHP page (what you echo or print)
+                                            alert(response.responseText);
+                                            //console.log(response);
+                                            //window.location.replace("url");
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown) {
+                                            console.log(textStatus, errorThrown);
+                                        }
+                                    });
+                            }
+                                        </script>
+                                    </div>
+                                    @*<br class="col-md-2" />
+                                <br />*@
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <input type="text" required="" class="form-control" placeholder="Seach by user email..." name="SearchInout" id="SearchInput" onkeyup="myFunction()" />
+
+                <hr />
+                <hr />
+                <div id="print" class=""">
+                    <div class="table-rep-plugin">
+                        <div class="table-responsive mb-0" data-pattern="priority-columns">
+                            <table id="search" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th colspan="14"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center" colspan="13">
+                                            <h4>
+                                                PAST QUESTION
+                                            </h4>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="14">
+                                            <h4>
+                                                PAYMENT REPORT
+                                            </h4>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="13">
+                                            <p>
+                                                Date: @Convert.ToDateTime(Session["startdate"]).ToShortDateString() ---to---  @Convert.ToDateTime(Session["enddate"]).ToShortDateString()
+                                            </p>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Feeid</th>
+                                        <th>Name</th>
+                                        <th>Trxid</th>
+                                        <th>Email</th>
+                                        <th>Userid</th>
+                                        <th>Phone</th>
+                                        <th>Amount</th>
+                                        <th>TranDate</th>
+                                        <th>Status</th>
+                                        <th>Note</th>
+                                        <th>Gatewayof</th>
+                                        <th>PayType</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model.OrderByDescending(p => p.insertdate))
+                                    {
+                                        sn++;
+                                        <tr>
+                                            <td>
+                                                @sn
+                                            </td>
+                                            <td>
+                                                @item.feeid
+                                            </td>
+                                            <td>
+                                                @if (item.status == "PAID")
+                                                {
+                                                    <a class="badge badge-success" href="@Url.Action("Ticket","Booking", new {id = item.id})">@Html.DisplayFor(modelItem => item.name)</a>
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-danger">@Html.DisplayFor(modelItem => item.name)</p>
+                                                }
+                                            </td>
+                                            <td>
+                                                @item.trxid
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.email)  
+                                            </td>
+                                            <td>
+                                                @item.userid
+                                            </td>
+                                            <td>
+                                                @item.phone
+                                            </td>
+                                            <td>
+                                                @item.amount
+                                            </td>
+                                            <td>
+                                                @item.tenxdate
+                                            </td>
+                                            <td>
+                                                @if (item.status == "PAID")
+                                                {
+                                                    <strong class="text-success">PAID</strong><br />
+                                                    <small class="badge badge-success">@item.ptype</small>
+                                                }
+                                                else
+                                                {
+                                                    <strong class="text-danger">FAILED</strong>
+                                                }
+                                            </td>
+                                            <td>
+                                                @item.notes
+                                            </td>
+                                            <td>
+                                                @item.gatewayref
+                                            </td>
+                                            <td>
+                                                @item.ptype
+                                            </td>
+                                            <td>
+                                                @if (item.status != "PAID")
+                                                {
+                                                    <button class="btn btn-sm btn-primary" onclick="ValidatePayment('@item.id')">Validate Payment</button>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function ValidatePayment(id) {
+        var values =
+            {
+                id:id
+            };
+
+            $.ajax({
+                url: "@Url.Action("ValidatePayments")",
+                type: "post",
+                data: values,
+                success: function (response) {
+                    // You will get response from your PHP page (what you echo or print)
+                    //alert(response.responseText);
+                    console.log(response);
+                    //window.location.replace("@Url.Action("", "booking")");
+                    window.location.reload();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    //console.log(textStatus, errorThrown);
+                    window.location.reload();
+                }
+            });
+    }
+</script>

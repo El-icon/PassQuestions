@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="examtype">
           <Key>
             <PropertyRef Name="id" />
@@ -58,6 +58,7 @@
           <Property Name="gatewayref" Type="varchar" MaxLength="200" />
           <Property Name="ptype" Type="varchar" MaxLength="200" />
           <Property Name="insertuser" Type="varchar" MaxLength="200" />
+          <Property Name="insertdate" Type="date" />
         </EntityType>
         <EntityType Name="payments">
           <Key>
@@ -77,6 +78,7 @@
           <Property Name="gatewayref" Type="varchar" MaxLength="200" />
           <Property Name="ptype" Type="varchar" MaxLength="200" />
           <Property Name="insertuser" Type="varchar" MaxLength="200" />
+          <Property Name="insertdate" Type="date" />
         </EntityType>
         <EntityType Name="questions">
           <Key>
@@ -281,8 +283,7 @@
             <End Role="questions" EntitySet="questions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pastquestionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -346,6 +347,7 @@
           <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="insertdate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="payment">
           <Key>
@@ -367,6 +369,7 @@
           <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="F_settings" Relationship="Self.FK_payments_F_settings" FromRole="payments" ToRole="F_settings" />
           <NavigationProperty Name="useraccount" Relationship="Self.FK_payments_useraccounts" FromRole="payments" ToRole="useraccounts" />
+          <Property Name="insertdate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="question">
           <Key>
@@ -634,6 +637,7 @@
           <EntitySetMapping Name="initializepayments">
             <EntityTypeMapping TypeName="pastquestionModel.initializepayment">
               <MappingFragment StoreEntitySet="initializepayment">
+                <ScalarProperty Name="insertdate" ColumnName="insertdate" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="feeid" ColumnName="feeid" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -654,6 +658,7 @@
           <EntitySetMapping Name="payments">
             <EntityTypeMapping TypeName="pastquestionModel.payment">
               <MappingFragment StoreEntitySet="payments">
+                <ScalarProperty Name="insertdate" ColumnName="insertdate" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="feeid" ColumnName="feeid" />
                 <ScalarProperty Name="name" ColumnName="name" />

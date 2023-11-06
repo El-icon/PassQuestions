@@ -60,6 +60,7 @@
     <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="insertdate" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="payment">
     <Key>
@@ -81,6 +82,7 @@
     <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="F_settings" Relationship="Self.FK_payments_F_settings" FromRole="payments" ToRole="F_settings" />
     <NavigationProperty Name="useraccount" Relationship="Self.FK_payments_useraccounts" FromRole="payments" ToRole="useraccounts" />
+    <Property Name="insertdate" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="question">
     <Key>

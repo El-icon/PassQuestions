@@ -51,7 +51,7 @@ namespace PassQuestions.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,feeid,name,trxid,email,userid,phone,amount,tenxdate,status,notes,gatewayref,ptype,insertuser")] payment payment)
+        public ActionResult Create([Bind(Include = "id,feeid,name,trxid,email,userid,phone,amount,tenxdate,status,notes,gatewayref,ptype,insertuser,insertdate")] payment payment)
         {
             if (ModelState.IsValid)
             {
@@ -148,6 +148,7 @@ namespace PassQuestions.Controllers
                 phone = phone,
                 amount = amount,
                 status = "PENDING",
+                insertdate = DateTime.Now,
                 tenxdate = DateTime.Now
             });
             db.SaveChanges();
@@ -181,6 +182,7 @@ namespace PassQuestions.Controllers
                 status = pay_status,
                 userid = Session["userid"].ToString(),
                 amount = amountpaid,
+                insertdate = DateTime.Now,
                 tenxdate = DateTime.Now,
                 notes = "Ref No: " + ref_no + " Gateway_ref: " + gateway_ref + " currency: " + currency,
                 gatewayref = gateway_ref,
@@ -193,6 +195,49 @@ namespace PassQuestions.Controllers
         {
             return View(db.payments.Find(id));
         }
+
+
+
+        public ActionResult Paymentreport()
+        {
+            DateTime sdate = DateTime.Now.Date;
+            DateTime edate = DateTime.Now.Date.AddDays(1);
+            Session["startdate"] = sdate;
+            Session["enddate"] = edate;
+            ViewBag.sdate = sdate;
+            ViewBag.edate = edate;
+            var sal = db.payments.Where(p => p.insertdate >= sdate && p.insertdate < edate);
+            return View(sal.ToList());
+        }
+        [HttpPost]
+        public ActionResult Paymentreport(string startdate, string enddate, string userid)
+        {
+            DateTime sdate = Convert.ToDateTime(startdate).Date;
+            DateTime edate = Convert.ToDateTime(enddate).Date.AddDays(1);
+
+            Session["startdate"] = sdate;
+            Session["enddate"] = edate;
+            ViewBag.sdate = sdate;
+            ViewBag.edate = edate;
+            if (userid == "PAID")
+            {
+                var sal = db.payments.Where(p => p.insertdate >= sdate && p.insertdate < edate && p.status == "PAID");
+                return View(sal.ToList());
+            }
+            else
+            if (userid == "BOOKED")
+            {
+                var sal = db.payments.Where(p => p.insertdate >= sdate && p.insertdate < edate && p.status == "PENDING");
+                return View(sal.ToList());
+            }
+            else
+            {
+                var sal = db.payments.Where(p => p.insertdate >= sdate && p.insertdate < edate);
+                return View(sal.ToList());
+            }
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

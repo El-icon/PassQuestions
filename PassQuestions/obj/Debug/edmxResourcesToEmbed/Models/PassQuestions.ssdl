@@ -53,6 +53,7 @@
     <Property Name="gatewayref" Type="varchar" MaxLength="200" />
     <Property Name="ptype" Type="varchar" MaxLength="200" />
     <Property Name="insertuser" Type="varchar" MaxLength="200" />
+    <Property Name="insertdate" Type="date" />
   </EntityType>
   <EntityType Name="payments">
     <Key>
@@ -72,6 +73,7 @@
     <Property Name="gatewayref" Type="varchar" MaxLength="200" />
     <Property Name="ptype" Type="varchar" MaxLength="200" />
     <Property Name="insertuser" Type="varchar" MaxLength="200" />
+    <Property Name="insertdate" Type="date" />
   </EntityType>
   <EntityType Name="questions">
     <Key>
