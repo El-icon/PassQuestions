@@ -52,8 +52,8 @@
                                         </label>
                                         <select class="form-control" name="userid" required="">
                                             <option value="ALL">ALL PAYMENT</option>
-                                            <option value="BOOKED">PENDING</option>
-                                            <option value="PAID">PAID</option>
+                                            <option value="PENDING">PENDING</option>
+                                            <option value="success">PAID</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2">
@@ -89,7 +89,7 @@
                                         </script>
                                     </div>
                                     @*<br class="col-md-2" />
-                                <br />*@
+                                        <br />*@
                                 </div>
                             </form>
                         </div>
@@ -97,128 +97,126 @@
                 </div>
                 <hr />
 
-                <input type="text" required="" class="form-control" placeholder="Seach by user email..." name="SearchInout" id="SearchInput" onkeyup="myFunction()" />
 
                 <hr />
                 <hr />
-                <div id="print" class=""">
-                    <div class="table-rep-plugin">
-                        <div class="table-responsive mb-0" data-pattern="priority-columns">
-                            <table id="search" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th colspan="14"></th>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center" colspan="13">
-                                            <h4>
-                                                PAST QUESTION
-                                            </h4>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="14">
-                                            <h4>
-                                                PAYMENT REPORT
-                                            </h4>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="13">
-                                            <p>
-                                                Date: @Convert.ToDateTime(Session["startdate"]).ToShortDateString() ---to---  @Convert.ToDateTime(Session["enddate"]).ToShortDateString()
-                                            </p>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>SN</th>
-                                        <th>Feeid</th>
-                                        <th>Name</th>
-                                        <th>Trxid</th>
-                                        <th>Email</th>
-                                        <th>Userid</th>
-                                        <th>Phone</th>
-                                        <th>Amount</th>
-                                        <th>TranDate</th>
-                                        <th>Status</th>
-                                        <th>Note</th>
-                                        <th>Gatewayof</th>
-                                        <th>PayType</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <input type="text" placeholder="Search..." id="myInput" onkeyup="myFunction()" />
+                        <table class="table table-striped" id="search">
+                            <thead>
+                                <tr>
+                                    <th colspan="14"></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center" colspan="13">
+                                        <h4>
+                                            PAST QUESTION
+                                        </h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="14">
+                                        <h4>
+                                            PAYMENT REPORT
+                                        </h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="13">
+                                        <p>
+                                            Date: @Convert.ToDateTime(Session["startdate"]).ToShortDateString() ---to---  @Convert.ToDateTime(Session["enddate"]).ToShortDateString()
+                                        </p>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>SN</th>
+                                    <th>Feeid</th>
+                                    <th>Name</th>
+                                    <th>Trxid</th>
+                                    <th>Email</th>
+                                    <th>Userid</th>
+                                    <th>Phone</th>
+                                    <th>Amount</th>
+                                    <th>TranDate</th>
+                                    <th>Status</th>
+                                    @*<th>Note</th>
+                                        <th>Gatewayof</th>*@
+                                    <th>PayType</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
-                                    @foreach (var item in Model.OrderByDescending(p => p.insertdate))
-                                    {
-                                        sn++;
-                                        <tr>
-                                            <td>
-                                                @sn
-                                            </td>
-                                            <td>
-                                                @item.feeid
-                                            </td>
-                                            <td>
-                                                @if (item.status == "PAID")
-                                                {
-                                                    <a class="badge badge-success" href="@Url.Action("Ticket","Booking", new {id = item.id})">@Html.DisplayFor(modelItem => item.name)</a>
-                                                }
-                                                else
-                                                {
-                                                    <p class="text-danger">@Html.DisplayFor(modelItem => item.name)</p>
-                                                }
-                                            </td>
-                                            <td>
-                                                @item.trxid
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.email)  
-                                            </td>
-                                            <td>
-                                                @item.userid
-                                            </td>
-                                            <td>
-                                                @item.phone
-                                            </td>
-                                            <td>
-                                                @item.amount
-                                            </td>
-                                            <td>
-                                                @item.tenxdate
-                                            </td>
-                                            <td>
-                                                @if (item.status == "success")
-                                                {
-                                                    <strong class="text-success">PAID</strong><br />
-                                                    <small class="badge badge-success">@item.ptype</small>
-                                                }
-                                                else
-                                                {
-                                                    <strong class="text-danger">FAILED</strong>
-                                                }
-                                            </td>
-                                            <td>
+                            <tbody>
+                                @foreach (var item in Model.OrderByDescending(p => p.insertdate))
+                                {
+                                    sn++;
+                                    <tr>
+                                        <td>
+                                            @sn
+                                        </td>
+                                        <td>
+                                            @item.feeid
+                                        </td>
+                                        <td>
+                                            @if (item.status == "PAID")
+                                            {
+                                                <a class="badge badge-success" href="@Url.Action("receipt","payments", new {id = item.id})">@Html.DisplayFor(modelItem => item.name)</a>
+                                            }
+                                            else
+                                            {
+                                                <p class="text-danger">@Html.DisplayFor(modelItem => item.name)</p>
+                                            }
+                                        </td>
+                                        <td>
+                                            @item.trxid
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.email)
+                                        </td>
+                                        <td>
+                                            @item.userid
+                                        </td>
+                                        <td>
+                                            @item.phone
+                                        </td>
+                                        <td>
+                                            @item.amount
+                                        </td>
+                                        <td>
+                                            @item.tenxdate
+                                        </td>
+                                        <td>
+                                            @if (item.status == "success")
+                                            {
+                                                <strong class="text-success">PAID</strong><br />
+                                                <small class="badge badge-success">@item.ptype</small>
+                                            }
+                                            else
+                                            {
+                                                <strong class="text-danger">FAILED</strong>
+                                            }
+                                        </td>
+                                        @*<td>
                                                 @item.notes
                                             </td>
                                             <td>
                                                 @item.gatewayref
-                                            </td>
-                                            <td>
-                                                @item.ptype
-                                            </td>
-                                            <td>
-                                                @if (item.status != "PAID")
-                                                {
-                                                    <button class="btn btn-sm btn-primary" onclick="ValidatePayment('@item.id')">Validate Payment</button>
-                                                }
-                                            </td>
-                                        </tr>
-                                    }
+                                            </td>*@
+                                        <td>
+                                            @item.ptype
+                                        </td>
+                                        <td>
+                                            @if (item.status != "success")
+                                            {
+                                                <button class="btn btn-sm btn-primary" onclick="ValidatePayment('@item.id')">Validate Payment</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -243,7 +241,7 @@
                     // You will get response from your PHP page (what you echo or print)
                     //alert(response.responseText);
                     console.log(response);
-                    //window.location.replace("@Url.Action("", "booking")");
+                    //window.location.replace("@Url.Action("", "payments")");
                     window.location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
