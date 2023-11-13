@@ -219,13 +219,13 @@ namespace PassQuestions.Controllers
             Session["enddate"] = edate;
             ViewBag.sdate = sdate;
             ViewBag.edate = edate;
-            if (userid == "PAID")
+            if (userid == "success")
             {
-                var sal = db.payments.Where(p => p.insertdate >= sdate && p.insertdate < edate && p.status == "PAID");
+                var sal = db.payments.Where(p => p.insertdate >= sdate && p.insertdate < edate && p.status == "success");
                 return View(sal.ToList());
             }
             else
-            if (userid == "BOOKED")
+            if (userid == "PENDING")
             {
                 var sal = db.payments.Where(p => p.insertdate >= sdate && p.insertdate < edate && p.status == "PENDING");
                 return View(sal.ToList());
