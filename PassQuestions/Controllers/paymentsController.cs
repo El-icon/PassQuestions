@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PassQuestions.Models;
 using PassQuestions.Setup;
+using System.Web.Helpers;
+using Paystack.Net.SDK.Transactions;
+using System.Configuration;
+using System.Threading.Tasks;
 
 namespace PassQuestions.Controllers
 { 
@@ -238,7 +244,125 @@ namespace PassQuestions.Controllers
         }
 
 
+        public async Task<JsonResult> VerifyPayment(string id)
+        {
+            string secretKey = ConfigurationManager.AppSettings["Paystack_SEC_Live"];
+            var paystackTransactionAPI = new PaystackTransaction(secretKey);
+            var tranxRef = id; // HttpContext.Request.QueryString["reference"];
+            if (tranxRef != null)
+            {
+                var response = await paystackTransactionAPI.VerifyTransaction(tranxRef);
+                if (response.status)
+                {
+                    return Json(response, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("error: " + response.status + " msg: " + response.message, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json("error: ref is null", JsonRequestBehavior.AllowGet);
+            }
+        }
 
+        [HttpPost]
+        public async Task<JsonResult> ValidatePayments(string id)
+        {
+            string secretKey = ConfigurationManager.AppSettings["Paystack_SEC_Live"];
+            var paystackTransactionAPI = new PaystackTransaction(secretKey);
+            var tranxRef = id; // HttpContext.Request.QueryString["reference"];
+            if (tranxRef != null)
+            {
+
+                var response = await paystackTransactionAPI.VerifyTransaction(tranxRef);
+                if (response.data.status == "success")
+                {
+                    var booking = db.B_booking.Find(id);
+                    //get payment
+                    var payments = db.payments.FirstOrDefault(p => p.trxid == booking.id);
+
+                    if (payments == null)
+                    {
+                        //if the payment doesnot exists create a new one 
+                        db.payments.Add(new Models.payment
+                        {
+                            id = id,
+                            name = booking.name,
+                            trxid = booking.id,
+                            email = booking.email,
+                            phone = booking.phone,
+                            status = response.data.status,
+                            userid = booking.email,
+                            amount = response.data.amount,
+                            tenxdate = DateTime.Now,
+                            notes = "Ref No: " + response.data.reference + " Gateway_ref: " + response.data.reference + " currency: " + response.data.currency,
+                            gatewayref = response.data.reference,
+                            ptype = "ONLINE"
+                        });
+                    }
+                    else
+                    {
+                        payments.name = booking.name;
+                        payments.trxid = booking.id;
+                        payments.email = booking.email;
+                        payments.phone = booking.phone;
+                        payments.status = response.data.status;
+                        payments.userid = booking.email;
+                        payments.amount = response.data.amount;
+                        payments.tenxdate = DateTime.Now;
+                        payments.notes = "Ref No: " + response.data.reference + " Gateway_ref: " + response.data.reference + " currency: " + response.data.currency;
+                        payments.gatewayref = response.data.reference;
+                        payments.ptype = "ONLINE";
+                    }
+
+                    booking.status = "PAID";
+                    booking.ptype = "ONLINE";
+                    db.SaveChanges();
+                    return Json(response, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("error: " + response.data.status + " msg: " + response.message, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json("error: ref is null", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> VerifyPaymentMade(string id)
+        {
+            string secretKey = ConfigurationManager.AppSettings["Paystack_SEC_Live"];
+            var paystackTransactionAPI = new PaystackTransaction(secretKey);
+            var tranxRef = id; // HttpContext.Request.QueryString["reference"];
+            var booking = db.B_booking.Find(id);
+            if (tranxRef != null)
+            {
+                var response = await paystackTransactionAPI.VerifyTransaction(tranxRef);
+                if (response.data.status == "success")
+                {
+                    booking.status = "PAID";
+                    booking.ptype = "ONLINE";
+                    db.SaveChanges();
+
+                    return View("Ticket", "Booking", new { id = id });
+                }
+                else
+                {
+                    ViewBag.msg = response.message;
+                    return View("BookingReport", "Booking");
+                }
+            }
+            else
+            {
+                ViewBag.msg = "id is null";
+                return View("BookingReport", "Booking");
+            }
+        }
 
 
 
