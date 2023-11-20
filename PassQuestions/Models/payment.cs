@@ -29,6 +29,8 @@ namespace PassQuestions.Models
         public string ptype { get; set; }
         public string insertuser { get; set; }
         public Nullable<System.DateTime> insertdate { get; set; }
+        public string examtype { get; set; }
+        public string examyear { get; set; }
     
         public virtual F_settings F_settings { get; set; }
         public virtual useraccount useraccount { get; set; }

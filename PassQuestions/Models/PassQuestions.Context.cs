@@ -27,10 +27,10 @@ namespace PassQuestions.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<B_booking> B_booking { get; set; }
         public virtual DbSet<examtype> examtypes { get; set; }
         public virtual DbSet<examyear> examyears { get; set; }
         public virtual DbSet<F_settings> F_settings { get; set; }
-        public virtual DbSet<feesetting> feesettings { get; set; }
         public virtual DbSet<initializepayment> initializepayments { get; set; }
         public virtual DbSet<payment> payments { get; set; }
         public virtual DbSet<question> questions { get; set; }

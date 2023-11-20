@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "paynow";
     PassQuestions.Models.pastquestionEntities db = new PassQuestions.Models.pastquestionEntities();
+
+    // this is fetching from F_settings and saving to fee
+    var fee = db.F_settings.Find(Model.feeid);
     string userid = Session["userid"].ToString();
     var user = db.useraccounts.Find(userid);
 }
@@ -45,18 +48,6 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                        <td colspan="2">
-                                            <label>
-                                                Amount:
-                                            </label>
-                                        </td>
-                                        <td colspan="2">
-                                            <label>
-                                                @Model.amount
-                                            </label>
-                                        </td>
-                                    </tr>
-                                                        <tr>
                                                             <td colspan="2">
                                                                 <label>
                                                                     Customer:
@@ -88,22 +79,59 @@
                                                             </td>
                                                             <td colspan="2">
                                                                 <label>
-                                                                   CC
+                                                                    @Model.email
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Exam Year:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @fee.examyear.year:
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Exam Type:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @fee.examtype.type:
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Amount:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @Model.amount
                                                                 </label>
                                                             </td>
                                                         </tr>
                                                         @*<tr>
-                                                            <td colspan="2">
-                                                                <label>
-                                                                    Address:
-                                                                </label>
-                                                            </td>
-                                                            <td colspan="2">
-                                                                <label>
-                                                                    @Model.
-                                                                </label>
-                                                            </td>
-                                                        </tr>*@
+            <td colspan="2">
+                <label>
+                    Address:
+                </label>
+            </td>
+            <td colspan="2">
+                <label>
+                    @Model.
+                </label>
+            </td>
+        </tr>*@
                                                     </table>
                                                 </div>
 
@@ -153,7 +181,7 @@
                                                 @*<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>*@
 
                                                 @{
-                                                    decimal amt = Convert.ToDecimal(Model.amount * 100);
+                                                    decimal amount = Convert.ToDecimal(Model.amount * 100);
                                                 }
 
                                                 <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -164,7 +192,7 @@
                                     var handler = PaystackPop.setup({
                                         key: 'pk_test_7f51e0f1c7dcfd355f1d5971b46ff910e7128de1',//  //put your public key here
                                         email: '@Model.email', //put your customer's email here
-                                        amount: @amt, //amount the customer is supposed to pay
+                                        amount: @amount, //amount the customer is supposed to pay
                                         //logo: 'https://subwangxpress.com.ng/Content/images/sublogo.jpeg',
                                         //split_code: 'SPL_bbucPKfijl',
                                         ref: '@Model.id',
@@ -189,7 +217,7 @@
                                             //using transaction reference as post data
                                             var values =
                                             {
-                                                paymentid: "@Model.id",
+                                                bookingid: "@Model.id",
                                                 id: "PAST-@Model.id-@PassQuestions.Setup.GenerateID.GetID()",
                                                 trnxid: response.transaction,
                                                 amountpaid: @Model.amount,
@@ -203,7 +231,7 @@
                                             };
 
                                             $.ajax({
-                                                url: "@Url.Action("paynow")",
+                                                url: "@Url.Action("book_questionpayment")",
                                                 type: "post",
                                                 data: values,
                                                 success: function (response) {

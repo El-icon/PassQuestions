@@ -1,6 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="pastquestionModelStoreContainer" CdmEntityContainer="pastquestionEntities">
+    <EntitySetMapping Name="B_booking">
+      <EntityTypeMapping TypeName="pastquestionModel.B_booking">
+        <MappingFragment StoreEntitySet="B_booking">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="feeid" ColumnName="feeid" />
+          <ScalarProperty Name="trxid" ColumnName="trxid" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="insertdate" ColumnName="insertdate" />
+          <ScalarProperty Name="booking_date" ColumnName="booking_date" />
+          <ScalarProperty Name="paymentid" ColumnName="paymentid" />
+          <ScalarProperty Name="refno" ColumnName="refno" />
+          <ScalarProperty Name="ptype" ColumnName="ptype" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+          <ScalarProperty Name="attendance_status" ColumnName="attendance_status" />
+          <ScalarProperty Name="examtype" ColumnName="examtype" />
+          <ScalarProperty Name="examyear" ColumnName="examyear" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="examtypes">
       <EntityTypeMapping TypeName="pastquestionModel.examtype">
         <MappingFragment StoreEntitySet="examtype">
@@ -30,20 +57,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="feesettings">
-      <EntityTypeMapping TypeName="pastquestionModel.feesetting">
-        <MappingFragment StoreEntitySet="feesettings">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="feename" ColumnName="feename" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="amount" ColumnName="amount" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="initializepayments">
       <EntityTypeMapping TypeName="pastquestionModel.initializepayment">
         <MappingFragment StoreEntitySet="initializepayment">
-          <ScalarProperty Name="insertdate" ColumnName="insertdate" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="feeid" ColumnName="feeid" />
           <ScalarProperty Name="name" ColumnName="name" />
@@ -58,13 +74,13 @@
           <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
           <ScalarProperty Name="ptype" ColumnName="ptype" />
           <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+          <ScalarProperty Name="insertdate" ColumnName="insertdate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="payments">
       <EntityTypeMapping TypeName="pastquestionModel.payment">
         <MappingFragment StoreEntitySet="payments">
-          <ScalarProperty Name="insertdate" ColumnName="insertdate" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="feeid" ColumnName="feeid" />
           <ScalarProperty Name="name" ColumnName="name" />
@@ -79,6 +95,9 @@
           <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
           <ScalarProperty Name="ptype" ColumnName="ptype" />
           <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+          <ScalarProperty Name="insertdate" ColumnName="insertdate" />
+          <ScalarProperty Name="examtype" ColumnName="examtype" />
+          <ScalarProperty Name="examyear" ColumnName="examyear" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

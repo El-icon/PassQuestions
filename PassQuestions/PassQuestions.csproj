@@ -143,13 +143,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\B_booking.cs">
+      <DependentUpon>PassQuestions.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\examtype.cs">
       <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\examyear.cs">
-      <DependentUpon>PassQuestions.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\feesetting.cs">
       <DependentUpon>PassQuestions.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\F_settings.cs">

@@ -1,5 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="pastquestionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="B_booking">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="tenxdate" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="insertdate" Type="DateTime" Precision="0" />
+    <Property Name="booking_date" Type="DateTime" Precision="0" />
+    <Property Name="paymentid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="refno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="attendance_status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="examtype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="examyear" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
   <EntityType Name="examtype">
     <Key>
       <PropertyRef Name="id" />
@@ -32,15 +58,6 @@
     <NavigationProperty Name="examtype" Relationship="Self.FK_F_settings_examtype" FromRole="F_settings" ToRole="examtype" />
     <NavigationProperty Name="examyear" Relationship="Self.FK_F_settings_examyear" FromRole="F_settings" ToRole="examyear" />
     <NavigationProperty Name="payments" Relationship="Self.FK_payments_F_settings" FromRole="F_settings" ToRole="payments" />
-  </EntityType>
-  <EntityType Name="feesetting">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="feename" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="initializepayment">
     <Key>
@@ -80,9 +97,11 @@
     <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="insertdate" Type="DateTime" Precision="0" />
+    <Property Name="examtype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="examyear" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="F_settings" Relationship="Self.FK_payments_F_settings" FromRole="payments" ToRole="F_settings" />
     <NavigationProperty Name="useraccount" Relationship="Self.FK_payments_useraccounts" FromRole="payments" ToRole="useraccounts" />
-    <Property Name="insertdate" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="question">
     <Key>
@@ -222,10 +241,10 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="pastquestionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="B_booking" EntityType="Self.B_booking" />
     <EntitySet Name="examtypes" EntityType="Self.examtype" />
     <EntitySet Name="examyears" EntityType="Self.examyear" />
     <EntitySet Name="F_settings" EntityType="Self.F_settings" />
-    <EntitySet Name="feesettings" EntityType="Self.feesetting" />
     <EntitySet Name="initializepayments" EntityType="Self.initializepayment" />
     <EntitySet Name="payments" EntityType="Self.payment" />
     <EntitySet Name="questions" EntityType="Self.question" />

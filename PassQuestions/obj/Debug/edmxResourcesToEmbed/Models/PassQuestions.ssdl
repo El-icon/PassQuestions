@@ -1,5 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="pastquestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="B_booking">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="200" />
+    <Property Name="email" Type="varchar" MaxLength="200" />
+    <Property Name="phone" Type="varchar" MaxLength="200" />
+    <Property Name="address" Type="varchar" MaxLength="200" />
+    <Property Name="feeid" Type="varchar" MaxLength="200" />
+    <Property Name="trxid" Type="varchar" MaxLength="200" />
+    <Property Name="userid" Type="varchar" MaxLength="200" />
+    <Property Name="amount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="tenxdate" Type="datetime" />
+    <Property Name="status" Type="varchar" MaxLength="200" />
+    <Property Name="insertdate" Type="date" />
+    <Property Name="booking_date" Type="date" />
+    <Property Name="paymentid" Type="varchar" MaxLength="200" />
+    <Property Name="refno" Type="varchar" MaxLength="200" />
+    <Property Name="ptype" Type="varchar" MaxLength="200" />
+    <Property Name="notes" Type="varchar" MaxLength="200" />
+    <Property Name="insertuser" Type="varchar" MaxLength="200" />
+    <Property Name="attendance_status" Type="varchar" MaxLength="200" />
+    <Property Name="examtype" Type="varchar" MaxLength="200" />
+    <Property Name="examyear" Type="varchar" MaxLength="200" />
+  </EntityType>
   <EntityType Name="examtype">
     <Key>
       <PropertyRef Name="id" />
@@ -25,15 +51,6 @@
     <Property Name="examtypeid" Type="varchar" MaxLength="200" />
     <Property Name="amount" Type="varchar" MaxLength="200" />
     <Property Name="per_discount" Type="varchar" MaxLength="200" />
-  </EntityType>
-  <EntityType Name="feesettings">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
-    <Property Name="feename" Type="varchar" MaxLength="200" />
-    <Property Name="description" Type="varchar" MaxLength="200" />
-    <Property Name="amount" Type="decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="initializepayment">
     <Key>
@@ -74,6 +91,8 @@
     <Property Name="ptype" Type="varchar" MaxLength="200" />
     <Property Name="insertuser" Type="varchar" MaxLength="200" />
     <Property Name="insertdate" Type="date" />
+    <Property Name="examtype" Type="varchar" MaxLength="200" />
+    <Property Name="examyear" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="questions">
     <Key>
@@ -239,10 +258,10 @@
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="pastquestionModelStoreContainer">
+    <EntitySet Name="B_booking" EntityType="Self.B_booking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="examtype" EntityType="Self.examtype" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="examyear" EntityType="Self.examyear" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="F_settings" EntityType="Self.F_settings" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="feesettings" EntityType="Self.feesettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="initializepayment" EntityType="Self.initializepayment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="questions" EntityType="Self.questions" Schema="dbo" store:Type="Tables" />
