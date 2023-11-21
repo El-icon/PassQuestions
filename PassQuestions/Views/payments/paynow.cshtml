@@ -3,11 +3,9 @@
 @{
     ViewBag.Title = "paynow";
     PassQuestions.Models.pastquestionEntities db = new PassQuestions.Models.pastquestionEntities();
-
-    // this is fetching from F_settings and saving to fee
-    var fee = db.F_settings.Find(Model.feeid);
     string userid = Session["userid"].ToString();
     var user = db.useraccounts.Find(userid);
+    var fee = db.F_settings.Find(Model.feeid);
 }
  
 <div class="row">
@@ -44,6 +42,18 @@
                                                             <td colspan="2">
                                                                 <label>
                                                                     @Model.id
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Amount:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @Model.amount
                                                                 </label>
                                                             </td>
                                                         </tr>
@@ -181,7 +191,7 @@
                                                 @*<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>*@
 
                                                 @{
-                                                    decimal amount = Convert.ToDecimal(Model.amount * 100);
+                                                    decimal amt = Convert.ToDecimal(Model.amount * 100);
                                                 }
 
                                                 <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -192,7 +202,7 @@
                                     var handler = PaystackPop.setup({
                                         key: 'pk_test_7f51e0f1c7dcfd355f1d5971b46ff910e7128de1',//  //put your public key here
                                         email: '@Model.email', //put your customer's email here
-                                        amount: @amount, //amount the customer is supposed to pay
+                                        amount: @amt, //amount the customer is supposed to pay
                                         //logo: 'https://subwangxpress.com.ng/Content/images/sublogo.jpeg',
                                         //split_code: 'SPL_bbucPKfijl',
                                         ref: '@Model.id',
@@ -231,7 +241,7 @@
                                             };
 
                                             $.ajax({
-                                                url: "@Url.Action("book_questionpayment")",
+                                                url: "@Url.Action("paynow")",
                                                 type: "post",
                                                 data: values,
                                                 success: function (response) {
