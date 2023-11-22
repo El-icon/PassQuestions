@@ -30,6 +30,7 @@
           <Property Name="attendance_status" Type="varchar" MaxLength="200" />
           <Property Name="examtype" Type="varchar" MaxLength="200" />
           <Property Name="examyear" Type="varchar" MaxLength="200" />
+          <Property Name="gatewayref" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="examtype">
           <Key>
@@ -82,22 +83,27 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="feeid" Type="varchar" MaxLength="200" />
           <Property Name="name" Type="varchar" MaxLength="200" />
-          <Property Name="trxid" Type="varchar" MaxLength="200" />
           <Property Name="email" Type="varchar" MaxLength="200" />
-          <Property Name="userid" Type="varchar" MaxLength="200" />
           <Property Name="phone" Type="varchar" MaxLength="200" />
+          <Property Name="address" Type="varchar" MaxLength="200" />
+          <Property Name="feeid" Type="varchar" MaxLength="200" />
+          <Property Name="trxid" Type="varchar" MaxLength="200" />
+          <Property Name="userid" Type="varchar" MaxLength="200" />
           <Property Name="amount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="tenxdate" Type="datetime" />
           <Property Name="status" Type="varchar" MaxLength="200" />
-          <Property Name="notes" Type="varchar" MaxLength="200" />
-          <Property Name="gatewayref" Type="varchar" MaxLength="200" />
-          <Property Name="ptype" Type="varchar" MaxLength="200" />
-          <Property Name="insertuser" Type="varchar" MaxLength="200" />
           <Property Name="insertdate" Type="date" />
+          <Property Name="booking_date" Type="date" />
+          <Property Name="paymentid" Type="varchar" MaxLength="200" />
+          <Property Name="refno" Type="varchar" MaxLength="200" />
+          <Property Name="ptype" Type="varchar" MaxLength="200" />
+          <Property Name="notes" Type="varchar" MaxLength="200" />
+          <Property Name="insertuser" Type="varchar" MaxLength="200" />
+          <Property Name="attendance_status" Type="varchar" MaxLength="200" />
           <Property Name="examtype" Type="varchar" MaxLength="200" />
           <Property Name="examyear" Type="varchar" MaxLength="200" />
+          <Property Name="gatewayref" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="questions">
           <Key>
@@ -171,18 +177,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_payments_F_settings">
-          <End Role="F_settings" Type="Self.F_settings" Multiplicity="0..1" />
-          <End Role="payments" Type="Self.payments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="F_settings">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="payments">
-              <PropertyRef Name="feeid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_questions_examtype">
           <End Role="examtype" Type="Self.examtype" Multiplicity="0..1" />
           <End Role="questions" Type="Self.questions" Multiplicity="*" />
@@ -219,37 +213,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="pastquestionModelStoreContainer">
           <EntitySet Name="B_booking" EntityType="Self.B_booking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="examtype" EntityType="Self.examtype" Schema="dbo" store:Type="Tables" />
@@ -268,10 +231,6 @@
           <AssociationSet Name="FK_F_settings_examyear" Association="Self.FK_F_settings_examyear">
             <End Role="examyear" EntitySet="examyear" />
             <End Role="F_settings" EntitySet="F_settings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_payments_F_settings" Association="Self.FK_payments_F_settings">
-            <End Role="F_settings" EntitySet="F_settings" />
-            <End Role="payments" EntitySet="payments" />
           </AssociationSet>
           <AssociationSet Name="FK_questions_examtype" Association="Self.FK_questions_examtype">
             <End Role="examtype" EntitySet="examtype" />
@@ -315,6 +274,7 @@
           <Property Name="attendance_status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="examtype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="examyear" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="examtype">
           <Key>
@@ -347,7 +307,6 @@
           <Property Name="per_discount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="examtype" Relationship="Self.FK_F_settings_examtype" FromRole="F_settings" ToRole="examtype" />
           <NavigationProperty Name="examyear" Relationship="Self.FK_F_settings_examyear" FromRole="F_settings" ToRole="examyear" />
-          <NavigationProperty Name="payments" Relationship="Self.FK_payments_F_settings" FromRole="F_settings" ToRole="payments" />
         </EntityType>
         <EntityType Name="initializepayment">
           <Key>
@@ -374,23 +333,27 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="tenxdate" Type="DateTime" Precision="3" />
           <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="insertdate" Type="DateTime" Precision="0" />
+          <Property Name="booking_date" Type="DateTime" Precision="0" />
+          <Property Name="paymentid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="refno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="attendance_status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="examtype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="examyear" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="F_settings" Relationship="Self.FK_payments_F_settings" FromRole="payments" ToRole="F_settings" />
+          <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="question">
           <Key>
@@ -492,18 +455,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_payments_F_settings">
-          <End Role="F_settings" Type="Self.F_settings" Multiplicity="0..1" />
-          <End Role="payments" Type="Self.payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="F_settings">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="payments">
-              <PropertyRef Name="feeid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_questions_subjects">
           <End Role="subjects" Type="Self.subject" Multiplicity="0..1" />
           <End Role="questions" Type="Self.question" Multiplicity="*" />
@@ -543,56 +494,11 @@
             <End Role="examyear" EntitySet="examyears" />
             <End Role="questions" EntitySet="questions" />
           </AssociationSet>
-          <AssociationSet Name="FK_payments_F_settings" Association="Self.FK_payments_F_settings">
-            <End Role="F_settings" EntitySet="F_settings" />
-            <End Role="payments" EntitySet="payments" />
-          </AssociationSet>
           <AssociationSet Name="FK_questions_subjects" Association="Self.FK_questions_subjects">
             <End Role="subjects" EntitySet="subjects" />
             <End Role="questions" EntitySet="questions" />
           </AssociationSet>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(pastquestionModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(pastquestionModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -602,6 +508,7 @@
           <EntitySetMapping Name="B_booking">
             <EntityTypeMapping TypeName="pastquestionModel.B_booking">
               <MappingFragment StoreEntitySet="B_booking">
+                <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="email" ColumnName="email" />
@@ -679,21 +586,26 @@
           <EntitySetMapping Name="payments">
             <EntityTypeMapping TypeName="pastquestionModel.payment">
               <MappingFragment StoreEntitySet="payments">
+                <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="feeid" ColumnName="feeid" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="trxid" ColumnName="trxid" />
                 <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="feeid" ColumnName="feeid" />
+                <ScalarProperty Name="trxid" ColumnName="trxid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="tenxdate" ColumnName="tenxdate" />
                 <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="notes" ColumnName="notes" />
-                <ScalarProperty Name="gatewayref" ColumnName="gatewayref" />
-                <ScalarProperty Name="ptype" ColumnName="ptype" />
-                <ScalarProperty Name="insertuser" ColumnName="insertuser" />
                 <ScalarProperty Name="insertdate" ColumnName="insertdate" />
+                <ScalarProperty Name="booking_date" ColumnName="booking_date" />
+                <ScalarProperty Name="paymentid" ColumnName="paymentid" />
+                <ScalarProperty Name="refno" ColumnName="refno" />
+                <ScalarProperty Name="ptype" ColumnName="ptype" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="insertuser" ColumnName="insertuser" />
+                <ScalarProperty Name="attendance_status" ColumnName="attendance_status" />
                 <ScalarProperty Name="examtype" ColumnName="examtype" />
                 <ScalarProperty Name="examyear" ColumnName="examyear" />
               </MappingFragment>
@@ -751,30 +663,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="pastquestionModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="pastquestionModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="pastquestionModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="pastquestionModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="pastquestionModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="pastquestionModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="pastquestionModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="pastquestionModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="pastquestionModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

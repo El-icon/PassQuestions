@@ -25,6 +25,7 @@
     <Property Name="attendance_status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="examtype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="examyear" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="examtype">
     <Key>
@@ -57,7 +58,6 @@
     <Property Name="per_discount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="examtype" Relationship="Self.FK_F_settings_examtype" FromRole="F_settings" ToRole="examtype" />
     <NavigationProperty Name="examyear" Relationship="Self.FK_F_settings_examyear" FromRole="F_settings" ToRole="examyear" />
-    <NavigationProperty Name="payments" Relationship="Self.FK_payments_F_settings" FromRole="F_settings" ToRole="payments" />
   </EntityType>
   <EntityType Name="initializepayment">
     <Key>
@@ -84,23 +84,27 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="feeid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="trxid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="userid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="tenxdate" Type="DateTime" Precision="3" />
     <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="insertdate" Type="DateTime" Precision="0" />
+    <Property Name="booking_date" Type="DateTime" Precision="0" />
+    <Property Name="paymentid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="refno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ptype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="insertuser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="attendance_status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="examtype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="examyear" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="F_settings" Relationship="Self.FK_payments_F_settings" FromRole="payments" ToRole="F_settings" />
+    <Property Name="gatewayref" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="question">
     <Key>
@@ -202,18 +206,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_payments_F_settings">
-    <End Role="F_settings" Type="Self.F_settings" Multiplicity="0..1" />
-    <End Role="payments" Type="Self.payment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="F_settings">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="payments">
-        <PropertyRef Name="feeid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_questions_subjects">
     <End Role="subjects" Type="Self.subject" Multiplicity="0..1" />
     <End Role="questions" Type="Self.question" Multiplicity="*" />
@@ -253,54 +245,9 @@
       <End Role="examyear" EntitySet="examyears" />
       <End Role="questions" EntitySet="questions" />
     </AssociationSet>
-    <AssociationSet Name="FK_payments_F_settings" Association="Self.FK_payments_F_settings">
-      <End Role="F_settings" EntitySet="F_settings" />
-      <End Role="payments" EntitySet="payments" />
-    </AssociationSet>
     <AssociationSet Name="FK_questions_subjects" Association="Self.FK_questions_subjects">
       <End Role="subjects" EntitySet="subjects" />
       <End Role="questions" EntitySet="questions" />
     </AssociationSet>
-    <FunctionImport Name="sp_alterdiagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-      <Parameter Name="version" Mode="In" Type="Int32" />
-      <Parameter Name="definition" Mode="In" Type="Binary" />
-    </FunctionImport>
-    <FunctionImport Name="sp_creatediagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-      <Parameter Name="version" Mode="In" Type="Int32" />
-      <Parameter Name="definition" Mode="In" Type="Binary" />
-    </FunctionImport>
-    <FunctionImport Name="sp_dropdiagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(pastquestionModel.sp_helpdiagramdefinition_Result)">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(pastquestionModel.sp_helpdiagrams_Result)">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_renamediagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-      <Parameter Name="new_diagramname" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="sp_upgraddiagrams" />
   </EntityContainer>
-  <ComplexType Name="sp_helpdiagramdefinition_Result">
-    <Property Type="Int32" Name="version" Nullable="true" />
-    <Property Type="Binary" Name="definition" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="sp_helpdiagrams_Result">
-    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-    <Property Type="Int32" Name="ID" Nullable="false" />
-    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-    <Property Type="Int32" Name="OwnerID" Nullable="false" />
-  </ComplexType>
 </Schema>

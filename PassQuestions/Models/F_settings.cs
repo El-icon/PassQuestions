@@ -14,12 +14,6 @@ namespace PassQuestions.Models
     
     public partial class F_settings
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public F_settings()
-        {
-            this.payments = new HashSet<payment>();
-        }
-    
         public string id { get; set; }
         public string examyearid { get; set; }
         public string examtypeid { get; set; }
@@ -28,7 +22,5 @@ namespace PassQuestions.Models
     
         public virtual examtype examtype { get; set; }
         public virtual examyear examyear { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<payment> payments { get; set; }
     }
 }

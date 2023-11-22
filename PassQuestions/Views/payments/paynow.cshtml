@@ -226,7 +226,7 @@
                                             //after the transaction have been completed
                                             //make post call  to the server with to verify payment
                                             //using transaction reference as post data
-                                           
+
                                             var values =
                                             {
                                                 bookingid: "@Model.id",
@@ -238,6 +238,12 @@
                                                 pay_phone: '@Model.phone',
                                                 pay_examtype: '@Model.examtype',
                                                 pay_examyear: '@Model.examyear',
+                                                pay_address: '@Model.address',
+                                                pay_feeid: '@Model.feeid',
+                                                pay_inserdate: '@Model.insertdate',
+                                                pay_booking_date: '@Model.booking_date',
+                                                pay_insertuser: '@Model.insertuser',
+                                                pay_attendance_status: '@Model.attendance_status',
                                                 pay_status: response.status,
                                                 ref_no: response.trxref,
                                                 gateway_ref: response.reference,

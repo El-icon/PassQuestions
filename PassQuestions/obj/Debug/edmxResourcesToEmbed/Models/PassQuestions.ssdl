@@ -25,6 +25,7 @@
     <Property Name="attendance_status" Type="varchar" MaxLength="200" />
     <Property Name="examtype" Type="varchar" MaxLength="200" />
     <Property Name="examyear" Type="varchar" MaxLength="200" />
+    <Property Name="gatewayref" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="examtype">
     <Key>
@@ -77,22 +78,27 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
-    <Property Name="feeid" Type="varchar" MaxLength="200" />
     <Property Name="name" Type="varchar" MaxLength="200" />
-    <Property Name="trxid" Type="varchar" MaxLength="200" />
     <Property Name="email" Type="varchar" MaxLength="200" />
-    <Property Name="userid" Type="varchar" MaxLength="200" />
     <Property Name="phone" Type="varchar" MaxLength="200" />
+    <Property Name="address" Type="varchar" MaxLength="200" />
+    <Property Name="feeid" Type="varchar" MaxLength="200" />
+    <Property Name="trxid" Type="varchar" MaxLength="200" />
+    <Property Name="userid" Type="varchar" MaxLength="200" />
     <Property Name="amount" Type="decimal" Precision="18" Scale="2" />
     <Property Name="tenxdate" Type="datetime" />
     <Property Name="status" Type="varchar" MaxLength="200" />
-    <Property Name="notes" Type="varchar" MaxLength="200" />
-    <Property Name="gatewayref" Type="varchar" MaxLength="200" />
-    <Property Name="ptype" Type="varchar" MaxLength="200" />
-    <Property Name="insertuser" Type="varchar" MaxLength="200" />
     <Property Name="insertdate" Type="date" />
+    <Property Name="booking_date" Type="date" />
+    <Property Name="paymentid" Type="varchar" MaxLength="200" />
+    <Property Name="refno" Type="varchar" MaxLength="200" />
+    <Property Name="ptype" Type="varchar" MaxLength="200" />
+    <Property Name="notes" Type="varchar" MaxLength="200" />
+    <Property Name="insertuser" Type="varchar" MaxLength="200" />
+    <Property Name="attendance_status" Type="varchar" MaxLength="200" />
     <Property Name="examtype" Type="varchar" MaxLength="200" />
     <Property Name="examyear" Type="varchar" MaxLength="200" />
+    <Property Name="gatewayref" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="questions">
     <Key>
@@ -166,18 +172,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_payments_F_settings">
-    <End Role="F_settings" Type="Self.F_settings" Multiplicity="0..1" />
-    <End Role="payments" Type="Self.payments" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="F_settings">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="payments">
-        <PropertyRef Name="feeid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_questions_examtype">
     <End Role="examtype" Type="Self.examtype" Multiplicity="0..1" />
     <End Role="questions" Type="Self.questions" Multiplicity="*" />
@@ -214,37 +208,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-    <Parameter Name="version" Type="int" Mode="In" />
-    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-  </Function>
-  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-    <Parameter Name="version" Type="int" Mode="In" />
-    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-  </Function>
-  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-  </Function>
-  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="pastquestionModelStoreContainer">
     <EntitySet Name="B_booking" EntityType="Self.B_booking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="examtype" EntityType="Self.examtype" Schema="dbo" store:Type="Tables" />
@@ -263,10 +226,6 @@
     <AssociationSet Name="FK_F_settings_examyear" Association="Self.FK_F_settings_examyear">
       <End Role="examyear" EntitySet="examyear" />
       <End Role="F_settings" EntitySet="F_settings" />
-    </AssociationSet>
-    <AssociationSet Name="FK_payments_F_settings" Association="Self.FK_payments_F_settings">
-      <End Role="F_settings" EntitySet="F_settings" />
-      <End Role="payments" EntitySet="payments" />
     </AssociationSet>
     <AssociationSet Name="FK_questions_examtype" Association="Self.FK_questions_examtype">
       <End Role="examtype" EntitySet="examtype" />

@@ -25,8 +25,9 @@ namespace PassQuestions.Controllers
         // GET: payments
         public ActionResult Index()
         {
-            var payments = db.payments.Include(p => p.F_settings)/*.Include(p => p.useraccount)*/;
-            return View(payments.ToList());
+            //var payments = db.payments.Include(p => p.F_settings)/*.Include(p => p.useraccount)*/;
+            //return View(payments.ToList());
+            return View();
         }
 
         // GET: payments/Details/5
@@ -198,7 +199,7 @@ namespace PassQuestions.Controllers
         }
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public JsonResult paynow(string bookingid, string id, decimal amountpaid, string trnxid, string paid_by, string pay_email, string pay_phone, string pay_status, string pay_examtype, string pay_examyear, string ref_no, string gateway_ref, string currency) //paid, pay_date
+        public JsonResult paynow(string bookingid, string id, decimal amountpaid, string trnxid, string paid_by, string pay_email, string pay_phone, string pay_status, string pay_examtype, string pay_examyear, string ref_no, string gateway_ref, string currency, string pay_address, string pay_feeid, string pay_inserdate, string pay_booking_date, string pay_insertuser, string pay_attendance_status) //paid, pay_date
         {
             var booking = db.B_booking.Find(bookingid);
             booking.status = "PAID";
@@ -206,7 +207,7 @@ namespace PassQuestions.Controllers
             //int no = db.bookings.Where(p => p.batchid == id).Count();
             //decimal costper = amountpaid / no;
             db.payments.Add(new Models.payment
-            {
+            {                 
                 id = id,
                 name = paid_by,
                 trxid = bookingid,
@@ -217,6 +218,12 @@ namespace PassQuestions.Controllers
                 examyear = pay_examyear,
                 userid = booking.email,
                 amount = amountpaid,
+                address = pay_address,
+                feeid = pay_feeid,
+                insertdate = booking.insertdate,
+                booking_date = booking.booking_date,
+                insertuser = booking.insertuser,
+                attendance_status = booking.attendance_status,
                 tenxdate = DateTime.Now,
                 notes = "Ref No: " + ref_no + " Gateway_ref: " + gateway_ref + " currency: " + currency,
                 gatewayref = gateway_ref,

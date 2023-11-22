@@ -15,23 +15,26 @@ namespace PassQuestions.Models
     public partial class payment
     {
         public string id { get; set; }
-        public string feeid { get; set; }
         public string name { get; set; }
-        public string trxid { get; set; }
         public string email { get; set; }
-        public string userid { get; set; }
         public string phone { get; set; }
+        public string address { get; set; }
+        public string feeid { get; set; }
+        public string trxid { get; set; }
+        public string userid { get; set; }
         public Nullable<decimal> amount { get; set; }
         public Nullable<System.DateTime> tenxdate { get; set; }
         public string status { get; set; }
-        public string notes { get; set; }
-        public string gatewayref { get; set; }
-        public string ptype { get; set; }
-        public string insertuser { get; set; }
         public Nullable<System.DateTime> insertdate { get; set; }
+        public Nullable<System.DateTime> booking_date { get; set; }
+        public string paymentid { get; set; }
+        public string refno { get; set; }
+        public string ptype { get; set; }
+        public string notes { get; set; }
+        public string insertuser { get; set; }
+        public string attendance_status { get; set; }
         public string examtype { get; set; }
         public string examyear { get; set; }
-    
-        public virtual F_settings F_settings { get; set; }
+        public string gatewayref { get; set; }
     }
 }

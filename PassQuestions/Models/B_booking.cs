@@ -35,5 +35,6 @@ namespace PassQuestions.Models
         public string attendance_status { get; set; }
         public string examtype { get; set; }
         public string examyear { get; set; }
+        public string gatewayref { get; set; }
     }
 }
