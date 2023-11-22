@@ -25,7 +25,7 @@ namespace PassQuestions.Controllers
         // GET: payments
         public ActionResult Index()
         {
-            var payments = db.payments.Include(p => p.F_settings).Include(p => p.useraccount);
+            var payments = db.payments.Include(p => p.F_settings)/*.Include(p => p.useraccount)*/;
             return View(payments.ToList());
         }
 
@@ -139,11 +139,11 @@ namespace PassQuestions.Controllers
         }
                
         [HttpPost]
-        public ActionResult payments(string name, string email, string phone, string address, string feeid, string trxid, string date, string userid, decimal amount,
+        public ActionResult payments(string name, string email, string phone, string address, string feeid, string trxid, string userid, decimal amount,
             string tenxdate, string status, string insertdate, string booking_date, string paymentid, string refno, string ptype, string notes, string insertuser, string attendance_status, string examtype, string examyear)
         {
-            DateTime visitDate = Convert.ToDateTime(date);
-            string days = Convert.ToString(visitDate.DayOfWeek);
+            //DateTime visitDate = Convert.ToDateTime(date);
+            //string days = Convert.ToString(visitDate.DayOfWeek);
             //var bookingFee = db.B_settings.Where(p => p.days == days && p.cat == "online").ToList();
 
             string id = "PASTQUESTION" + Setup.GenerateID.GetID();
@@ -179,23 +179,26 @@ namespace PassQuestions.Controllers
                 refno = refno,
                 examtype = examtype,
                 examyear = examyear,
-                booking_date = Convert.ToDateTime(date),
+                booking_date = DateTime.Now,
                 ptype = "PENDING",
                 attendance_status = "PENDING",
                 insertuser = email, //Session["email"].ToString(),
                 notes = "Paid online on: " + DateTime.Now + ""
             });
             db.SaveChanges();
-            return RedirectToActionPermanent("paynow/" + id, "Payments");
+            //return RedirectToActionPermanent("paynow/" + id, "Payments");
+            return RedirectToAction("paynow", new { id = id });
         }
 
         public ActionResult paynow(string id)
         {
-            return View(db.B_booking.FirstOrDefault(p => p.id == id));
+            //return View(db.B_booking.FirstOrDefault(p => p.id == id));
+            return View(db.B_booking.Find(id));
+
         }
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public JsonResult paynow(string bookingid, string id, decimal amountpaid, string trnxid, string paid_by, string pay_email, string pay_phone, string pay_status, string ref_no, string gateway_ref, string currency) //paid, pay_date
+        public JsonResult paynow(string bookingid, string id, decimal amountpaid, string trnxid, string paid_by, string pay_email, string pay_phone, string pay_status, string pay_examtype, string pay_examyear, string ref_no, string gateway_ref, string currency) //paid, pay_date
         {
             var booking = db.B_booking.Find(bookingid);
             booking.status = "PAID";
@@ -210,6 +213,8 @@ namespace PassQuestions.Controllers
                 email = pay_email,
                 phone = pay_phone,
                 status = pay_status,
+                examtype = pay_examtype,
+                examyear = pay_examyear,
                 userid = booking.email,
                 amount = amountpaid,
                 tenxdate = DateTime.Now,
@@ -222,7 +227,8 @@ namespace PassQuestions.Controllers
         }
         public ActionResult receipt(string id)
         {
-            return View(db.B_booking.FirstOrDefault(p => p.id == id));
+            //return View(db.B_booking.FirstOrDefault(p => p.id == id));
+            return View(db.payments.Find(id));
         }
 
 

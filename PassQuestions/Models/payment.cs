@@ -33,6 +33,5 @@ namespace PassQuestions.Models
         public string examyear { get; set; }
     
         public virtual F_settings F_settings { get; set; }
-        public virtual useraccount useraccount { get; set; }
     }
 }

@@ -14,12 +14,6 @@ namespace PassQuestions.Models
     
     public partial class useraccount
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public useraccount()
-        {
-            this.payments = new HashSet<payment>();
-        }
-    
         public string id { get; set; }
         public string name { get; set; }
         public string phone { get; set; }
@@ -28,8 +22,5 @@ namespace PassQuestions.Models
         public string password { get; set; }
         public Nullable<System.DateTime> insertdate { get; set; }
         public string usertype { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<payment> payments { get; set; }
     }
 }

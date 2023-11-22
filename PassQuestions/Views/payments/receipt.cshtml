@@ -1,7 +1,13 @@
 ﻿@model PassQuestions.Models.payment
-
+@*// All good*@
 @{
     ViewBag.Title = "receipt";
+    PassQuestions.Models.pastquestionEntities db = new PassQuestions.Models.pastquestionEntities();
+
+    // this is fetching from F_settings and saving to fee
+    var fee = db.F_settings.Find(Model.feeid);
+    string userid = Session["userid"].ToString();
+    var user = db.useraccounts.Find(userid);
 }
 
 
@@ -111,6 +117,43 @@
                                                             <td colspan="2">
                                                                 <label>
                                                                     @Model.email
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Exam Year:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @Model.examyear:
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Exam Type:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @Model.examtype:
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    Amount:
+                                                                </label>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <label>
+                                                                    @Model.amount
                                                                 </label>
                                                             </td>
                                                         </tr>

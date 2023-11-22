@@ -20,7 +20,6 @@
         <AssociationConnector Association="pastquestionModel.FK_F_settings_examyear" ManuallyRouted="false" />
         <AssociationConnector Association="pastquestionModel.FK_questions_examyear" ManuallyRouted="false" />
         <AssociationConnector Association="pastquestionModel.FK_payments_F_settings" ManuallyRouted="false" />
-        <AssociationConnector Association="pastquestionModel.FK_payments_useraccounts" ManuallyRouted="false" />
         <AssociationConnector Association="pastquestionModel.FK_questions_subjects" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

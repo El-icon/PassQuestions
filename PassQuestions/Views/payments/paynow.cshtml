@@ -1,4 +1,4 @@
-﻿@*@model PassQuestions.Models.initializepayment*@
+﻿@model PassQuestions.Models.B_booking
 
 @{
     ViewBag.Title = "paynow";
@@ -6,6 +6,7 @@
     string userid = Session["userid"].ToString();
     var user = db.useraccounts.Find(userid);
     var fee = db.F_settings.Find(Model.feeid);
+    string id = "PAST-"+ Model.id + "-" + PassQuestions.Setup.GenerateID.GetID();
 }
  
 <div class="row">
@@ -225,15 +226,18 @@
                                             //after the transaction have been completed
                                             //make post call  to the server with to verify payment
                                             //using transaction reference as post data
+                                           
                                             var values =
                                             {
                                                 bookingid: "@Model.id",
-                                                id: "PAST-@Model.id-@PassQuestions.Setup.GenerateID.GetID()",
+                                                id: "@id",
                                                 trnxid: response.transaction,
                                                 amountpaid: @Model.amount,
                                                 paid_by: '@Model.email',
                                                 pay_email: '@Model.email',
                                                 pay_phone: '@Model.phone',
+                                                pay_examtype: '@Model.examtype',
+                                                pay_examyear: '@Model.examyear',
                                                 pay_status: response.status,
                                                 ref_no: response.trxref,
                                                 gateway_ref: response.reference,
@@ -248,7 +252,9 @@
                                                     // You will get response from your PHP page (what you echo or print)
                                                     //alert(response.responseText);
                                                     console.log(response);
-                                                    window.location.replace("@Url.Action("receipt/" + Model.id, "payments")");
+                                                    window.location.replace("@Url.Action("receipt/" +  id, "payments")");
+
+
                                                 },
                                                 error: function(jqXHR, textStatus, errorThrown) {
                                                     console.log(textStatus, errorThrown);

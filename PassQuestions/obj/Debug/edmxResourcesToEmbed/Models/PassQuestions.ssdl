@@ -178,18 +178,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_payments_useraccounts">
-    <End Role="useraccounts" Type="Self.useraccounts" Multiplicity="0..1" />
-    <End Role="payments" Type="Self.payments" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="useraccounts">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="payments">
-        <PropertyRef Name="userid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_questions_examtype">
     <End Role="examtype" Type="Self.examtype" Multiplicity="0..1" />
     <End Role="questions" Type="Self.questions" Multiplicity="*" />
@@ -278,10 +266,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_payments_F_settings" Association="Self.FK_payments_F_settings">
       <End Role="F_settings" EntitySet="F_settings" />
-      <End Role="payments" EntitySet="payments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_payments_useraccounts" Association="Self.FK_payments_useraccounts">
-      <End Role="useraccounts" EntitySet="useraccounts" />
       <End Role="payments" EntitySet="payments" />
     </AssociationSet>
     <AssociationSet Name="FK_questions_examtype" Association="Self.FK_questions_examtype">
